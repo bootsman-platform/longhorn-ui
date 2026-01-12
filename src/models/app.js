@@ -3,6 +3,7 @@ import { getSupportbundles, getSupportbundlesStepTwo } from '../services/app'
 import { getDataDependency } from '../utils/dataDependency'
 import queryString from 'query-string'
 import { message } from 'antd'
+import i18n from '../i18n'
 
 message.config({
   top: 60,
@@ -25,6 +26,7 @@ export default {
     backingImageUploadStarted: false,
     stableLonghornVersionslVisible: false,
     stableLonghornVersionsKey: Math.random(),
+    lang: 'ru',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -188,5 +190,13 @@ export default {
         backingImageUploadStarted: false,
       }
     },
+    setLang(state, { payload }) {
+      i18n.changeLanguage(payload)
+
+      return {
+        ...state,
+        lang: payload,
+      }
+    }
   },
 }

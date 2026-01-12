@@ -1,15 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Popover, Icon } from 'antd'
+import { Row, Col, Popover, Icon, Select } from 'antd'
 import styles from './Header.less'
 import Menus from './Menu'
 import longhornLogo from '../../assets/images/longhorn-logo.svg'
+import { withTranslation } from 'react-i18next'
 
-function Header({ isNavbar, menuPopoverVisible, location, switchMenuPopover }) {
+const { Option } = Select
+
+function Header({ isNavbar, menuPopoverVisible, location, switchMenuPopover, lang, dispatch }) {
   const menusProps = {
     location,
     isNavbar,
     switchMenuPopover,
+  }
+
+  const handleMenuClick = (value) => {
+    dispatch({
+      type: 'app/setLang',
+      payload: value,
+    })
   }
 
   return (
@@ -38,6 +48,12 @@ function Header({ isNavbar, menuPopoverVisible, location, switchMenuPopover }) {
                 <Menus {...menusProps} />
               </Col>
         }
+        <Col>
+          <Select value={lang} style={{ width: 120 }} onChange={handleMenuClick}>
+            <Option value="en">En</Option>
+            <Option value="ru">Ru</Option>
+          </Select>
+        </Col>
       </Row>
     </div>
   )
@@ -48,6 +64,8 @@ Header.propTypes = {
   location: PropTypes.object,
   menuPopoverVisible: PropTypes.bool,
   switchMenuPopover: PropTypes.func,
+  lang: PropTypes.string,
+  dispatch: PropTypes.func,
 }
 
-export default Header
+export default withTranslation()(Header)

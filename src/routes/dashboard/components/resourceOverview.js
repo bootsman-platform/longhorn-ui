@@ -8,6 +8,7 @@ import ResourceDetail from './resourceDetail'
 import styles from './resourceOverview.less'
 import { healthyVolume, inProgressVolume, degradedVolume, detachedVolume, faultedVolume, schedulableNode, unschedulableNode, schedulingDisabledNode, downNode } from '../../../utils/filter'
 import { nodeStatusColorMap } from '../../../utils/status'
+import { withTranslation } from 'react-i18next'
 
 class ResourceOverview extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class ResourceOverview extends React.Component {
   }
 
   render() {
-    const { host, volume, loading, onVolumeClick = f => f, onNodeClick = f => f } = this.props
+    const { host, volume, loading, onVolumeClick = f => f, onNodeClick = f => f, t } = this.props
     const { host: hostLoading, volume: volumeLoading } = loading.models
     this.hostLoading = hostLoading
     this.volumeLoading = volumeLoading
@@ -222,7 +223,8 @@ class ResourceOverview extends React.Component {
       loading: volumeLoading,
       onClick: onVolumeClick,
       clickable: true,
-      empty: 'No Volume',
+      // empty: 'No Volume',
+      empty: t('dashboard.noVolume'),
       activeIndex: this.state.volumeActiveIndex,
       width: this.state.resourceWidth,
     }
@@ -307,6 +309,7 @@ class ResourceOverview extends React.Component {
 }
 
 ResourceOverview.propTypes = {
+  t: PropTypes.func,
   host: PropTypes.object,
   volume: PropTypes.object,
   loading: PropTypes.object,
@@ -314,4 +317,4 @@ ResourceOverview.propTypes = {
   onNodeClick: PropTypes.func,
 }
 
-export default ResourceOverview
+export default withTranslation()(ResourceOverview)
