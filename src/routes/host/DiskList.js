@@ -5,23 +5,25 @@ import { byteToGi, getStorageProgressStatus } from './helper/index'
 import { diskTagColor } from '../../utils/constants'
 import { formatMib } from '../../utils/formatter'
 import './DiskList.less'
+import { withTranslation } from 'react-i18next'
 
-function diskList({ disks, node, storageOverProvisioningPercentage, minimalSchedulingQuotaWarning, showDiskReplicaModal }) {
+
+function diskList({ disks, node, storageOverProvisioningPercentage, minimalSchedulingQuotaWarning, showDiskReplicaModal, t }) {
   const getDiskStatus = (d) => {
     if (node.conditions && node.conditions.Ready && node.conditions.Ready.statues && node.conditions.Ready.status.toLowerCase() === 'false') {
-      return (<span className="error">Error</span>)
+      return (<span className="error">{t('diskList.status.error')}</span>)
     }
     if (node.allowScheduling === false || d.allowScheduling === false) {
-      return (<span className="disabled">Disabled</span>)
+      return (<span className="disabled">{t('diskList.status.disabled')}</span>)
     }
     if (node.conditions && node.conditions.Schedulable && node.conditions.Schedulable.status && node.conditions.Schedulable.status.toLowerCase() === 'false') {
-      return (<span className="unschedulable">Unschedulable</span>)
+      return (<span className="unschedulable">{t('diskList.status.unschedulable')}</span>)
     }
     const status = d.conditions && d.conditions.Schedulable && d.conditions.Schedulable.status && d.conditions.Schedulable.status.toLowerCase() === 'true'
     if (status) {
-      return (<span className="schedulable">Schedulable</span>)
+      return (<span className="schedulable">{t('diskList.status.schedulable')}</span>)
     }
-    return (<span className="unschedulable">Unschedulable</span>)
+    return (<span className="unschedulable">{t('diskList.status.unschedulable')}</span>)
   }
   const columns = [
     {
@@ -32,6 +34,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('diskList.columns.id'),
       key: 'id',
       dataIndex: 'id',
       width: 200,
@@ -40,6 +43,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('diskList.columns.diskType'),
       key: 'diskType',
       dataIndex: 'diskType',
       width: 100,
@@ -52,6 +56,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('diskList.columns.path'),
       key: 'path',
       dataIndex: 'path',
       width: 360,
@@ -65,6 +70,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('diskList.columns.replicas'),
       key: 'scheduledReplica',
       dataIndex: 'scheduledReplica',
       width: 96,
@@ -81,6 +87,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('diskList.columns.allocated'),
       key: 'allocated',
       dataIndex: 'storageScheduled',
       width: 180,
@@ -103,6 +110,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('diskList.columns.used'),
       key: 'used',
       width: 180,
       render: (text, record) => {
@@ -124,6 +132,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
       },
     },
     {
+      title: t('columns.size'),
       key: 'size',
       width: 180,
       render: (text, record) => {
@@ -132,13 +141,13 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
         return (
           <div className="size" style={{ textAlign: 'center' }}>
             <div>{formatMib(total)}</div>
-            <div className="secondLabel" style={{ color: '#b9b9b9', height: '22px' }}>{reserved > 0 ? `+${formatMib(reserved)} Reserved` : null}</div>
+            <div className="secondLabel" style={{ color: '#b9b9b9', height: '22px' }}>{reserved > 0 ? `+${formatMib(reserved)} ${t('diskList.text.reserved')}` : null}</div>
           </div>
         )
       },
     },
     {
-      title: 'Tags',
+      title: t('diskList.columns.tags'),
       key: 'tags',
       width: 100,
       render: (text, record) => {
@@ -172,7 +181,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
   const pagination = false
   return (
     <div className="diskList">
-      <div className="title">Disks</div>
+      <div className="title">{t('diskList.title')}</div>
       <div className="content">
         <Table
           showHeader={false}
@@ -190,6 +199,7 @@ function diskList({ disks, node, storageOverProvisioningPercentage, minimalSched
   )
 }
 diskList.propTypes = {
+  t: PropTypes.func,
   disks: PropTypes.array,
   node: PropTypes.object,
   storageOverProvisioningPercentage: PropTypes.number,
@@ -197,4 +207,4 @@ diskList.propTypes = {
   showDiskReplicaModal: PropTypes.func,
 }
 
-export default diskList
+export default withTranslation()(diskList)

@@ -53,6 +53,7 @@ import {
   getReplicaRebuildingBandwidthLimitModalProps
 } from '../helper'
 import { getBackupTargets } from '../../../utils/backupTarget'
+import { withTranslation } from 'react-i18next'
 
 const confirm = Modal.confirm
 
@@ -128,7 +129,8 @@ function VolumeDetail({
   loadingVolumeAttachments,
   setting,
   backingImage,
-  recurringJob
+  recurringJob,
+  t,
 }) {
   const {
     data,
@@ -199,7 +201,7 @@ function VolumeDetail({
   const defaultSnapshotDataIntegrityOption = defaultSnapshotDataIntegritySetting?.definition?.options.map((item) => ({ key: item.toLowerCase(), value: item })) || []
 
   if (defaultSnapshotDataIntegrityOption.length > 0) {
-    defaultSnapshotDataIntegrityOption.unshift({ key: 'ignored (follow the global setting)', value: 'ignored' })
+    defaultSnapshotDataIntegrityOption.unshift({ key: t('volumeDetail.snapshotDataIntegrity.ignored'), value: 'ignored' })
   }
 
   const v1DataEngineEnabledSetting = settings.find(s => s.id === 'v1-data-engine')
@@ -434,9 +436,9 @@ function VolumeDetail({
       if (record && record.kubernetesStatus) {
         if (record.kubernetesStatus.pvStatus) {
           message = (<div>
-            <div>If the in-progress expansion you want to cancel is triggered by the PVC size update, this operation will not help revert the PVC. Since the PVC size can not shrink, users need to clean up then recreate the PVC and PV after the expansion canceling success:</div>
-            <div>1. Update the field spec.persistentVolumeReclaimPolicy to Retain for the corresponding PV. </div>
-            <div>2. Delete then recreate the related PVC and PV.</div></div>)
+            <div>{t('volumeDetail.cancelExpansion.message.part1')}</div>
+            <div>1. {t('volumeDetail.cancelExpansion.message.step1')}</div>
+            <div>2. {t('volumeDetail.cancelExpansion.message.step2')}</div></div>)
         }
       }
 
@@ -446,17 +448,17 @@ function VolumeDetail({
       }
 
       let content = (<div>
-        <div>This operation is used to cancel the expansion if the volume cannot complete the expansion and gets stuck there. Once the expansion is complete, it cannot be rolled back or canceled</div>
+        <div>{t('volumeDetail.cancelExpansion.description')}</div>
         {lastExpansionError ? <ExpansionErrorDetail content={lastExpansionError} lastExpansionFailedAt={lastExpansionFailedAt} /> : '' }
         {message ? <Alert style={{ marginTop: '5px' }} message={message} type="info" /> : ''}
         </div>)
 
       confirm({
-        title: 'Are you sure to cancel expansion?',
+        title: t('volumeDetail.cancelExpansion.title'),
         content,
-        okText: 'Yes',
+        okText: t('common.yes'),
         okType: 'danger',
-        cancelText: 'No',
+        cancelText: t('common.no'),
         width: 800,
         onOk() {
           dispatch({
@@ -759,12 +761,12 @@ function VolumeDetail({
       <div style={{ overflowY: 'auto', overflowX: 'hidden', height: '100%' }}>
         <Row gutter={24}>
           <Col md={8} xs={24} className={styles.col}>
-            <Card title="Volume Details" bordered={false} {...bodyStyle}>
+            <Card title={t('volumeDetail.cards.volumeDetails')} bordered={false} {...bodyStyle}>
               <VolumeInfo {...backupStatusProps} />
             </Card>
           </Col>
           <Col md={16} xs={24} style={{ marginBottom: 16 }}>
-            <Card title="Replicas" bordered={false} {...bodyStyle}>
+            <Card title={t('volumeDetail.cards.replicas')} bordered={false} {...bodyStyle}>
               <ReplicaList {...replicaListProps} />
             </Card>
           </Col>
@@ -826,10 +828,11 @@ VolumeDetail.propTypes = {
   setting: PropTypes.object,
   backingImage: PropTypes.object,
   recurringJob: PropTypes.object,
-  loadingVolumeAttachments: PropTypes.bool
+  loadingVolumeAttachments: PropTypes.bool,
+  t: PropTypes.func,
 }
 
-export default connect(({
+export default withTranslation()(connect(({
   snapshotModal,
   backup,
   host,
@@ -862,4 +865,4 @@ export default connect(({
     backingImage,
     recurringJob
   }
-})(VolumeDetail)
+})(VolumeDetail))
