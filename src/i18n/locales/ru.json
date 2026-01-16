@@ -1,5 +1,313 @@
 {
-  "dashboard": {
-    "noVolume": "Нет тома"
+  "common": {
+    "total": "Всего",
+    "reset": "Сброс",
+    "ok": "OK",
+    "noTitle": "Без названия",
+    "noData": "Нет данных",
+    "name":"Имя",
+    "close": "Закрыть",
+    "save": "Сохранить",
+    "cancel": "Отменить",
+    "enable": "Включить",
+    "disable": "Отключить",
+    "true": "Да",
+    "false": "Нет",
+
+    "validation": {
+      "required": "обязательное поле"
+    }
+  },
+
+  "menu": {
+    "dashboard": "Панель управления",
+    "node": "Узлы",
+    "volume": "Тома",
+    "detail": "Детали",
+    "recurringJob": "Периодические задания",
+    "backupAndRestore": "Резерв и восстановление",
+    "backup": "Резервные копии",
+    "backupTarget": "Цели резервного копирования",
+    "systemBackups": "Системные резервные копии",
+    "advanced": "Дополнительно",
+    "backingImage": "Базовые образы",
+    "orphanedData": "Потерянные ресурсы",
+    "engineimage": "Образы движка",
+    "instanceManager": "Образы менеджера инстансов",
+    "setting": "Настройки"
+  },
+
+  "resource": {
+    "storage": {
+      "schedulableStorage": "Доступное хранилище",
+      "reservedStorage": "Зарезервированное хранилище",
+      "usedStorage": "Используемое хранилище", 
+      "disabledStorage": "Отключённое хранилище",
+      "schedulable": "Доступно",
+      "reserved": "Зарезервировано",
+      "used": "Используется",
+      "disabled": "Отключено",
+      "title": "Планируемое хранилище",
+      "blockTitle": "Планируемое хранилище (Блочное)",
+      "empty": "Хранилище отсутствует"
+    },
+    "volume": {
+      "healthy": "Здоровые",
+      "degraded": "Деградированные",
+      "inProgress": "В процессе",
+      "faulted": "С ошибкой",
+      "detached": "Отсоединённые",
+      "single": "Том",
+      "plural": "Тома",
+      "empty": "Нет томов"
+    },
+    "node": {
+      "schedulable": "Доступно для планирования",
+      "unschedulable": "Недоступно для планирования",
+      "down": "Не работает",
+      "disabled": "Отключён",
+      "autoEvicting": "Автоматическое вытеснение",
+      "single": "Узел",
+      "plural": "Узлы",
+      "empty": "Нет узлов",
+
+      "filter": {
+        "name": "Имя",
+        "status": "Статус",
+        "nodeTag": "Тег ноды",
+        "diskTag": "Тег диска"
+      }
+    }
+  },
+
+  "eventLogs": {
+    "title": "Журнал событий",
+    "columns": {
+      "lastSeen": "Последнее появление",
+      "firstSeen": "Первое появление",
+      "count": "Количество",
+      "name": "Имя",
+      "kind": "Тип объекта",
+      "type": "Тип",
+      "reason": "Причина",
+      "source": "Источник",
+      "message": "Сообщение"
+    },
+    "search": {
+      "name": "Поиск по имени",
+      "source": "Поиск по источнику"
+    }
+  },
+
+  "footer": {
+    "upgrade": {
+      "available": "Доступна новая версия Longhorn {{version}}!",
+      "alt": "Обновление"
+    },
+    "links": {
+      "documentation": "Документация",
+      "generateSupportBundle": "Создать пакет поддержки",
+      "fileIssue": "Сообщить о проблеме",
+      "slack": "Slack"
+    },
+    "stableVersions": {
+      "newer": "Новые стабильные версии ({{versions}})"
+    }
+  },
+
+  "stableVersions": {
+    "title": "Новые стабильные версии",
+    "description": {
+      "beforeLink": "Мы показываем только последнюю стабильную версию минорных релизов Longhorn. Полный список доступен на",
+      "link": "странице релизов"
+    }
+  },
+
+  "filter": {
+    "go": "Применить",
+    "current": "Текущий фильтр: {{value}}",
+    "collapseAll": "Свернуть все",
+    "expandAll": "Развернуть все"
+  },
+
+  "hostBulkActions": {
+    "actions": {
+      "delete": "Удалить",
+      "editNode": "Редактировать узел"
+    },
+    "confirmDelete": "Вы уверены, что хотите удалить узел(ы) {{nodes}}?",
+    "messages": {
+      "deleteFirst": "Сначала необходимо удалить узел Kubernetes"
+    }
+  },
+
+  "hostList": {
+    "columns": {
+      "status": "Статус",
+      "readiness": "Готовность",
+      "replicas": "Реплики",
+      "allocated": "Выделено",
+      "used": "Использовано",
+      "size": "Размер",
+      "tags": "Теги",
+      "operation": "Действие"
+    },
+    "status": {
+      "notReady": "Не готов",
+      "ready": "Готов",
+      "deploying": "Разворачивается"
+    },
+    "tooltip": {
+      "region": "Регион",
+      "zone": "Зона",
+      "replicaSize": "Размер реплики",
+      "backingImageSize": "Размер базового образа",
+      "totalUsage": "Общее использование"
+    },
+    "text": {
+      "reserved": "Зарезервировано"
+    },
+    "modal": {
+      "components": "Компоненты"
+    }
+  },
+
+  "diskList": {
+    "title": "Диски",
+    "columns": {
+      "status": "Статус",
+      "id": "ID",
+      "diskType": "Тип диска",
+      "path": "Путь",
+      "replicas": "Реплики",
+      "allocated": "Выделено",
+      "used": "Использовано",
+      "size": "Размер",
+      "tags": "Теги",
+      "healthStatus": "Состояние"
+    },
+    "status": {
+      "error": "Ошибка",
+      "disabled": "Отключен",
+      "unschedulable": "Не назначаемый",
+      "schedulable": "Назначаемый"
+    },
+    "healthStatus": {
+      "failed": "Неудачно",
+      "passed": "Успешно",
+      "unknown": "Неизвестно",
+      "warning": "Предупреждение"
+    },
+    "text": {
+      "reserved": "Зарезервировано"
+    }
+  },
+
+  "hostActions": {
+    "confirm": {
+      "deleteTitle": "Вы уверены, что хотите удалить узел {{name}}?"
+    },
+    "menu": {
+      "editNodeAndDisks": "Редактировать узел и диски",
+      "removeNode": "Удалить узел",
+      "nodeMustNotBeDown": "Узел не должен быть недоступен",
+      "nodeMustBeDown": "Статус узла Kubernetes должен быть недоступен"
+    }
+  },
+
+  "instanceManager": {
+    "name": {
+      "engineImage": "Образ движка (Engine Image)",
+      "instanceManager": "Менеджер экземпляров"
+    },
+    "state": {
+      "notDeployed": "не развернут",
+      "deployed": "развернут",
+      "engine": "Engine",
+      "replica": "Реплика"
+    },
+    "text": {
+      "deprecated": "Устарело"
+    },
+    "columns": {
+      "image": "Образ",
+      "state": "Состояние"
+    },
+    "tooltip": {
+      "engineImage": "Образ, содержащий программу для управления работой тома (engine) и его реплик",
+      "instanceManager": "Компонент, управляющий созданием и работой процессов движка и реплик на узле"
+    }
+  },
+
+  "addDisk": {
+    "title": "Добавить диск",
+    "path": {
+      "label": "Путь",
+      "placeholder": "Путь в файловой системе Linux, например \"/foo/bar\""
+    },
+    "labels": {
+      "label": "Метки",
+      "placeholder": "Список строк через запятую, 10–20 символов"
+    }
+  },
+
+  "hostReplica": {
+    "title": "Реплики на узле {{name}}"
+  },
+
+  "editDisk": {
+    "title": "Редактировать узел и диски"
+  },
+
+  "editableDisk": {
+    "nodeScheduling": "Планирование узла",
+    "eviction": "Запрошено вытеснение",
+    "instanceManagerCpu": "Запрос CPU Instance Manager",
+    "tags": "Теги узла",
+    "conditions": {
+      "title": "Состояния",
+      "lastProbe": "Последняя проверка",
+      "lastTransition": "Последний переход",
+      "message": "Сообщение",
+      "reason": "Причина",
+      "status": "Статус"
+    },
+    "validation": {
+      "pathExists": "Этот каталог уже существует",
+      "invalidName": "Недопустимое имя",
+      "nameExists": "Это имя уже существует",
+      "required": "Поле обязательно для заполнения"
+    },
+    "storage": {
+      "available": "Доступное хранилище",
+      "scheduled": "Запланированное хранилище",
+      "max": "Максимальный объём",
+      "reserved": "Зарезервированное хранилище"
+    },
+    "name": "Имя",
+    "type": "Тип диска",
+    "path": "Путь",
+    "pathPlaceholder": "Путь монтирования диска, например /mnt/disk1",
+    "scheduling": "Планирование",
+    "tooltip": {
+      "cannotDelete": "Чтобы удалить диск, отключите планирование и убедитесь, что реплики и backing images не используются"
+    },
+    "types": {
+      "filesystem": "Файловая система",
+      "block": "Блочный"
+    }
+  },
+
+  "tagComponent": {
+    "newNodeTag": "Новый тег узла",
+    "newDiskTag": "Новый тег диска"
+  },
+
+  "bulkEditNode": {
+    "title": "Редактировать узел",
+    "nodeScheduling": "Планирование узла",
+    "evictionRequested": "Запрос на вытеснение",
+    "evictionRequired": "Поле «Запрос на вытеснение» обязательно"
   }
+
 }

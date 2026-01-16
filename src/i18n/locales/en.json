@@ -1,5 +1,311 @@
 {
-  "dashboard": {
-    "noVolume": "No Volume"
+  "common": {
+    "total": "Total",
+    "reset": "Reset",
+    "ok": "OK",
+    "noTitle": "No Title",
+    "noData": "No Data",
+    "name":"Name",
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "enable": "Enable",
+    "disable": "Disable",
+    "true": "True",
+    "false": "False",
+
+    "validation": {
+      "required": "required field"
+    }
+  },
+
+  "menu": {
+    "dashboard": "Dashboard",
+    "node": "Nodes",
+    "volume": "Volumes",
+    "detail": "Detail",
+    "recurringJob": "Recurring Jobs",
+    "backupAndRestore": "Backup and Restore",
+    "backup": "Backups",
+    "backupTarget": "Backup Targets",
+    "systemBackups": "System Backups",
+    "advanced": "Advanced",
+    "backingImage": "Backing Images",
+    "orphanedData": "Orphan Resources",
+    "engineimage": "Engine Images",
+    "instanceManager": "Instance Manager Images",
+    "setting": "Settings"
+  },
+
+  "resource": {
+    "storage": {
+      "schedulableStorage": "Schedulable storage",
+      "reservedStorage": "Reserved storage",
+      "usedStorage": "Used storage",
+      "disabledStorage": "Disabled storage",
+      "schedulable": "Schedulable",
+      "reserved": "Reserved",
+      "used": "Used",
+      "disabled": "Disabled",
+      "title": "Storage Schedulable",
+      "blockTitle": "Storage Schedulable (Block)",
+      "empty": "No Storage"
+    },
+    "volume": {
+      "healthy": "Healthy",
+      "degraded": "Degraded",
+      "inProgress": "In Progress",
+      "faulted": "Faulted",
+      "detached": "Detached",
+      "single": "Volume",
+      "plural": "Volumes",
+      "empty": "No Volume"
+    },
+    "node": {
+      "schedulable": "Schedulable",
+      "unschedulable": "Unschedulable",
+      "down": "Down",
+      "disabled": "Disabled",
+      "autoEvicting": "Auto Evicting",
+      "single": "Node",
+      "plural": "Nodes",
+      "empty": "No Node",
+
+      "filter": {
+        "name": "Name",
+        "status": "Status",
+        "nodeTag": "Node Tag",
+        "diskTag": "Disk Tag"
+      }
+    }
+  },
+
+  "eventLogs": {
+    "title": "Event Log",
+    "columns": {
+      "lastSeen": "Last Seen",
+      "firstSeen": "First Seen",
+      "count": "Count",
+      "name": "Name",
+      "kind": "Kind",
+      "type": "Type",
+      "reason": "Reason",
+      "source": "Source",
+      "message": "Message"
+    },
+    "search": {
+      "name": "Search name",
+      "source": "Search source"
+    }
+  },
+
+  "footer": {
+    "upgrade": {
+      "available": "Longhorn {{version}} is now available!",
+      "alt": "Upgrade"
+    },
+    "links": {
+      "documentation": "Documentation",
+      "generateSupportBundle": "Generate Support Bundle",
+      "fileIssue": "File an Issue",
+      "slack": "Slack"
+    },
+    "stableVersions": {
+      "newer": "Newer Stable Versions ({{versions}})"
+    }
+  },
+
+  "stableVersions": {
+    "title": "Newer Stable Versions",
+    "description": {
+      "beforeLink": "We only show the latest stable version of Longhorn minor releases. For the full list, please check out the",
+      "link": "release page"
+    }
+  },
+
+  "filter": {
+    "go": "Go",
+    "current": "Current Filter: {{value}}",
+    "collapseAll": "Collapse All",
+    "expandAll": "Expand All"
+  },
+
+  "hostBulkActions": {
+    "actions": {
+      "delete": "Delete",
+      "editNode": "Edit Node"
+    },
+    "confirmDelete": "Are you sure you want to delete node(s) {{nodes}}?",
+    "messages": {
+      "deleteFirst": "Kubernetes node must be deleted first"
+    }
+  },
+
+  "hostList": {
+    "columns": {
+      "status": "Status",
+      "readiness": "Readiness",
+      "replicas": "Replicas",
+      "allocated": "Allocated",
+      "used": "Used",
+      "size": "Size",
+      "tags": "Tags",
+      "operation": "Operation"
+    },
+    "status": {
+      "notReady": "NotReady",
+      "ready": "Ready",
+      "deploying": "Deploying"
+    },
+    "tooltip": {
+      "region": "Region",
+      "zone": "Zone",
+      "replicaSize": "Replica Size",
+      "backingImageSize": "Backing Image Size",
+      "totalUsage": "Total Usage"
+    },
+    "text": {
+      "reserved": "Reserved"
+    },
+    "modal": {
+      "components": "Components"
+    }
+  },
+
+  "diskList": {
+    "title": "Disks",
+    "columns": {
+      "status": "Status",
+      "id": "ID",
+      "diskType": "Disk Type",
+      "path": "Path",
+      "replicas": "Replicas",
+      "allocated": "Allocated",
+      "used": "Used",
+      "size": "Size",
+      "tags": "Tags",
+      "healthStatus": "Health Status"
+    },
+    "status": {
+      "error": "Error",
+      "disabled": "Disabled",
+      "unschedulable": "Unschedulable",
+      "schedulable": "Schedulable"
+    },
+    "healthStatus": {
+      "failed": "Failed",
+      "passed": "Passed",
+      "unknown": "Unknown",
+      "warning": "Warning"
+    },
+    "text": {
+      "reserved": "Reserved"
+    }
+  },
+
+  "hostActions": {
+    "confirm": {
+      "deleteTitle": "Are you sure you want to delete node {{name}}?"
+    },
+    "menu": {
+      "editNodeAndDisks": "Edit node and disks",
+      "removeNode": "Remove Node",
+      "nodeMustNotBeDown": "Node must not be down",
+      "nodeMustBeDown": "Kubernetes node status must be down first"
+    }
+  },
+
+  "instanceManager": {
+    "name": {
+      "engineImage": "Engine Image",
+      "instanceManager": "Instance Manager"
+    },
+    "state": {
+      "notDeployed": "not deployed",
+      "deployed": "deployed",
+      "engine": "Engine",
+      "replica": "Replica"
+    },
+    "text": {
+      "deprecated": "Deprecated"
+    },
+    "columns": {
+      "image": "Image",
+      "state": "State"
+    },
+    "tooltip": {
+      "engineImage": "Provides the binary to start and communicate with the volume engine/replicas",
+      "instanceManager": "Manages the engine/replica instances’ life cycle on the node"
+    }
+  },
+
+  "addDisk": {
+    "title": "Add Disk",
+    "path": {
+      "label": "Path",
+      "placeholder": "A Linux directory path like \"/foo/bar\""
+    },
+    "labels": {
+      "label": "Labels",
+      "placeholder": "A comma-separated list of strings, 10-20 chars"
+    }
+  },
+
+  "hostReplica": {
+    "title": "Replicas on {{name}}"
+  },
+
+  "editDisk": {
+    "title": "Edit Node and Disks"
+  },
+
+  "editableDisk": {
+    "nodeScheduling": "Node Scheduling",
+    "eviction": "Eviction Requested",
+    "instanceManagerCpu": "Instance Manager CPU Request",
+    "tags": "Node Tags",
+    "conditions": {
+      "title": "Conditions",
+      "lastProbe": "Last Probe Time",
+      "lastTransition": "Last Transition Time",
+      "message": "Message",
+      "reason": "Reason",
+      "status": "Status"
+    },
+    "validation": {
+      "pathExists": "This directory already exists",
+      "invalidName": "The input is not valid Name",
+      "nameExists": "This name already exists",
+      "required": "Please Input Path!"
+    },
+    "storage": {
+      "available": "Storage Available",
+      "scheduled": "Storage Scheduled",
+      "max": "Storage Max",
+      "reserved": "Storage Reserved"
+    },
+    "type": "Disk Type",
+    "path": "Path",
+    "pathPlaceholder": "Path mounted by the disk, e.g. /mnt/disk1",
+    "scheduling": "Scheduling",
+    "tooltip": {
+      "cannotDelete": "To delete this disk, disable scheduling and ensure that no replicas and backing images are in use"
+    },
+    "types": {
+      "filesystem": "File System",
+      "block": "Block"
+    }
+  },
+
+  "tagComponent": {
+    "newNodeTag": "New Node Tag",
+    "newDiskTag": "New Disk Tag"
+  },
+
+  "bulkEditNode": {
+    "title": "Edit Node",
+    "nodeScheduling": "Node Scheduling",
+    "evictionRequested": "Eviction Requested",
+    "evictionRequired": "Eviction Requested is required"
   }
 }
