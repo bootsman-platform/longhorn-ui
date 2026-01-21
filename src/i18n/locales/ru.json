@@ -13,10 +13,36 @@
     "disable": "Отключить",
     "true": "Да",
     "false": "Нет",
+    "yes": "Да",
+    "no": "Нет",
+    "delete": "Удалить",
+    "updateField": "Обновить {{fieldName}}",
 
     "validation": {
-      "required": "обязательное поле"
+      "required": "обязательное поле",
+      "cannotBeEmpty": "Не может быть пустым"
     }
+  },
+
+  "columns": {
+    "state": "Состояние",
+    "name": "Имя",
+    "size": "Размер",
+    "actualSize": "Фактический размер",
+    "created": "Создан",
+    "dataEngine": "Движок данных",
+    "pvPvc": "PV/PVC",
+    "namespace": "Пространство имён",
+    "attachedTo": "Прикреплён к",
+    "schedule": "Расписание",
+    "dataLocality": "Локальность данных",
+    "replicas": "Реплики (Работают/Требуется)",
+    "accessMode": "Режим доступа",
+    "offlineRebuilding": "Восстановление реплик в автономном режиме",
+    "replicaRebuildingBandwidthLimit": "Ограничение пропускной способности восстановления реплик",
+    "lastBackupAt": "Последнее резервное копирование",
+    "operation": "Операции",
+    "status": "Статус"
   },
 
   "menu": {
@@ -308,6 +334,647 @@
     "nodeScheduling": "Планирование узла",
     "evictionRequested": "Запрос на вытеснение",
     "evictionRequired": "Поле «Запрос на вытеснение» обязательно"
+  },
+
+  "replicaActions": {
+    "deleteConfirm": "Вы уверены, что хотите удалить реплики {{replicas}} ?"
+  },
+
+  "replicaList": {
+    "deleteConfirm": "Вы уверены, что хотите удалить реплику {{replicaName}}?",
+    "status": {
+      "healthy": "Здоровая",
+      "rebuilding": "Перестраивается",
+      "error": "Ошибка",
+      "unknown": "Неизвестно",
+      "failed": "Неудачно",
+      "stopped": "Остановлена"
+    },
+    "deleteTooltip": "Реплика принадлежит тому, который сейчас {{volumeState}}. Том должен быть прикреплён или отсоединён."
+  },
+
+  "volume": {
+    "cancelExpansion": {
+      "confirmTitle": "Вы уверены, что хотите отменить расширение?",
+      "description": "Эта операция используется для отмены расширения, если том не может завершить расширение и застревает. После завершения расширения его нельзя откатить или отменить",
+      "pvcWarning": {
+        "part1": "Если расширение, которое вы хотите отменить, было запущено обновлением размера PVC, эта операция не поможет вернуть PVC. Поскольку размер PVC не может уменьшаться, пользователям необходимо очистить, а затем воссоздать PVC и PV после успешной отмены расширения:",
+        "step1": "Обновите поле spec.persistentVolumeReclaimPolicy на Retain для соответствующего PV.",
+        "step2": "Удалите, а затем воссоздайте связанные PVC и PV."
+      }
+    },
+    "buttons": {
+      "createVolume": "Создать том",
+      "customColumn": "Настройка колонок"
+    },
+    "filter": {
+      "stateOptions": {
+        "healthy": "Здоровый",
+        "inProgress": "В процессе",
+        "degraded": "Деградированный",
+        "fault": "Неисправный",
+        "detached": "Отсоединённый"
+      },
+      "redundancyOptions": {
+        "limited": "Ограниченно"
+      },
+      "pvStatusOptions": {
+        "none": "Нет",
+        "available": "Доступен",
+        "bound": "Привязан",
+        "released": "Освобождён"
+      },
+      "fieldOptions": {
+        "name": "Имя",
+        "node": "Узел",
+        "status": "Статус",
+        "namespace": "Пространство имён",
+        "nodeRedundancy": "Избыточность узлов",
+        "engineImageUpgradable": "Движок можно обновить",
+        "pvName": "Имя PV",
+        "pvcName": "Имя PVC",
+        "pvStatus": "Статус PV",
+        "nodeTag": "Тег узла",
+        "diskTag": "Тег диска",
+        "scheduled": "Запланирован",
+        "revisionCounterDisabled": "Счётчик ревизий отключён"
+      }
+    }
+  },
+
+  "volumeList": {
+    "columns": {
+      "state": "Состояние",
+      "name": "Имя",
+      "size": "Размер",
+      "actualSize": "Фактический размер",
+      "created": "Создан",
+      "dataEngine": "Движок данных",
+      "pvPvc": "PV/PVC",
+      "namespace": "Пространство имён",
+      "attachedTo": "Прикреплён к",
+      "schedule": "Расписание",
+      "dataLocality": "Локальность данных",
+      "replicas": "Реплики (Работают/Требуется)",
+      "accessMode": "Режим доступа",
+      "offlineRebuilding": "Восстановление реплик в автономном режиме",
+      "replicaRebuildingBandwidthLimit": "Ограничение пропускной способности восстановления реплик",
+      "lastBackupAt": "Последнее резервное копирование",
+      "operation": "Операции"
+    },
+    "status": {
+      "restoring": "Восстановление",
+      "rebuilding": "Перестроение",
+      "notReadyForWorkload": "Не готово для рабочих нагрузок. {{reason}}",
+      "volumeFaulted": "Том повреждён",
+      "volumeUnderMaintenance": "Том может находиться на обслуживании или в процессе восстановления."
+    },
+    "tooltips": {
+      "encryptedVolume": "Зашифрованный том",
+      "attachedNodeDown": "Присоединённый узел не работает",
+      "noDataLocality": "Том не имеет локальности данных! Нет здоровых реплик на том же узле, что и движок",
+      "drVolumeRestoring": "Восстановление тома аварийного восстановления в процессе",
+      "drVolume": "Том аварийного восстановления",
+      "volumeCannotBeScheduled": "Том не может быть запланирован",
+      "lastNamespace": "Последнее пространство имён",
+      "lastTimeUsed": "Последнее время использования"
+    },
+    "expansionError": "Ошибка расширения",
+    "expansionNote": "Примечание: Вы можете отменить расширение, чтобы избежать сбоя тома",
+    "expansionInProgress": "Том находится в процессе расширения с размера {{currentSize}} до размера {{expectedSize}}",
+    "pvFields": {
+      "pvName": "Имя PV",
+      "pvStatus": "Статус PV",
+      "lastTimeBoundWithPVC": "Последнее время привязки к PVC",
+      "lastBounded": "Последний привязанный",
+      "pvcName": "Имя PVC"
+    },
+    "pvStates": {
+      "available": "Доступен",
+      "bound": "Привязан",
+      "released": "Освобождён"
+    },
+    "onHost": "на",
+    "accessModes": {
+      "rwo": "ReadWriteOnce",
+      "rwop": "ReadWriteOncePod",
+      "rwx": "ReadWriteMany"
+    }
+  },
+
+  "volumeBulkActions": {
+    "deleteWarning": {
+      "pvName": "Имя PV",
+      "pvcName": "Имя PVC",
+      "podName": "Имя Pod",
+      "attachedVolumes": "Некоторые из выбранных томов ({{volumes}}) прикреплены к узлу, и их удаление может вызвать ошибки в приложениях, использующих их.",
+      "workloadVolumes": "Некоторые из выбранных томов ({{volumes}}) имеют связанные рабочие нагрузки, которые могут столкнуться с ошибками после удаления томов:",
+      "pvResources": "Следующие ресурсы (PersistentVolumes и PersistentVolumeClaims), связанные с этими томами ({{volumes}}), будут удалены:",
+      "confirmDelete": "Вы уверены, что хотите удалить том(ы) ({{volumes}}) ?"
+    },
+    "trimConfirm": "Вы уверены, что хотите выполнить trim файловой системы для ({{volumes}}) ?",
+    "actions": {
+      "delete": "Удалить",
+      "attach": "Прикрепить",
+      "detach": "Открепить",
+      "createBackup": "Создать резервную копию",
+      "cloneVolume": "Клонировать том"
+    },
+    "dropdownActions": {
+      "upgradeEngine": "Обновить движок",
+      "expandVolume": "Расширить том",
+      "updateReplicasCount": "Обновить количество реплик",
+      "updateDataLocality": "Обновить локальность данных",
+      "snapshotDataIntegrity": "Целостность данных снимков",
+      "updateAccessMode": "Обновить режим доступа",
+      "updateBackupTarget": "Обновить цель резервного копирования",
+      "updateReplicasAutoBalance": "Обновить авто-балансировку реплик",
+      "createPVPVC": "Создать PV/PVC",
+      "activateDisasterRecoveryVolume": "Активировать том аварийного восстановления",
+      "allowSnapshotsRemovalDuringTrim": "Разрешить удаление снимков во время Trim",
+      "updateReplicaSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик",
+      "updateReplicaZoneSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик по зонам",
+      "updateReplicaDiskSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик по дискам",
+      "trimFilesystem": "Trim файловой системы",
+      "updateFreezeFilesystemForSnapshot": "Обновить заморозку файловой системы для снимков",
+      "updateOfflineReplicaRebuilding": "Обновить восстановление реплик в автономном режиме",
+      "updateReplicaRebuildingBandwidthLimit": "Обновить ограничение пропускной способности восстановления реплик",
+      "updateUblkNumberOfQueue": "Обновить количество очередей UBLK",
+      "updateUblkQueueDepth": "Обновить глубину очереди UBLK"
+    }
+  },
+
+  "workloadDetailModal": {
+    "title": {
+      "backupCreated": "Статус Workload/Pod при создании резервной копии",
+      "workloadPod": "Workload/Pod"
+    },
+    "fields": {
+      "createdTime": "Время создания",
+      "lastTimeUsedByPod": "Последнее использование Pod",
+      "workloadName": "Имя Workload",
+      "workloadType": "Тип Workload",
+      "podName": "Имя Pod",
+      "podStatus": "Статус Pod"
+    },
+    "prefixes": {
+      "last": "Последний"
+    }
+  },
+
+  "changeVolumeModal": {
+    "title": "Активировать том аварийного восстановления",
+    "fields": {
+      "frontend": "Фронтенд"
+    },
+    "validation": {
+      "frontendRequired": "Пожалуйста, выберите фронтенд"
+    }
+  },
+
+  "bulkCloneVolumeModal": {
+    "title": "Клонировать тома",
+    "defaultName": "клонированный-{{volumeName}}",
+    "infoMessage": "Longhorn автоматически прикрепит новый том, выполнит клонирование из указанного тома, а затем отсоединит его",
+    "applySuccess": "Конфигурация {{volumeName}} успешно применена ко всем другим клонированным томам",
+    "applyTooltip": "Применить конфигурацию {{volumeName}} к другим клонированным томам, это действие перезапишет ваши ранее заполненные конфигурации",
+    "tabSwitchError": "Пожалуйста, исправьте поля с ошибками перед переключением на другую вкладку",
+    "applyAll": "Применить ко всем",
+    "fields": {
+      "name": "Имя",
+      "size": "Размер",
+      "dataEngine": "Движок данных",
+      "cloneMode": "Режим клонирования",
+      "numberOfReplicas": "Количество реплик",
+      "frontend": "Фронтенд",
+      "dataLocality": "Локальность данных",
+      "accessMode": "Режим доступа",
+      "backingImage": "Базовый образ",
+      "dataSource": "Источник данных",
+      "backupTarget": "Цель резервного копирования",
+      "encrypted": "Зашифрованный",
+      "nodeTag": "Тег узла",
+      "diskTag": "Тег диска"
+    },
+    "validation": {
+      "nameRequired": "Пожалуйста, введите имя тома",
+      "sizeRequired": "Пожалуйста, введите размер тома",
+      "sizeRange": "Значение должно быть от 0 до 65535",
+      "sizeDecimal": "Это значение должно иметь не более двух десятичных знаков",
+      "sizeMinMi": "Размер тома должен быть больше 10 Mi",
+      "sizeNoDecimalMi": "Десятичные дроли не допускаются",
+      "unitRequired": "Пожалуйста, выберите единицу измерения!",
+      "v1EngineDisabled": "Движок данных v1 не включен",
+      "v2EngineDisabled": "Движок данных v2 не включен",
+      "replicasRequired": "Пожалуйста, введите количество реплик",
+      "replicasRange": "Значение должно быть от 1 до 10",
+      "replicasInteger": "Значение должно быть положительным целым числом",
+      "frontendRequired": "Пожалуйста, выберите фронтенд"
+    }
+  },
+  "accessModes": {
+    "rwo": "ReadWriteOnce",
+    "rwop": "ReadWriteOncePod",
+    "rwx": "ReadWriteMany"
+  },
+
+  "bulkChangeVolumeModal": {
+    "title": "Активировать том аварийного восстановления",
+    "fields": {
+      "selectedVolumes": "Выбранные том(ы)",
+      "frontend": "Фронтенд"
+    },
+    "validation": {
+      "frontendRequired": "Пожалуйста, выберите фронтенд"
+    }
+  },
+
+  "expansionVolumeSizeModal": {
+    "title": "Расширить том",
+    "maintenanceModeWarning": "Longhorn не будет расширять файловую систему для тома в режиме обслуживания. Нет доступного фронтенда для расширения файловой системы",
+    "fields": {
+      "size": "Размер"
+    },
+    "validation": {
+      "sizeRequired": "Пожалуйста, введите размер тома",
+      "sizeRange": "Значение должно быть от 0 до 65535",
+      "sizeMustBeLarger": "Размер должен быть больше {{minSize}} {{unit}}",
+      "sizeMustBeMultipleOfMi": "Размер расширения тома должен быть кратен Mi (1Gi = 1024Mi). Например {{exampleSize}}",
+      "noDecimalsForMi": "Десятичные дроби не допускаются",
+      "unitRequired": "Пожалуйста, выберите единицу измерения!"
+    }
+  },
+
+  "createVolume": {
+    "title": "Создать том",
+    "dataSourceAlert": "Размер тома установлен в соответствии с выбранным размером тома. Несоответствие размера приведет к сбою создания тома.",
+    "created": "создан",
+    "advancedConfigurations": "Расширенные настройки",
+    "fields": {
+      "name": "Имя",
+      "size": "Размер",
+      "dataEngine": "Движок данных",
+      "numberOfReplicas": "Количество реплик",
+      "frontend": "Фронтенд",
+      "ublkNumberOfQueue": "Количество очередей UBLK",
+      "ublkQueueDepth": "Глубина очереди UBLK",
+      "dataLocality": "Локальность данных",
+      "accessMode": "Режим доступа",
+      "backingImage": "Базовый образ",
+      "dataSource": "Источник данных",
+      "volume": "Том",
+      "snapshot": "Снимок",
+      "backupTarget": "Цель резервного копирования",
+      "encrypted": "Зашифрованный",
+      "nodeTag": "Тег узла",
+      "diskTag": "Тег диска",
+      "backupBlockSize": "Размер блока резервного копирования",
+      "snapshotDataIntegrity": "Целостность данных снимков",
+      "snapshotMaxCount": "Максимальное количество снимков",
+      "snapshotMaxSize": "Максимальный размер снимков",
+      "replicasAutoBalance": "Авто-балансировка реплик",
+      "allowSnapshotRemovalDuringTrim": "Разрешить удаление снимков во время Trim",
+      "replicaSoftAntiAffinity": "Мягкая анти-аффинность реплик",
+      "replicaZoneSoftAntiAffinity": "Мягкая анти-аффинность реплик по зонам",
+      "replicaDiskSoftAntiAffinity": "Мягкая анти-аффинность реплик по дискам",
+      "freezeFilesystemForSnapshot": "Заморозка файловой системы для снимков",
+      "offlineRebuilding": "Восстановление реплик в автономном режиме",
+      "replicaRebuildingBandwidthLimit": "Ограничение пропускной способности восстановления реплик",
+      "disableRevisionCounter": "Отключить счетчик ревизий"
+    },
+    "dataSourceOptions": {
+      "Volume": "Том",
+      "VolumeSnapshot": "Снимок тома"
+    },
+    "validation": {
+      "nameRequired": "Пожалуйста, введите имя тома",
+      "sizeRequired": "Пожалуйста, введите размер тома",
+      "sizeRange": "Значение должно быть от 0 до 65535",
+      "sizeDecimal": "Это значение должно иметь не более двух десятичных знаков",
+      "sizeMinMi": "Размер тома должен быть больше 10 Mi",
+      "sizeNoDecimalMi": "Десятичные дроли не допускаются",
+      "unitRequired": "Пожалуйста, выберите единицу измерения!",
+      "v1EngineDisabled": "Движок данных v1 не включен",
+      "v2EngineDisabled": "Движок данных v2 не включен",
+      "replicasRequired": "Пожалуйста, введите количество реплик",
+      "replicasRange": "Значение должно быть от 1 до 10",
+      "replicasInteger": "Значение должно быть положительным целым числом",
+      "frontendRequired": "Пожалуйста, выберите фронтенд",
+      "ublkNumberOfQueueRequired": "Пожалуйста, введите количество очередей UBLK",
+      "ublkQueueDepthRequired": "Пожалуйста, введите глубину очереди UBLK"
+    },
+    "tooltips": {
+      "dataSource": "Выберите источник данных из существующего тома или снимка. Longhorn будет клонировать данные тома из выбранного источника данных",
+      "snapshotMaxCount": "Установите '0' для наследования глобальных настроек",
+      "snapshotMaxSize": "Установите '0' для неограниченного размера или как минимум в два раза больше размера тома",
+      "replicaRebuildingBandwidthLimit": "Установите '0' для наследования глобальных настроек"
+    },
+    "options": {
+      "ignored": "игнорировать (следовать глобальным настройкам)",
+      "disabled": "отключено",
+      "enabled": "включено",
+      "leastEffort": "наименьшие усилия",
+      "bestEffort": "наилучшие усилия"
+    }
+  },
+
+  "customColumn": {
+    "title": "Настройка колонок"
+  },
+
+  "createPVAndPVC": {
+    "title": "Создать PV/PVC",
+    "fields": {
+      "pvName": "Имя PV",
+      "accessMode": "Режим доступа",
+      "storageClassName": "Имя класса хранения",
+      "fileSystem": "Файловая система",
+      "createPVC": "Создать PVC",
+      "usePreviousPVC": "Использовать предыдущий PVC",
+      "namespace": "Пространство имён",
+      "pvcName": "Имя PVC"
+    },
+    "placeholders": {
+      "volumeName": "<Имя тома>",
+      "volumeAccessMode": "<Режим доступа тома>"
+    },
+    "validation": {
+      "pvNameRequired": "Пожалуйста, введите имя PV",
+      "namespaceRequired": "Пожалуйста, введите пространство имён",
+      "pvcNameRequired": "Пожалуйста, введите имя PVC"
+    },
+    "tooltips": {
+      "storageClassName": "Если значение не указано, Longhorn сначала использует storageClassName, сохраненный в резервной копии тома, если том восстанавливается из резервной копии. В противном случае Longhorn будет использовать storageClassName, указанный в настройках по умолчанию."
+    },
+    "previousPVCMessage": "Если том имеет пространство имён по умолчанию, PVC использует это пространство имён, в противном случае используется вновь введенное пространство имён"
+  },
+
+  "attachHost": {
+    "title": "Прикрепить к хосту",
+    "fields": {
+      "host": "Хост",
+      "maintenance": "Обслуживание"
+    },
+    "validation": {
+      "hostRequired": "Пожалуйста, выберите хост для прикрепления"
+    },
+    "rwxWarning": "Тома RWX могут быть прикреплены вручную только в режиме обслуживания."
+  },
+
+  "detachHost": {
+    "title": "Вы уверены, что хотите открепить том {{volumes}}?",
+    "fields": {
+      "forceDetach": "Принудительно открепить"
+    },
+    "alerts": {
+      "csiAttacherWarning": "Принудительное отсоединение этого тома может нарушить его связь с ресурсами VolumeAttachment Kubernetes. Это может помешать вашим приложениям правильно подключать тома, потенциально вызывая сбои Pod или потерю данных.",
+      "runningPodWarning": "Отсоединение тома, когда он используется запущенным Pod Kubernetes, приведет к сбою Pod и возможной потере данных. Том не сможет использоваться Kubernetes снова, пока исходный Pod не будет удален. Вы уверены, что хотите отсоединить том?"
+    }
+  },
+
+  "engineUpgrade": {
+    "title": "Обновить образ движка",
+    "fields": {
+      "engineImage": "Образ движка"
+    },
+    "validation": {
+      "imageRequired": "Пожалуйста, выберите образ движка для обновления"
+    }
+  },
+
+  "cloneVolume": {
+    "title": {
+      "volume": "Клонировать том из {{volumeName}}",
+      "snapshot": "Клонировать том из снимка {{snapshotName}} тома {{volumeName}}"
+    },
+    "defaultName": "клонированный-{{volumeName}}",
+    "infoMessage": "Longhorn автоматически прикрепит новый том, выполнит клонирование из указанного тома, а затем отсоединит его",
+    "fields": {
+      "name": "Имя",
+      "size": "Размер",
+      "dataEngine": "Движок данных",
+      "cloneMode": "Режим клонирования",
+      "numberOfReplicas": "Количество реплик",
+      "frontend": "Фронтенд",
+      "dataLocality": "Локальность данных",
+      "accessMode": "Режим доступа",
+      "backingImage": "Базовый образ",
+      "dataSource": "Источник данных",
+      "backupTarget": "Цель резервного копирования",
+      "encrypted": "Зашифрованный",
+      "nodeTag": "Тег узла",
+      "diskTag": "Тег диска"
+    },
+    "validation": {
+      "nameRequired": "Пожалуйста, введите имя тома",
+      "sizeRequired": "Пожалуйста, введите размер тома",
+      "sizeRange": "Значение должно быть от 0 до 65535",
+      "sizeDecimal": "Это значение должно иметь не более двух десятичных знаков",
+      "sizeMinMi": "Размер тома должен быть больше 10 Mi",
+      "sizeNoDecimalMi": "Десятичные дроби не допускаются",
+      "unitRequired": "Пожалуйста, выберите единицу измерения!",
+      "v1EngineDisabled": "Движок данных v1 не включен",
+      "v2EngineDisabled": "Движок данных v2 не включен",
+      "replicasRequired": "Пожалуйста, введите количество реплик",
+      "replicasRange": "Значение должно быть от 1 до 10",
+      "replicasInteger": "Значение должно быть положительным целым числом",
+      "frontendRequired": "Пожалуйста, выберите фронтенд"
+    }
+  },
+
+  "salvage": {
+    "title": "Выберите одну или несколько реплик для восстановления",
+    "notAvailable": "Н/Д",
+    "host": "Хост",
+    "failedAt": "Время сбоя",
+    "replicasSelected": "реплик выбрано",
+    "selectAtLeastOne": "Пожалуйста, выберите хотя бы одну реплику."
+  },
+
+  "updateReplicaCount": {
+    "title": "Обновить количество реплик",
+    "fields": {
+      "numberOfReplicas": "Количество реплик"
+    },
+    "validation": {
+      "replicasRequired": "Пожалуйста, введите количество реплик",
+      "replicasRange": "Значение должно быть целым числом от 1 до 20"
+    }
+  },
+
+  "updateBulkReplicaCount": {
+    "title": "Обновить количество реплик",
+    "fields": {
+      "numberOfReplicas": "Количество реплик"
+    },
+    "validation": {
+      "replicasRequired": "Пожалуйста, введите количество реплик",
+      "replicasRange": "Значение должно быть целым числом от 1 до 20"
+    },
+    "placeholders": {
+      "various": "различные"
+    }
+  },
+
+  "updateDataLocality": {
+    "title": "Обновить локальность данных",
+    "fields": {
+      "dataLocality": "Локальность данных"
+    }
+  },
+
+  "updateSnapshotMaxCountModal": {
+    "title": "Обновить максимальное количество снимков",
+    "fields": {
+      "maxCount": "Максимальное количество"
+    },
+    "validation": {
+      "snapshotMaxCountRequired": "Пожалуйста, введите snapshotMaxCount тома"
+    }
+  },
+
+  "updateSnapshotMaxSizeModal": {
+    "title": "Обновить максимальный размер снимков",
+    "fields": {
+      "maxSize": "Максимальный размер",
+      "unit": "Единица измерения"
+    },
+    "validation": {
+      "snapshotMaxSizeRequired": "Пожалуйста, введите snapshotMaxSize тома",
+      "unitRequired": "Пожалуйста, выберите значение!"
+    },
+    "placeholders": {
+      "selectUnit": "Выберите значение"
+    }
+  },
+
+  "updateBulkDataLocality": {
+    "title": "Обновить локальность данных",
+    "fields": {
+      "dataLocality": "Локальность данных"
+    },
+    "validation": {
+      "cannotBeEmpty": "Не может быть пустым"
+    },
+    "placeholders": {
+      "various": "различные"
+    }
+  },
+
+  "updateAccessMode": {
+    "title": "Обновить режим доступа",
+    "fields": {
+      "accessMode": "Режим доступа"
+    }
+  },
+
+  "updateReplicaAutoBalanceModal": {
+    "title": "Обновить авто-балансировку реплик",
+    "fields": {
+      "replicasAutoBalance": "Авто-балансировка реплик"
+    },
+    "options": {
+      "ignored": "игнорировать (следовать глобальным настройкам)",
+      "disabled": "отключено",
+      "leastEffort": "наименьшие усилия",
+      "bestEffort": "наилучшие усилия"
+    }
+  },
+
+  "updateUnmapMarkSnapChainRemovedModal": {
+    "title": {
+      "allowSnapshotsRemoval": "Разрешить удаление снимков при обрезке"
+    },
+    "form": {
+      "option": {
+        "label": "Опция"
+      },
+      "warning": {
+        "message": "Это действие может переопределить глобальную настройку «Удалять снимки при обрезке файловой системы»"
+      }
+    }
+  },
+
+  "updateSnapshotDataIntegrityModal": {
+    "title": {
+      "snapshotDataIntegrity": "Целостность данных снимков"
+    },
+    "form": {
+      "option": {
+        "label": "Опция"
+      },
+      "warning": {
+        "message": "Это действие может переопределить глобальную настройку «Целостность данных снимков»"
+      }
+    }
+  },
+
+  "updateFreezeFilesystemForSnapshotModal": {
+    "title": {
+      "updateFreezeFilesystemForSnapshot": "Обновить заморозку файловой системы для снимка"
+    },
+    "form": {
+      "option": {
+        "label": "Опция"
+      },
+      "warning": {
+        "message": "Это действие может переопределить глобальную настройку «Заморозка файловой системы для снимка»"
+      }
+    }
+  },
+
+  "createBackupModal": {
+    "title": {
+      "createBackup": "Создать резервную копию"
+    },
+    "warning": {
+      "createBackupMessage": "Создание резервной копии может занять некоторое время в зависимости от фактического размера тома и пропускной способности сети."
+    },
+    "form": {
+      "fullBackup": {
+        "label": "Полная резервная копия"
+      }
+    }
+  },
+
+  "updateBackupTargetModal": {
+    "title": {
+      "updateBackupTarget": "Обновить цель резервного копирования"
+    },
+    "form": {
+      "backupTarget": {
+        "label": "Цель резервного копирования"
+      }
+    }
+  },
+
+  "updateReplicaRebuildingBandwidthLimitModal": {
+    "title": {
+      "updateReplicaRebuildingBandwidthLimit": "Обновить ограничение пропускной способности перестроения реплик"
+    },
+    "form": {
+      "replicaRebuildingBandwidthLimit": {
+        "label": "Ограничение пропускной способности перестроения реплик",
+        "placeholder": "различные",
+        "validationMessage": "Пожалуйста, введите ограничение"
+      }
+    }
+  },
+
+  "updateUblkParamsModal": {
+    "title": {
+      "updateField": "Обновить {{fieldLabel}}"
+    },
+    "fields": {
+      "ublkNumberOfQueue": {
+        "label": "Количество очередей UBLK",
+        "requiredMessage": "Пожалуйста, введите количество очередей UBLK"
+      },
+      "ublkQueueDepth": {
+        "label": "Глубина очереди UBLK",
+        "requiredMessage": "Пожалуйста, введите глубину очереди UBLK"
+      }
+    }
   }
 
 }

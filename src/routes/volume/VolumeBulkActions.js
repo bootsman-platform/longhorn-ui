@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Button, Modal, Menu, Dropdown, Icon, Tooltip } from 'antd'
 import { detachable, attachable, isRestoring } from './helper'
 import style from './VolumeBulkActions.less'
+import { withTranslation } from 'react-i18next'
 
 const confirm = Modal.confirm
 
@@ -36,7 +37,8 @@ function bulkActions({
   showUpdateBulkFreezeFilesystemForSnapshotModal,
   toggleOfflineRebuildingModal,
   toggleReplicaRebuildingBandwidthLimitModal,
-  toggleUblkParamsModal
+  toggleUblkParamsModal,
+  t,
 }) {
   const deleteWranElement = (rows) => {
     let workloadResources = []
@@ -48,15 +50,15 @@ function bulkActions({
     rows.forEach((item) => {
       if (item && item.kubernetesStatus && item.kubernetesStatus.pvStatus && item.kubernetesStatus.pvName) {
         pvResources.push((<div style={{ margin: '10px', color: '#b7b7b7' }}>
-          <div style={{ paddingLeft: '10px' }}>PV Name: {item.kubernetesStatus.pvName}</div>
-          { !item.kubernetesStatus.lastPVCRefAt && item.kubernetesStatus.pvcName ? <div style={{ paddingLeft: '10px' }}>PVC Name: {item.kubernetesStatus.pvcName}</div> : ''}
+          <div style={{ paddingLeft: '10px' }}>{t('volumeBulkActions.deleteWarning.pvName')}: {item.kubernetesStatus.pvName}</div>
+          { !item.kubernetesStatus.lastPVCRefAt && item.kubernetesStatus.pvcName ? <div style={{ paddingLeft: '10px' }}>{t('volumeBulkActions.deleteWarning.pvcName')}: {item.kubernetesStatus.pvcName}</div> : ''}
         </div>))
         hasPVRows.push(item.name)
       }
       if (item.kubernetesStatus && item.kubernetesStatus.workloadsStatus && !item.kubernetesStatus.lastPodRefAt && item.kubernetesStatus.workloadsStatus.length > 0) {
         workloadResources.push((<div>
           <div style={{ margin: '10px 0px', color: '#b7b7b7' }}>{item.kubernetesStatus.workloadsStatus.map((ele, i) => {
-            return (<div key={i} style={{ paddingLeft: '10px' }}>Pod Name: {ele.podName} ({ele.podStatus})</div>)
+            return (<div key={i} style={{ paddingLeft: '10px' }}>{t('volumeBulkActions.deleteWarning.podName')}: {ele.podName} ({ele.podStatus})</div>)
           })}</div>
         </div>))
         hasWorkloadsRows.push(item.name)
@@ -66,12 +68,12 @@ function bulkActions({
       }
     })
     return (<div>
-      {hasVolumeAttachedRows.length > 0 ? <div>{`Some of the selected volumes (${hasVolumeAttachedRows.map(item => item).join(', ')}) are attached to a node and may cause errors in any applications using them once they are deleted.`}</div> : ''}
-      {workloadResources.length > 0 ? <div>{ `Some of the selected volumes (${hasWorkloadsRows.map(item => item).join(', ')}) have workloads associated with them which may encounter errors once the volume(s) are deleted:` }</div> : '' }
+      {hasVolumeAttachedRows.length > 0 ? <div>{t('volumeBulkActions.deleteWarning.attachedVolumes', { volumes: hasVolumeAttachedRows.map(item => item).join(', ') })}</div> : ''}
+      {workloadResources.length > 0 ? <div>{t('volumeBulkActions.deleteWarning.workloadVolumes', { volumes: hasWorkloadsRows.map(item => item).join(', ') })}</div> : ''}
       {workloadResources.map((item, i) => <div key={i}>{item}</div>)}
-      {pvResources.length > 0 ? <div>{ `The following resources (PersistentVolumes and PersistentVolumeClaims) associated with these volumes(s) (${hasPVRows.map(item => item).join(', ')}) will be deleted:` }</div> : ''}
+      {pvResources.length > 0 ? <div>{t('volumeBulkActions.deleteWarning.pvResources', { volumes: hasPVRows.map(item => item).join(', ') })}</div> : ''}
       {pvResources.map((item, i) => <div key={i}>{item}</div>)}
-      <div style={{ marginTop: 10 }}>{`Are you sure you want to delete volume(s) (${rows.map(item => item.name).join(', ')}) ?`} </div>
+      <div style={{ marginTop: 10 }}>{t('volumeBulkActions.deleteWarning.confirmDelete', { volumes: rows.map(item => item.name).join(', ') })}</div>
     </div>)
   }
   const handleClick = (action) => {
@@ -149,7 +151,7 @@ function bulkActions({
         break
       case 'trimFilesystem':
         confirm({
-          title: `Are you sure you want to trim (${selectedRows.map(item => item.name).join(', ')}) Filesystem ?`,
+          title: t('volumeBulkActions.trimConfirm', { volumes: selectedRows.map(item => item.name).join(', ') }),
           onOk() {
             trimBulkFilesystem(selectedRows)
           },
@@ -205,38 +207,38 @@ function bulkActions({
   */
   const hasMoreOptions = () => engineImages.findIndex(engineImage => selectedRows.findIndex(item => item.image === engineImage.image) === -1) === -1
   const allActions = [
-    { key: 'delete', name: 'Delete', disabled() { return selectedRows.length === 0 } },
-    { key: 'attach', name: 'Attach', disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !attachable(item)) } },
-    { key: 'detach', name: 'Detach', disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !detachable(item)) } },
-    { key: 'backup', name: 'Create Backup', disabled() { return selectedRows.length === 0 || hasNonAttachedVolume() || isSnapshotDisabled() || hasDoingState() || isHasStandy() || hasVolumeRestoring() || !backupTargetAvailable }, toolTip: backupTargetMessage },
-    { key: 'bulkCloneVolume', name: 'Clone Volume', disabled() { return selectedRows.length === 0 || selectedRows.every(item => item.standby || isRestoring(item)) } },
+    { key: 'delete', name: t('volumeBulkActions.actions.delete'), disabled() { return selectedRows.length === 0 } },
+    { key: 'attach', name: t('volumeBulkActions.actions.attach'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !attachable(item)) } },
+    { key: 'detach', name: t('volumeBulkActions.actions.detach'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !detachable(item)) } },
+    { key: 'backup', name: t('volumeBulkActions.actions.createBackup'), disabled() { return selectedRows.length === 0 || hasNonAttachedVolume() || isSnapshotDisabled() || hasDoingState() || isHasStandy() || hasVolumeRestoring() || !backupTargetAvailable }, toolTip: backupTargetMessage },
+    { key: 'bulkCloneVolume', name: t('volumeBulkActions.actions.cloneVolume'), disabled() { return selectedRows.length === 0 || selectedRows.every(item => item.standby || isRestoring(item)) } },
 
   ]
 
   const allDropDownActions = [
-    { key: 'upgrade', name: 'Upgrade Engine', disabled() { return selectedRows.length === 0 || isAutomaticallyUpgradeEngine() || !hasAction('engineUpgrade') || hasDoingState() || hasMoreOptions() || hasVolumeRestoring() || canUpgradeEngine() } },
-    { key: 'expandVolume', name: 'Expand Volume', disabled() { return selectedRows.length === 0 || disableExpandVolume() } },
-    { key: 'updateBulkReplicaCount', name: 'Update Replicas Count', disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkReplicaCount() || upgradingEngine() } },
-    { key: 'updateBulkDataLocality', name: 'Update Data Locality', disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkDataLocality() || upgradingEngine() } },
-    { key: 'updateSnapshotDataIntegrity', name: 'Snapshot Data Integrity', disabled() { return selectedRows.length === 0 } },
-    { key: 'updateBulkAccessMode', name: 'Update Access Mode', disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateAccessMode() } },
-    { key: 'updateBulkBackupTarget', name: 'Update Backup Target', disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaAutoBalance', name: 'Update Replicas Auto Balance', disabled() { return selectedRows.length === 0 || disableUpdateReplicaAutoBalance() } },
-    { key: 'createPVAndPVC', name: 'Create PV/PVC', disabled() { return selectedRows.length === 0 || isHasStandy() || hasVolumeRestoring() || isHasPVC() || isFaulted() || !hasAction('pvCreate') || !hasAction('pvcCreate') } },
-    { key: 'bulkChangeVolume', name: 'Activate Disaster Recovery Volume', disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !item.standby) } },
-    { key: 'updateUnmapMarkSnapChainRemoved', name: 'Allow Snapshots Removal During Trim', disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaSoftAntiAffinity', name: 'Update Replica Soft Anti Affinity', disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaZoneSoftAntiAffinity', name: 'Update Replica Zone Soft Anti Affinity', disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaDiskSoftAntiAffinity', name: 'Update Replica Disk Soft Anti Affinity', disabled() { return selectedRows.length === 0 } },
-    { key: 'trimFilesystem', name: 'Trim Filesystem', disabled() { return selectedRows.length === 0 || notAttached() } },
-    { key: 'updateFreezeFilesystemForSnapshot', name: 'Update Freeze Filesystem For Snapshot', disabled() { return selectedRows.length === 0 } },
-    { key: 'offlineReplicaRebuilding', name: 'Update Offline Replica Rebuilding', disabled() { return selectedRows.length === 0 || selectedRows.every((row) => !row.actions?.offlineReplicaRebuilding) } },
-    { key: 'updateReplicaRebuildingBandwidthLimit', name: 'Update Replica Rebuilding Bandwidth Limit', disabled() { return selectedRows.length === 0 || selectedRows.some((row) => row?.dataEngine === 'v1') } },
+    { key: 'upgrade', name: t('volumeBulkActions.dropdownActions.upgradeEngine'), disabled() { return selectedRows.length === 0 || isAutomaticallyUpgradeEngine() || !hasAction('engineUpgrade') || hasDoingState() || hasMoreOptions() || hasVolumeRestoring() || canUpgradeEngine() } },
+    { key: 'expandVolume', name: t('volumeBulkActions.dropdownActions.expandVolume'), disabled() { return selectedRows.length === 0 || disableExpandVolume() } },
+    { key: 'updateBulkReplicaCount', name: t('volumeBulkActions.dropdownActions.updateReplicasCount'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkReplicaCount() || upgradingEngine() } },
+    { key: 'updateBulkDataLocality', name: t('volumeBulkActions.dropdownActions.updateDataLocality'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkDataLocality() || upgradingEngine() } },
+    { key: 'updateSnapshotDataIntegrity', name: t('volumeBulkActions.dropdownActions.snapshotDataIntegrity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateBulkAccessMode', name: t('volumeBulkActions.dropdownActions.updateAccessMode'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateAccessMode() } },
+    { key: 'updateBulkBackupTarget', name: t('volumeBulkActions.dropdownActions.updateBackupTarget'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaAutoBalance', name: t('volumeBulkActions.dropdownActions.updateReplicasAutoBalance'), disabled() { return selectedRows.length === 0 || disableUpdateReplicaAutoBalance() } },
+    { key: 'createPVAndPVC', name: t('volumeBulkActions.dropdownActions.createPVPVC'), disabled() { return selectedRows.length === 0 || isHasStandy() || hasVolumeRestoring() || isHasPVC() || isFaulted() || !hasAction('pvCreate') || !hasAction('pvcCreate') } },
+    { key: 'bulkChangeVolume', name: t('volumeBulkActions.dropdownActions.activateDisasterRecoveryVolume'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !item.standby) } },
+    { key: 'updateUnmapMarkSnapChainRemoved', name: t('volumeBulkActions.dropdownActions.allowSnapshotsRemovalDuringTrim'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaSoftAntiAffinity', name: t('volumeBulkActions.dropdownActions.updateReplicaSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaZoneSoftAntiAffinity', name: t('volumeBulkActions.dropdownActions.updateReplicaZoneSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaDiskSoftAntiAffinity', name: t('volumeBulkActions.dropdownActions.updateReplicaDiskSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'trimFilesystem', name: t('volumeBulkActions.dropdownActions.trimFilesystem'), disabled() { return selectedRows.length === 0 || notAttached() } },
+    { key: 'updateFreezeFilesystemForSnapshot', name: t('volumeBulkActions.dropdownActions.updateFreezeFilesystemForSnapshot'), disabled() { return selectedRows.length === 0 } },
+    { key: 'offlineReplicaRebuilding', name: t('volumeBulkActions.dropdownActions.updateOfflineReplicaRebuilding'), disabled() { return selectedRows.length === 0 || selectedRows.every((row) => !row.actions?.offlineReplicaRebuilding) } },
+    { key: 'updateReplicaRebuildingBandwidthLimit', name: t('volumeBulkActions.dropdownActions.updateReplicaRebuildingBandwidthLimit'), disabled() { return selectedRows.length === 0 || selectedRows.some((row) => row?.dataEngine === 'v1') } },
   ]
 
   if (selectedRows.some((row) => row?.frontend === 'ublk')) {
-    allDropDownActions.push({ key: 'updateUblkNumberOfQueue', name: 'Update UBLK Number of Queue', disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
-    allDropDownActions.push({ key: 'updateUblkQueueDepth', name: 'Update UBLK Queue Depth', disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
+    allDropDownActions.push({ key: 'updateUblkNumberOfQueue', name: t('volumeBulkActions.dropdownActions.updateUblkNumberOfQueue'), disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
+    allDropDownActions.push({ key: 'updateUblkQueueDepth', name: t('volumeBulkActions.dropdownActions.updateUblkQueueDepth'), disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
   }
 
   const menu = (
@@ -302,6 +304,7 @@ bulkActions.propTypes = {
   showBulkUnmapMarkSnapChainRemovedModal: PropTypes.func,
   trimBulkFilesystem: PropTypes.func,
   showUpdateBulkFreezeFilesystemForSnapshotModal: PropTypes.func,
+  t: PropTypes.func,
 }
 
-export default bulkActions
+export default withTranslation()(bulkActions)

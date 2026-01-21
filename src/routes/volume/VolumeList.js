@@ -15,6 +15,7 @@ import style from './VolumeList.less'
 import { isVolumeImageUpgradable, isVolumeReplicaNotRedundancy, isVolumeRelicaLimited } from '../../utils/filter'
 import IconBackup from '../../components/Icon/IconBackup'
 import IconStandBackup from '../../components/Icon/IconStandBackup'
+import { withTranslation } from 'react-i18next'
 
 function list({
   loading,
@@ -63,6 +64,7 @@ function list({
   toggleReplicaRebuildingBandwidthLimitModal,
   toggleUblkParamsModal,
   onRowClick = f => f,
+  t,
 }) {
   const volumeActionsProps = {
     engineImages,
@@ -142,7 +144,7 @@ function list({
       if (!isRestoring && !restoreErrorMsg) {
         return ''
       } else if (isRestoring && !restoreErrorMsg) {
-        return <Tooltip title={`${key === 'isRestoring' ? 'Restoring' : 'Rebuilding'}: ${progress}%`}><Progress showInfo={false} percent={progress} /></Tooltip>
+        return <Tooltip title={`${key === 'isRestoring' ? t('volumeList.status.restoring') : t('volumeList.status.rebuilding')}: ${progress}%`}><Progress showInfo={false} percent={progress} /></Tooltip>
       } else {
         return <Tooltip title={restoreErrorMsg}><Progress status="active" showInfo={false} percent={progress} /></Tooltip>
       }
@@ -152,7 +154,7 @@ function list({
   const defaultImage = engineImages.find(image => image.default === true)
   let columns = [
     {
-      title: 'State',
+      title: t('columns.state'),
       dataIndex: 'state',
       key: 'state',
       width: 160,
@@ -178,7 +180,7 @@ function list({
           let attachedNode = record.controllers && record.controllers[0] && record.controllers[0].hostId ? record.controllers[0].hostId : ''
           return item.hostId !== attachedNode
         })
-        let statusForWorkloadMessage = `Not ready for workload. ${record.robustness === 'faulted' ? 'Volume Faulted' : 'Volume may be under maintenance or in the restore process.'} `
+        let statusForWorkloadMessage = t('volumeList.status.notReadyForWorkload', { reason: record.robustness === 'faulted' ? t('volumeList.status.volumeFaulted') : t('volumeList.status.volumeUnderMaintenance') })
         let statusForWorkload = <Tooltip title={statusForWorkloadMessage}><Icon type="exclamation-circle" className="faulted" style={{ marginLeft: 5 }} /></Tooltip>
         let stateText = (() => {
           if (text.hyphenToHump() === 'attached' && record.robustness === 'healthy') {
@@ -218,17 +220,17 @@ function list({
               {restoreProgress}
               {rebuildProgress}
             </div>
-            {isEncrypted ? <Tooltip title={'Encrypted Volume'}><Icon className="color-warning" style={{ marginLeft: 5, marginRight: 5, marginBottom: 2 }} type="lock" /></Tooltip> : null}
+            {isEncrypted ? <Tooltip title={t('volumeList.tooltips.encryptedVolume')}><Icon className="color-warning" style={{ marginLeft: 5, marginRight: 5, marginBottom: 2 }} type="lock" /></Tooltip> : null}
             {statusUpgradingEngine(record)}
             { upgrade }
             {attachedNodeIsDown && (
-              <Tooltip title={'The attached node is down'}>
+              <Tooltip title={t('volumeList.tooltips.attachedNodeDown')}>
                 <Icon className="faulted" style={{ transform: 'rotate(45deg)', marginRight: 5, marginLeft: 5 }} type="api" />
               </Tooltip>
             )}
             {stateText}
             {dataLocalityWarn && (
-              <Tooltip title={'Volume does not have data locality! There is no healthy replica on the same node as the engine'}>
+              <Tooltip title={t('volumeList.tooltips.noDataLocality')}>
                 <Icon style={{ fontSize: '16px', marginLeft: 10 }} className="color-warning" type="warning" />
               </Tooltip>
             )}
@@ -238,7 +240,7 @@ function list({
       },
     },
     {
-      title: 'Name',
+      title: t('columns.name'),
       dataIndex: 'id',
       key: 'id',
       width: 200,
@@ -246,12 +248,12 @@ function list({
       render: (text, record) => {
         return (
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {record.standby ? <Tooltip title={volumeRestoring(record) ? 'Disaster Recovery Volume restore in progress' : 'Disaster Recovery Volume'}>
+            {record.standby ? <Tooltip title={volumeRestoring(record) ? t('volumeList.tooltips.drVolumeRestoring') : t('volumeList.tooltips.drVolume')}>
               <div style={{ marginRight: '5px', display: 'flex', alignItems: 'center' }}>
                 <IconStandBackup fill={volumeRestoring(record) ? 'rgba(0, 0, 0, 0.25)' : '#00C1DE'} />
               </div>
             </Tooltip> : ''}
-            {isSchedulingFailure(record) ? <Tooltip title={'The volume cannot be scheduled'}>
+            {isSchedulingFailure(record) ? <Tooltip title={t('volumeList.tooltips.volumeCannotBeScheduled')}>
               <Icon style={{ marginRight: 5 }} type="exclamation-circle-o" className={'error'} />
             </Tooltip> : null}
             <LinkTo style={{ display: 'flex', alignItems: 'center', wordBreak: 'break-all' }} to={{ pathname: `/volume/${text}` }}>
@@ -262,7 +264,7 @@ function list({
       },
     },
     {
-      title: 'Size',
+      title: t('columns.size'),
       dataIndex: 'size',
       key: 'size',
       width: 100,
@@ -275,11 +277,11 @@ function list({
         let message = ''
         if (expandingFailed) {
           message = (<div>
-            <div>Expansion Error: {record.controllers[0].lastExpansionError}</div>
-            <div>Note: You can cancel the expansion to avoid volume crash</div>
+            <div>{t('volumeList.expansionError')}: {record.controllers[0].lastExpansionError}</div>
+            <div>{t('volumeList.expansionNote')}</div>
           </div>)
         } else if (isExpanding) {
-          message = `The volume is in expansion progress from size ${formatMib(currentSize)} to size ${formatMib(expectedSize)}`
+          message = t('volumeList.expansionInProgress', { currentSize: formatMib(currentSize), expectedSize: formatMib(expectedSize) })
         }
 
         return (
@@ -313,7 +315,7 @@ function list({
       },
     },
     {
-      title: 'Actual Size',
+      title: t('columns.actualSize'),
       dataIndex: 'actualSize',
       key: 'actualSize',
       width: 140,
@@ -328,7 +330,7 @@ function list({
       },
     },
     {
-      title: 'Created',
+      title: t('columns.created'),
       dataIndex: 'created',
       key: 'created',
       width: 120,
@@ -342,7 +344,7 @@ function list({
       },
     },
     {
-      title: 'Data Engine',
+      title: t('columns.dataEngine'),
       dataIndex: 'dataEngine',
       key: 'dataEngine',
       width: 220,
@@ -356,30 +358,30 @@ function list({
       },
     },
     {
-      title: 'PV/PVC',
+      title: t('columns.pvPvc'),
       dataIndex: 'kubernetesStatus',
       key: 'kubernetesStatus',
       sorter: (a, b) => sortTableByPVC(a, b, 'kubernetesStatus'),
       width: 120,
       render: (text) => {
         let title = (<div>
-          <div><span>PV Name</span><span>: </span><span>{text.pvName}</span></div>
-          <div><span>PV Status</span><span>: </span><span>{text.pvStatus}</span></div>
-          { text.lastPVCRefAt ? <div><span>Last time bound with PVC</span><span> : </span><span>{formatDate(text.lastPVCRefAt)}</span></div> : ''}
-          { text.pvcName ? <div><span>{ text.lastPVCRefAt ? 'Last Bounded' : ''} PVC Name</span><span>: </span><span>{text.pvcName}</span></div> : ''}
+          <div><span>{t('volumeList.pvFields.pvName')}</span><span>: </span><span>{text.pvName}</span></div>
+          <div><span>{t('volumeList.pvFields.pvStatus')}</span><span>: </span><span>{text.pvStatus}</span></div>
+          { text.lastPVCRefAt ? <div><span>{t('volumeList.pvFields.lastTimeBoundWithPVC')}</span><span> : </span><span>{formatDate(text.lastPVCRefAt)}</span></div> : ''}
+          { text.pvcName ? <div><span>{ text.lastPVCRefAt ? t('volumeList.pvFields.lastBounded') : ''} {t('volumeList.pvFields.pvcName')}</span><span>: </span><span>{text.pvcName}</span></div> : ''}
         </div>)
         let content = (() => {
           if (!text.pvName) {
             return ''
           }
           if (text.pvName && !text.pvcName && !text.namespace) {
-            return <div>Available</div>
+            return <div>{t('volumeList.pvStates.available')}</div>
           }
           if (text.pvName && text.pvcName && text.namespace && !text.lastPVCRefAt) {
-            return <div>Bound</div>
+            return <div>{t('volumeList.pvStates.bound')}</div>
           }
           if (text.pvName && text.pvcName && text.namespace && text.lastPVCRefAt) {
-            return <div>Released</div>
+            return <div>{t('volumeList.pvStates.released')}</div>
           }
           return ''
         })()
@@ -393,14 +395,14 @@ function list({
       },
     },
     {
-      title: 'Namespace',
+      title: t('columns.namespace'),
       dataIndex: 'kubernetesStatus',
       key: 'namespace',
       width: 140,
       sorter: (a, b) => sortTableObject(a, b, 'kubernetesStatus', 'namespace'),
       render: (text) => {
         return (
-          <Tooltip placement="top" title={text.lastPVCRefAt ? 'Last Namespace' : ''}>
+          <Tooltip placement="top" title={text.lastPVCRefAt ? t('volumeList.tooltips.lastNamespace') : ''}>
             <div style={text.lastPVCRefAt ? { background: 'rgba(241, 196, 15, 0.1)', minWidth: 100 } : { minWidth: 100 }}>
               <div>{ text.namespace }</div>
             </div>
@@ -409,13 +411,13 @@ function list({
       },
     },
     {
-      title: 'Attached To',
+      title: t('columns.attachedTo'),
       dataIndex: 'WorkloadNameAndPodName',
       key: 'WorkloadNameAndPodName',
       width: 240,
       sorter: (a, b) => sortTable(a, b, 'WorkloadName'),
       render: (text, record) => {
-        const title = text.lastPodRefAt ? <div><div>Last time used: {formatDate(text.lastPodRefAt)}</div></div> : ''
+        const title = text.lastPodRefAt ? <div><div>{t('volumeList.tooltips.lastTimeUsed')}: {formatDate(text.lastPodRefAt)}</div></div> : ''
         const ele = text.podList.length ? text.podList.map((item, index) => {
           return <div key={index}>{item.podName}</div>
         }) : ''
@@ -425,14 +427,14 @@ function list({
               <div style={text.lastPodRefAt && ele ? { background: 'rgba(241, 196, 15, 0.1)', padding: '5px' } : {}}>
                 {ele}
               </div>
-              <div>{record.controllers ? record.controllers.map(item => <div style={{ fontFamily: 'monospace', margin: '2px 0px' }} key={item.hostId}>{item.hostId ? <span>on {item.hostId}</span> : <span></span>}</div>) : ''}</div>
+              <div>{record.controllers ? record.controllers.map(item => <div style={{ fontFamily: 'monospace', margin: '2px 0px' }} key={item.hostId}>{item.hostId ? <span>{t('volumeList.onHost')} {item.hostId}</span> : <span></span>}</div>) : ''}</div>
             </a>
           </Tooltip>
         )
       },
     },
     {
-      title: 'Schedule',
+      title: t('columns.schedule'),
       key: 'recurringJobs',
       width: 100,
       render: (text, record) => {
@@ -444,7 +446,7 @@ function list({
       },
     },
     {
-      title: 'Data Locality',
+      title: t('columns.dataLocality'),
       dataIndex: 'dataLocality',
       key: 'dataLocality',
       width: 220,
@@ -457,7 +459,7 @@ function list({
       },
     },
     {
-      title: 'Replicas (Running/Desired)',
+      title: t('columns.replicasRunningDesired'),
       dataIndex: 'replicas',
       key: 'replicas',
       width: 200,
@@ -475,15 +477,15 @@ function list({
       },
     },
     {
-      title: 'Access Mode',
+      title: t('columns.accessMode'),
       dataIndex: 'accessMode',
       key: 'accessMode',
       width: 200,
       render: (text) => {
         const accessModeObject = {
-          rwo: 'ReadWriteOnce',
-          rwop: 'ReadWriteOncePod',
-          rwx: 'ReadWriteMany',
+          rwo: t('volumeList.accessModes.rwo'),
+          rwop: t('volumeList.accessModes.rwop'),
+          rwx: t('volumeList.accessModes.rwx'),
         }
         return (
           <div>
@@ -493,7 +495,7 @@ function list({
       },
     },
     {
-      title: 'Offline Replica Rebuilding',
+      title: t('columns.offlineRebuilding'),
       dataIndex: 'offlineRebuilding',
       key: 'offlineRebuilding',
       width: 240,
@@ -507,7 +509,7 @@ function list({
       },
     },
     {
-      title: 'Replica Rebuilding Bandwidth Limit',
+      title: t('columns.replicaRebuildingBandwidthLimit'),
       dataIndex: 'replicaRebuildingBandwidthLimit',
       key: 'replicaRebuildingBandwidthLimit',
       width: 240,
@@ -521,7 +523,7 @@ function list({
       },
     },
     {
-      title: 'Last Backup At',
+      title: t('columns.lastBackupAt'),
       dataIndex: 'lastBackupAt',
       key: 'lastBackupAt',
       width: 200,
@@ -536,7 +538,7 @@ function list({
       },
     },
     {
-      title: 'Operation',
+      title: t('columns.operation'),
       key: 'operation',
       width: 110,
       fixed: 'right',
@@ -633,6 +635,7 @@ list.propTypes = {
   showUpdateFreezeFilesystemForSnapshotModal: PropTypes.func,
   toggleOfflineRebuildingModal: PropTypes.func,
   toggleReplicaRebuildingBandwidthLimitModal: PropTypes.func,
+  t: PropTypes.func,
 }
 
-export default list
+export default withTranslation()(list)

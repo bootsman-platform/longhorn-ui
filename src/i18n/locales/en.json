@@ -5,7 +5,7 @@
     "ok": "OK",
     "noTitle": "No Title",
     "noData": "No Data",
-    "name":"Name",
+    "name": "Name",
     "close": "Close",
     "save": "Save",
     "cancel": "Cancel",
@@ -13,10 +13,37 @@
     "disable": "Disable",
     "true": "True",
     "false": "False",
+    "yes": "Yes",
+    "no": "No",
+    "delete": "Delete",
+    "updateField": "Update {{fieldName}}",
 
     "validation": {
-      "required": "required field"
+      "required": "required field",
+      "cannotBeEmpty": "Can not be empty"
     }
+  },
+
+  "columns": {
+    "state": "State",
+    "name": "Name",
+    "size": "Size",
+    "actualSize": "Actual Size",
+    "created": "Created",
+    "dataEngine": "Data Engine",
+    "pvPvc": "PV/PVC",
+    "namespace": "Namespace",
+    "attachedTo": "Attached To",
+    "schedule": "Schedule",
+    "dataLocality": "Data Locality",
+    "replicasRunningDesired": "Replicas (Running/Desired)",
+    "accessMode": "Access Mode",
+    "offlineRebuilding": "Offline Replica Rebuilding",
+    "replicaRebuildingBandwidthLimit": "Replica Rebuilding Bandwidth Limit",
+    "lastBackupAt": "Last Backup At",
+    "operation": "Operation",
+    "status": "Status",
+    "replicas": "Replicas"
   },
 
   "menu": {
@@ -307,5 +334,631 @@
     "nodeScheduling": "Node Scheduling",
     "evictionRequested": "Eviction Requested",
     "evictionRequired": "Eviction Requested is required"
+  },
+
+  "replicaActions": {
+    "deleteConfirm": "Are you sure you want to delete replicas {{replicas}} ?",
+    "delete": "Delete"
+  },
+
+  "replicaList": {
+    "deleteConfirm": "Are you sure you want to delete replica {{replicaName}}?",
+    "status": {
+      "healthy": "Healthy",
+      "rebuilding": "Rebuilding",
+      "error": "Error",
+      "unknown": "Unknown",
+      "failed": "Failed",
+      "stopped": "Stopped"
+    },
+    "deleteTooltip": "Replica belongs to volume currently {{volumeState}}. Volume must be attached or detached."
+  },
+
+  "volume": {
+    "cancelExpansion": {
+      "confirmTitle": "Are you sure to cancel expansion?",
+      "description": "This operation is used to cancel the expansion if the volume cannot complete the expansion and gets stuck there. Once the expansion is complete, it cannot be rolled back or canceled",
+      "pvcWarning": {
+        "part1": "If the in-progress expansion you want to cancel is triggered by the PVC size update, this operation will not help revert the PVC. Since the PVC size can not shrink, users need to clean up then recreate the PVC and PV after the expansion canceling success:",
+        "step1": "Update the field spec.persistentVolumeReclaimPolicy to Retain for the corresponding PV.",
+        "step2": "Delete then recreate the related PVC and PV."
+      }
+    },
+    "buttons": {
+      "createVolume": "Create Volume",
+      "customColumn": "Custom Column"
+    },
+    "filter": {
+      "stateOptions": {
+        "healthy": "Healthy",
+        "inProgress": "In Progress",
+        "degraded": "Degraded",
+        "fault": "Fault",
+        "detached": "Detached"
+      },
+      "redundancyOptions": {
+        "limited": "Limited"
+      },
+      "pvStatusOptions": {
+        "none": "None",
+        "available": "Available",
+        "bound": "Bound",
+        "released": "Released"
+      },
+      "fieldOptions": {
+        "name": "Name",
+        "node": "Node",
+        "status": "Status",
+        "namespace": "Namespace",
+        "nodeRedundancy": "Node redundancy",
+        "engineImageUpgradable": "Engine image upgradable",
+        "pvName": "PV Name",
+        "pvcName": "PVC Name",
+        "pvStatus": "PV Status",
+        "nodeTag": "Node Tag",
+        "diskTag": "Disk Tag",
+        "scheduled": "Scheduled",
+        "revisionCounterDisabled": "Revision Counter Disabled"
+      }
+    }
+  },
+
+  "volumeList": {
+    "status": {
+      "restoring": "Restoring",
+      "rebuilding": "Rebuilding",
+      "notReadyForWorkload": "Not ready for workload. {{reason}}",
+      "volumeFaulted": "Volume Faulted",
+      "volumeUnderMaintenance": "Volume may be under maintenance or in the restore process."
+    },
+    "tooltips": {
+      "encryptedVolume": "Encrypted Volume",
+      "attachedNodeDown": "The attached node is down",
+      "noDataLocality": "Volume does not have data locality! There is no healthy replica on the same node as the engine",
+      "drVolumeRestoring": "Disaster Recovery Volume restore in progress",
+      "drVolume": "Disaster Recovery Volume",
+      "volumeCannotBeScheduled": "The volume cannot be scheduled",
+      "lastNamespace": "Last Namespace",
+      "lastTimeUsed": "Last time used"
+    },
+    "expansionError": "Expansion Error",
+    "expansionNote": "Note: You can cancel the expansion to avoid volume crash",
+    "expansionInProgress": "The volume is in expansion progress from size {{currentSize}} to size {{expectedSize}}",
+    "pvFields": {
+      "pvName": "PV Name",
+      "pvStatus": "PV Status",
+      "lastTimeBoundWithPVC": "Last time bound with PVC",
+      "lastBounded": "Last Bounded",
+      "pvcName": "PVC Name"
+    },
+    "pvStates": {
+      "available": "Available",
+      "bound": "Bound",
+      "released": "Released"
+    },
+    "onHost": "on",
+    "accessModes": {
+      "rwo": "ReadWriteOnce",
+      "rwop": "ReadWriteOncePod",
+      "rwx": "ReadWriteMany"
+    }
+  },
+
+  "volumeBulkActions": {
+    "deleteWarning": {
+      "pvName": "PV Name",
+      "pvcName": "PVC Name",
+      "podName": "Pod Name",
+      "attachedVolumes": "Some of the selected volumes ({{volumes}}) are attached to a node and may cause errors in any applications using them once they are deleted.",
+      "workloadVolumes": "Some of the selected volumes ({{volumes}}) have workloads associated with them which may encounter errors once the volume(s) are deleted:",
+      "pvResources": "The following resources (PersistentVolumes and PersistentVolumeClaims) associated with these volumes(s) ({{volumes}}) will be deleted:",
+      "confirmDelete": "Are you sure you want to delete volume(s) ({{volumes}}) ?"
+    },
+    "trimConfirm": "Are you sure you want to trim ({{volumes}}) Filesystem ?",
+    "actions": {
+      "delete": "Delete",
+      "attach": "Attach",
+      "detach": "Detach",
+      "createBackup": "Create Backup",
+      "cloneVolume": "Clone Volume"
+    },
+    "dropdownActions": {
+      "upgradeEngine": "Upgrade Engine",
+      "expandVolume": "Expand Volume",
+      "updateReplicasCount": "Update Replicas Count",
+      "updateDataLocality": "Update Data Locality",
+      "snapshotDataIntegrity": "Snapshot Data Integrity",
+      "updateAccessMode": "Update Access Mode",
+      "updateBackupTarget": "Update Backup Target",
+      "updateReplicasAutoBalance": "Update Replicas Auto Balance",
+      "createPVPVC": "Create PV/PVC",
+      "activateDisasterRecoveryVolume": "Activate Disaster Recovery Volume",
+      "allowSnapshotsRemovalDuringTrim": "Allow Snapshots Removal During Trim",
+      "updateReplicaSoftAntiAffinity": "Update Replica Soft Anti Affinity",
+      "updateReplicaZoneSoftAntiAffinity": "Update Replica Zone Soft Anti Affinity",
+      "updateReplicaDiskSoftAntiAffinity": "Update Replica Disk Soft Anti Affinity",
+      "trimFilesystem": "Trim Filesystem",
+      "updateFreezeFilesystemForSnapshot": "Update Freeze Filesystem For Snapshot",
+      "updateOfflineReplicaRebuilding": "Update Offline Replica Rebuilding",
+      "updateReplicaRebuildingBandwidthLimit": "Update Replica Rebuilding Bandwidth Limit",
+      "updateUblkNumberOfQueue": "Update UBLK Number of Queue",
+      "updateUblkQueueDepth": "Update UBLK Queue Depth"
+    }
+  },
+
+  "workloadDetailModal": {
+    "title": {
+      "backupCreated": "Workload/Pod Status When Backup Created",
+      "workloadPod": "Workload/Pod"
+    },
+    "fields": {
+      "createdTime": "Created Time",
+      "lastTimeUsedByPod": "Last time used by Pod",
+      "workloadName": "Workload Name",
+      "workloadType": "Workload Type",
+      "podName": "Pod Name",
+      "podStatus": "Pod Status"
+    },
+    "prefixes": {
+      "last": "Last"
+    }
+  },
+
+  "changeVolumeModal": {
+    "title": "Activate Disaster Recovery Volume",
+    "fields": {
+      "frontend": "Frontend"
+    },
+    "validation": {
+      "frontendRequired": "Please select a frontend"
+    }
+  },
+
+  "bulkCloneVolumeModal": {
+    "title": "Clone Volumes",
+    "defaultName": "cloned-{{volumeName}}",
+    "infoMessage": "Longhorn will auto attach the new volume, perform cloning from specified volume, and then detach it",
+    "applySuccess": "Successfully apply {{volumeName}} config to all other cloned volumes",
+    "applyTooltip": "Apply {{volumeName}} configuration to other cloned volumes, this action will overwrite your previous filled-in configurations",
+    "tabSwitchError": "Please correct the error fields before switching to another tab",
+    "applyAll": "Apply All",
+    "fields": {
+      "name": "Name",
+      "size": "Size",
+      "dataEngine": "Data Engine",
+      "cloneMode": "Clone Mode",
+      "numberOfReplicas": "Number of Replicas",
+      "frontend": "Frontend",
+      "dataLocality": "Data Locality",
+      "accessMode": "Access Mode",
+      "backingImage": "Backing Image",
+      "dataSource": "Data Source",
+      "backupTarget": "Backup Target",
+      "encrypted": "Encrypted",
+      "nodeTag": "Node Tag",
+      "diskTag": "Disk Tag"
+    },
+    "validation": {
+      "nameRequired": "Please input volume name",
+      "sizeRequired": "Please input volume size",
+      "sizeRange": "The value should be between 0 and 65535",
+      "sizeDecimal": "This value should have at most two decimal places",
+      "sizeMinMi": "The volume size must be greater than 10 Mi",
+      "sizeNoDecimalMi": "Decimals are not allowed",
+      "unitRequired": "Please select your unit!",
+      "v1EngineDisabled": "v1 data engine is not enabled",
+      "v2EngineDisabled": "v2 data engine is not enabled",
+      "replicasRequired": "Please input the number of replicas",
+      "replicasRange": "The value should be between 1 and 10",
+      "replicasInteger": "The value must be a positive integer",
+      "frontendRequired": "Please select a frontend"
+    }
+  },
+  "accessModes": {
+    "rwo": "ReadWriteOnce",
+    "rwop": "ReadWriteOncePod",
+    "rwx": "ReadWriteMany"
+  },
+
+  "bulkChangeVolumeModal": {
+    "title": "Activate Disaster Recovery Volume",
+    "fields": {
+      "selectedVolumes": "Selected Volume(s)",
+      "frontend": "Frontend"
+    },
+    "validation": {
+      "frontendRequired": "Please select a frontend"
+    }
+  },
+
+  "expansionVolumeSizeModal": {
+    "title": "Expand Volume",
+    "maintenanceModeWarning": "Longhorn will not expand the filesystem for the volume in maintenance mode. There is no available frontend for filesystem expansion",
+    "fields": {
+      "size": "Size"
+    },
+    "validation": {
+      "sizeRequired": "Please input volume size",
+      "sizeRange": "The value should be between 0 and 65535",
+      "sizeMustBeLarger": "Size should be larger than {{minSize}} {{unit}}",
+      "sizeMustBeMultipleOfMi": "Expansion volume size must be a multiple of Mi (1Gi = 1024Mi). e.g {{exampleSize}}",
+      "noDecimalsForMi": "Decimals are not allowed",
+      "unitRequired": "Please select your unit!"
+    }
+  },
+
+  "createVolume": {
+    "title": "Create Volume",
+    "dataSourceAlert": "The volume size is set to the selected volume size. Mismatched size will cause create volume failed.",
+    "created": "created",
+    "advancedConfigurations": "Advanced Configurations",
+    "fields": {
+      "name": "Name",
+      "size": "Size",
+      "dataEngine": "Data Engine",
+      "numberOfReplicas": "Number of Replicas",
+      "frontend": "Frontend",
+      "ublkNumberOfQueue": "UBLK Number of Queue",
+      "ublkQueueDepth": "UBLK Queue Depth",
+      "dataLocality": "Data Locality",
+      "accessMode": "Access Mode",
+      "backingImage": "Backing Image",
+      "dataSource": "Data Source",
+      "volume": "Volume",
+      "snapshot": "Snapshot",
+      "backupTarget": "Backup Target",
+      "encrypted": "Encrypted",
+      "nodeTag": "Node Tag",
+      "diskTag": "Disk Tag",
+      "backupBlockSize": "Backup Block Size",
+      "snapshotDataIntegrity": "Snapshot Data Integrity",
+      "snapshotMaxCount": "Snapshot Max Count",
+      "snapshotMaxSize": "Snapshot Max Size",
+      "replicasAutoBalance": "Replicas Auto Balance",
+      "allowSnapshotRemovalDuringTrim": "Allow Snapshot Removal During Trim",
+      "replicaSoftAntiAffinity": "Replica Soft Anti Affinity",
+      "replicaZoneSoftAntiAffinity": "Replica Zone Soft Anti Affinity",
+      "replicaDiskSoftAntiAffinity": "Replica Disk Soft Anti Affinity",
+      "freezeFilesystemForSnapshot": "Freeze Filesystem For Snapshot",
+      "offlineRebuilding": "Offline Replica Rebuilding",
+      "replicaRebuildingBandwidthLimit": "Replica Rebuilding Bandwidth Limit",
+      "disableRevisionCounter": "Disable Revision Counter"
+    },
+    "dataSourceOptions": {
+      "Volume": "Volume",
+      "VolumeSnapshot": "Volume Snapshot"
+    },
+    "validation": {
+      "nameRequired": "Please input volume name",
+      "sizeRequired": "Please input volume size",
+      "sizeRange": "The value should be between 0 and 65535",
+      "sizeDecimal": "This value should have at most two decimal places",
+      "sizeMinMi": "The volume size must be greater than 10 Mi",
+      "sizeNoDecimalMi": "Decimals are not allowed",
+      "unitRequired": "Please select your unit!",
+      "v1EngineDisabled": "v1 data engine is not enabled",
+      "v2EngineDisabled": "v2 data engine is not enabled",
+      "replicasRequired": "Please input the number of replicas",
+      "replicasRange": "The value should be between 1 and 10",
+      "replicasInteger": "The value must be a positive integer",
+      "frontendRequired": "Please select a frontend",
+      "ublkNumberOfQueueRequired": "Please input the UBLK number of the queue",
+      "ublkQueueDepthRequired": "Please input the UBLK queue depth"
+    },
+    "tooltips": {
+      "dataSource": "Choose data source from existing volume or snapshot. Longhorn will clone the volume data from selected data source",
+      "snapshotMaxCount": "Set '0' to inherit global settings",
+      "snapshotMaxSize": "Set '0' for unrestricted size or at least twice volume size",
+      "replicaRebuildingBandwidthLimit": "Set '0' to inherit global settings"
+    },
+    "options": {
+      "ignored": "ignored (follow the global setting)",
+      "disabled": "disabled",
+      "enabled": "enabled",
+      "leastEffort": "least-effort",
+      "bestEffort": "best-effort"
+    }
+  },
+
+  "customColumn": {
+    "title": "Custom Column"
+  },
+
+  "createPVAndPVC": {
+    "title": "Create PV/PVC",
+    "fields": {
+      "pvName": "PV Name",
+      "accessMode": "Access Mode",
+      "storageClassName": "Storage Class Name",
+      "fileSystem": "File System",
+      "createPVC": "Create PVC",
+      "usePreviousPVC": "Use Previous PVC",
+      "namespace": "Namespace",
+      "pvcName": "PVC Name",
+      "secretNamespace": "Secret Namespace",
+      "secretName": "Secret Name"
+    },
+    "placeholders": {
+      "volumeName": "<Volume Name>",
+      "volumeAccessMode": "<Volume Access Mode>"
+    },
+    "validation": {
+      "pvNameRequired": "Please input pvName",
+      "namespaceRequired": "Please input namespace",
+      "pvcNameRequired": "Please input pvcName"
+    },
+    "tooltips": {
+      "storageClassName": "If no value is provided, Longhorn will first utilize the storageClassName stored in the backup volume if the volume is being restored from a backup. Otherwise, Longhorn will use the storageClassName specified in the default setting."
+    },
+    "previousPVCMessage": "If volume has a default namespace, pvc uses this namespace, if not, it uses the newly entered namespace"
+  },
+
+  "attachHost": {
+    "title": "Attach to host",
+    "fields": {
+      "host": "Host",
+      "maintenance": "Maintenance"
+    },
+    "validation": {
+      "hostRequired": "Please select a host to attach"
+    },
+    "rwxWarning": "RWX volumes can only be manually attached in maintenance mode."
+  },
+
+  "detachHost": {
+    "title": "Are you sure you want to detach volume {{volumes}}?",
+    "fields": {
+      "forceDetach": "Force Detach"
+    },
+    "alerts": {
+      "csiAttacherWarning": "Forcing this volume to detach could break its connection to Kubernetes's VolumeAttachment resources. This could prevent your applications from attaching volumes correctly, potentially causing Pods to fail or leading to data loss.",
+      "runningPodWarning": "Detaching a Volume when it is being used by a running Kubernetes Pod will result in crashing of the Pod and possible loss of data. The Volume cannot be used by the Kubernetes again until the original Pod is deleted. Are you sure you want to detach the volume?"
+    }
+  },
+
+  "engineUpgrade": {
+    "title": "Upgrade Engine Image",
+    "fields": {
+      "engineImage": "Engine Image"
+    },
+    "validation": {
+      "imageRequired": "Please select an engine image to upgrade"
+    }
+  },
+
+  "cloneVolume": {
+    "title": {
+      "volume": "Clone Volume from {{volumeName}}",
+      "snapshot": "Clone Volume from {{volumeName}} snapshot {{snapshotName}}"
+    },
+    "defaultName": "cloned-{{volumeName}}",
+    "infoMessage": "Longhorn will auto attach the new volume, perform cloning from specified volume, and then detach it",
+    "fields": {
+      "name": "Name",
+      "size": "Size",
+      "dataEngine": "Data Engine",
+      "cloneMode": "Clone Mode",
+      "numberOfReplicas": "Number of Replicas",
+      "frontend": "Frontend",
+      "dataLocality": "Data Locality",
+      "accessMode": "Access Mode",
+      "backingImage": "Backing Image",
+      "dataSource": "Data Source",
+      "backupTarget": "Backup Target",
+      "encrypted": "Encrypted",
+      "nodeTag": "Node Tag",
+      "diskTag": "Disk Tag"
+    },
+    "validation": {
+      "nameRequired": "Please input volume name",
+      "sizeRequired": "Please input volume size",
+      "sizeRange": "The value should be between 0 and 65535",
+      "sizeDecimal": "This value should have at most two decimal places",
+      "sizeMinMi": "The volume size must be greater than 10 Mi",
+      "sizeNoDecimalMi": "Decimals are not allowed",
+      "unitRequired": "Please select your unit!",
+      "v1EngineDisabled": "v1 data engine is not enabled",
+      "v2EngineDisabled": "v2 data engine is not enabled",
+      "replicasRequired": "Please input the number of replicas",
+      "replicasRange": "The value should be between 1 and 10",
+      "replicasInteger": "The value must be a positive integer",
+      "frontendRequired": "Please select a frontend"
+    }
+  },
+
+  "salvage": {
+    "title": "Select one or more replicas to salvage",
+    "notAvailable": "N/A",
+    "host": "Host",
+    "failedAt": "Failed At",
+    "replicasSelected": "replicas selected",
+    "selectAtLeastOne": "Please select at least one replica."
+  },
+
+  "updateReplicaCount": {
+    "title": "Update Replicas Count",
+    "fields": {
+      "numberOfReplicas": "Number Of Replicas"
+    },
+    "validation": {
+      "replicasRequired": "Please input the number of replicas",
+      "replicasRange": "The value should be an integer between 1 and 20"
+    }
+  },
+
+  "updateBulkReplicaCount": {
+    "title": "Update Replicas Count",
+    "fields": {
+      "numberOfReplicas": "Number Of Replicas"
+    },
+    "validation": {
+      "replicasRequired": "Please input the number of replicas",
+      "replicasRange": "The value should be an integer between 1 and 20"
+    },
+    "placeholders": {
+      "various": "various"
+    }
+  },
+
+  "updateDataLocality": {
+    "title": "Update Data Locality",
+    "fields": {
+      "dataLocality": "Data Locality"
+    }
+  },
+
+  "updateSnapshotMaxCountModal": {
+    "title": "Update Snapshot Max Count",
+    "fields": {
+      "maxCount": "Max Count"
+    },
+    "validation": {
+      "snapshotMaxCountRequired": "Please input volume snapshotMaxCount"
+    }
+  },
+
+  "updateSnapshotMaxSizeModal": {
+    "title": "Update Snapshot Max Size",
+    "fields": {
+      "maxSize": "Max Size",
+      "unit": "Unit"
+    },
+    "validation": {
+      "snapshotMaxSizeRequired": "Please input volume snapshotMaxSize",
+      "unitRequired": "Please select a value!"
+    },
+    "placeholders": {
+      "selectUnit": "Select a value"
+    }
+  },
+
+  "updateBulkDataLocality": {
+    "title": "Update Data Locality",
+    "fields": {
+      "dataLocality": "Data Locality"
+    },
+    "validation": {
+      "cannotBeEmpty": "Can not be empty"
+    },
+    "placeholders": {
+      "various": "various"
+    }
+  },
+
+  "updateAccessMode": {
+    "title": "Update Access Mode",
+    "fields": {
+      "accessMode": "Access Mode"
+    }
+  },
+
+  "updateReplicaAutoBalanceModal": {
+    "title": "Update Replicas Auto Balance",
+    "fields": {
+      "replicasAutoBalance": "Replicas Auto Balance"
+    },
+    "options": {
+      "ignored": "ignored (follow the global setting)",
+      "disabled": "disabled",
+      "leastEffort": "least-effort",
+      "bestEffort": "best-effort"
+    }
+  },
+
+  "updateUnmapMarkSnapChainRemovedModal": {
+    "title": {
+      "allowSnapshotsRemoval": "Allow Snapshots Removal During Trim"
+    },
+    "form": {
+      "option": {
+        "label": "Option"
+      },
+      "warning": {
+        "message": "This action may override the global setting “Remove Snapshots During Filesystem Trim”"
+      }
+    }
+  },
+
+  "updateSnapshotDataIntegrityModal": {
+    "title": {
+      "snapshotDataIntegrity": "Snapshot Data Integrity"
+    },
+    "form": {
+      "option": {
+        "label": "Option"
+      },
+      "warning": {
+        "message": "This action may override the global setting “Snapshot Data Integrity”"
+      }
+    }
+  },
+
+  "updateFreezeFilesystemForSnapshotModal": {
+    "title": {
+      "updateFreezeFilesystemForSnapshot": "Update Freeze Filesystem For Snapshot"
+    },
+    "form": {
+      "option": {
+        "label": "Option"
+      },
+      "warning": {
+        "message": "This action may override the global setting “Freeze Filesystem For Snapshot”"
+      }
+    }
+  },
+
+  "createBackupModal": {
+    "title": {
+      "createBackup": "Create Backup"
+    },
+    "warning": {
+      "createBackupMessage": "Create backup action could take a while depending on the actual size of the volume and network bandwidth."
+    },
+    "form": {
+      "fullBackup": {
+        "label": "Full Backup"
+      }
+    }
+  },
+
+  "updateBackupTargetModal": {
+    "title": {
+      "updateBackupTarget": "Update Backup Target"
+    },
+    "form": {
+      "backupTarget": {
+        "label": "BackupTarget"
+      }
+    }
+  },
+
+  "updateReplicaRebuildingBandwidthLimitModal": {
+    "title": {
+      "updateReplicaRebuildingBandwidthLimit": "Update Replica Rebuilding Bandwidth Limit"
+    },
+    "form": {
+      "replicaRebuildingBandwidthLimit": {
+        "label": "Replica Rebuilding Bandwidth Limit",
+        "placeholder": "various",
+        "validationMessage": "Please input the number of limit"
+      }
+    }
+  },
+
+  "updateUblkParamsModal": {
+    "title": {
+      "updateField": "Update {{fieldLabel}}"
+    },
+    "fields": {
+      "ublkNumberOfQueue": {
+        "label": "UBLK Number of Queues",
+        "requiredMessage": "Please input the UBLK number of queues"
+      },
+      "ublkQueueDepth": {
+        "label": "UBLK Queue Depth",
+        "requiredMessage": "Please input the UBLK queue depth"
+      }
+    }
   }
+
 }
