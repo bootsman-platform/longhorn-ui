@@ -17,6 +17,8 @@
     "no": "No",
     "delete": "Delete",
     "updateField": "Update {{fieldName}}",
+    "edit": "Edit",
+    "create": "Create",
 
     "validation": {
       "required": "required field",
@@ -43,7 +45,29 @@
     "lastBackupAt": "Last Backup At",
     "operation": "Operation",
     "status": "Status",
-    "replicas": "Replicas"
+    "replicas": "Replicas",
+    "type": "Type",
+    "retain": "Retain",
+    "concurrency": "Concurrency",
+    "parameters": "Parameters",
+    "labels": "Labels",
+    "groups": "Groups",
+    "backupTarget": "Backup Target",
+    "createdAt": "Created At",
+    "workloadPod": "Workload/Pod",
+    "id": "ID",
+    "volume": "Volume",
+    "creationState": "Creation State",
+    "backupMode": "Backup Mode",
+    "backupModeDefault": "incremental",
+    "backupBlockSize": "Backup Block Size",
+    "backupBlockSizeError": "Error",
+    "snapshotName": "Snapshot Name",
+    "reUploadedDataSize": "Re-Uploaded Data Size",
+    "newlyUploadedDataSize": "Newly Uploaded Data Size",
+    "snapshotCreated": "Snapshot Created",
+    "url": "URL",
+    "createdTime": "Created Time"
   },
 
   "menu": {
@@ -957,6 +981,516 @@
       "ublkQueueDepth": {
         "label": "UBLK Queue Depth",
         "requiredMessage": "Please input the UBLK queue depth"
+      }
+    }
+  },
+
+  "recurringJob": {
+    "filter": {
+      "fieldOptions": {
+        "name": "Name",
+        "groups": "Group",
+        "label": "Label",
+        "type": "Type"
+      }
+    },
+    "button": {
+      "createRecurringJob": "Create Recurring Job"
+    }
+  },
+
+  "recurringJobActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete Recurring Job {{recurringJobName}}?",
+        "description": "If the recurring job {{recurringJobName}} is the last one of a job group, Longhorn will remove the group from all volumes automatically."
+      }
+    }
+  },
+
+  "recurringJobBulkActions": {
+    "modal": {
+      "delete": {
+        "description": "If one of the recurring job ({{recurringJobNames}}) is the last one of a job group, Longhorn will remove the group from all volumes automatically."
+      }
+    }
+  },
+
+  "createRecurringJob": {
+    "modal": {
+      "title": "{{action}} Recurring Job"
+    },
+    "actions": {
+      "create": "Create",
+      "edit": "Edit"
+    },
+    "form": {
+      "name": {
+        "validationMessage": "Please input Recurring Job name"
+      },
+      "task": {
+        "label": "Task",
+        "options": {
+          "backup": "Backup",
+          "snapshot": "Snapshot",
+          "snapshotDelete": "Snapshot Delete",
+          "snapshotCleanup": "Snapshot Cleanup",
+          "systemBackup": "System Backup",
+          "filesystemTrim": "Filesystem Trim"
+        }
+      },
+      "forceCreate": {
+        "label": "Force Create",
+        "tooltip": "Create {{backupOrSnapshot}} periodically, even if expired {{backupOrSnapshot}} cannot be cleaned up.",
+        "backupPlural": "backups",
+        "snapshotPlural": "snapshots"
+      },
+      "retain": {
+        "label": "Retain"
+      },
+      "concurrency": {
+        "label": "Concurrency"
+      },
+      "cron": {
+        "label": "Cron",
+        "validationMessage": "Please edit cron expressions",
+        "editButton": "Edit"
+      },
+      "parameters": {
+        "label": "Parameters",
+        "valueValidationMessage": "Value is required"
+      },
+      "groups": {
+        "label": "Groups",
+        "placeholder": "Group name",
+        "validationMessage": "Please input Group Name",
+        "addGroupButton": "Add Group",
+        "addDefaultGroupButton": "Add to default group",
+        "defaultGroupTooltip": "Volume with no recurring jobs or groups will automatically apply to the recurring jobs in the default group."
+      },
+      "labels": {
+        "label": "Labels",
+        "keyPlaceholder": "key",
+        "valuePlaceholder": "value",
+        "addLabelButton": "Add Label"
+      }
+    }
+  },
+
+  "backup": {
+    "tabs": {
+      "volume": "Volume",
+      "backingImage": "Backing Image"
+    }
+  },
+
+  "backupVolume": {
+    "modal": {
+      "deleteAllBackups": {
+        "title": "Are you sure delete all the backups?",
+        "content": "If there is backup restore process in progress using the backups of this volume (including DR volumes), deleting the backup volume will result in restore failure and the volume in the restore process will become FAULTED. Are you sure you want to delete this backup volume?"
+      }
+    },
+    "backingImageInfo": {
+      "title": "Backing Image Info",
+      "backingImageName": "Backing Image Name",
+      "backingImageChecksum": "Backing Image Checksum"
+    },
+    "filter": {
+      "fieldOptions": {
+        "backupTargetName": "Backup Target"
+      }
+    }
+  },
+
+  "backupBackingImage": {
+    "filter": {
+      "fieldOptions": {
+        "state": "State",
+        "url": "URL",
+        "backupTargetName": "Backup Target"
+      }
+    }
+  },
+
+  "backupVolumeList": {
+    "tooltips": {
+      "pvName": "PV Name",
+      "pvStatus": "PV Status",
+      "lastTimeBoundWithPVC": "Last time bound with PVC",
+      "lastBounded": "Last Bounded",
+      "pvcName": "PVC Name",
+      "lastTimeUsed": "Last time used"
+    },
+    "pvStatuses": {
+      "available": "Available",
+      "bound": "Bound",
+      "released": "Released"
+    },
+    "operationOptions": {
+      "createDisasterRecoveryVolume": "Create Disaster Recovery Volume",
+      "restoreLatestBackup": "Restore Latest Backup",
+      "syncBackupVolume": "Sync Backup Volume",
+      "deleteAllBackups": "Delete All Backups",
+      "backingImageInfo": "Backing Image Info",
+      "noBackingImageTooltip": "No backing image is used"
+    },
+    "table": {
+      "noVolumeSelected": "Please select a volume first"
+    }
+  },
+
+  "backupBulkActions": {
+    "actions": {
+      "restoreLatestBackup": "Restore Latest Backup",
+      "bulkCreateDisasterRecoveryVolume": "Create Disaster Recovery Volume",
+      "syncAllBackupVolumes": "Sync All Backup Volumes"
+    }
+  },
+
+  "restoreBackupModal": {
+    "modal": {
+      "title": "Restore Backup {{backupName}}"
+    },
+    "warning": {
+      "sameNameMessage": "The restore volume name ({{volumeName}}) is the same as that of this backup volume, by which the backups created after restoration reside in this backup volume as well."
+    },
+    "form": {
+      "name": {
+        "validationMessage": "Volume name is required"
+      },
+      "usePreviousName": {
+        "label": "Use Previous Name"
+      },
+      "dataEngine": {
+        "label": "Data Engine",
+        "validationMessage": "Please select the data engine",
+        "v1NotEnabled": "v1 data engine is not enabled",
+        "v2NotEnabled": "v2 data engine is not enabled"
+      },
+      "numberOfReplicas": {
+        "label": "Number of Replicas",
+        "validationMessage": "Please input the number of replicas"
+      },
+      "accessMode": {
+        "label": "Access Mode",
+        "options": {
+          "readWriteOnce": "ReadWriteOnce",
+          "readWriteOncePod": "ReadWriteOncePod",
+          "readWriteMany": "ReadWriteMany"
+        }
+      },
+      "backingImage": {
+        "label": "Backing Image"
+      },
+      "encrypted": {
+        "label": "Encrypted"
+      },
+      "restoreVolumeRecurringJob": {
+        "label": "Restore Volume Recurring Job",
+        "options": {
+          "enabled": "Enabled",
+          "disabled": "Disabled",
+          "ignored": "Ignored (follow the global setting)"
+        }
+      },
+      "nodeTag": {
+        "label": "Node Tag"
+      },
+      "diskTag": {
+        "label": "Disk Tag"
+      },
+      "backupBlockSize": {
+        "label": "Backup Block Size",
+        "options": {
+          "ignored": "Ignored (follow the global setting)"
+        }
+      }
+    }
+  },
+
+  "bulkRestoreBackupModal": {
+    "modal": {
+      "title": "Restore Multiple Latest Backups"
+    },
+    "messages": {
+      "applyAllSuccess": "Successfully apply {{volumeName}} config to all other restore volumes",
+      "correctErrorsBeforeSwitch": "Please correct the error fields before switching to another tab"
+    },
+    "warning": {
+      "sameNameMessage": "1. If there is another volume with the same name ({{volumeName}}), the restore action will fail.\n2. The restore volume name ({{volumeName}}) is the same as this backup volume, by which the backups created after restoration reside in this backup volume as well."
+    },
+    "tooltips": {
+      "applyAll": "Apply this {{volumeName}} config to all the other restore volumes, this action will overwrite your previous filled in configs"
+    },
+    "buttons": {
+      "applyAll": "Apply All"
+    },
+    "form": {
+      "volumeName": {
+        "label": "Volume Name",
+        "validationMessage": "Volume name is required"
+      },
+      "dataEngine": {
+        "label": "Data Engine",
+        "validationMessage": "Please select the data engine",
+        "v1NotEnabled": "v1 data engine is not enabled",
+        "v2NotEnabled": "v2 data engine is not enabled"
+      },
+      "numberOfReplicas": {
+        "label": "Number of Replicas",
+        "validationMessage": "Please input the number of replicas"
+      },
+      "accessMode": {
+        "label": "Access Mode",
+        "options": {
+          "readWriteOnce": "ReadWriteOnce",
+          "readWriteOncePod": "ReadWriteOncePod",
+          "readWriteMany": "ReadWriteMany"
+        }
+      },
+      "latestBackup": {
+        "label": "Latest Backup"
+      },
+      "backingImage": {
+        "label": "Backing Image"
+      },
+      "encrypted": {
+        "label": "Encrypted"
+      },
+      "restoreVolumeRecurringJob": {
+        "label": "Restore Volume Recurring Job",
+        "options": {
+          "enabled": "Enabled",
+          "disabled": "Disabled",
+          "ignored": "Ignored (follow the global setting)"
+        }
+      },
+      "nodeTag": {
+        "label": "Node Tag"
+      },
+      "diskTag": {
+        "label": "Disk Tag"
+      },
+      "backupBlockSize": {
+        "label": "Backup Block Size",
+        "options": {
+          "ignored": "Ignored (follow the global setting)"
+        }
+      }
+    }
+  },
+
+  "createStandbyVolumeModal": {
+    "modal": {
+      "title": "Create Disaster Recovery Volume"
+    },
+    "warning": {
+      "sameNameMessage": "The DR volume name ({{volumeName}}) is the same as that of this backup volume, by which the backups created after restoration reside in this backup volume as well."
+    },
+    "form": {
+      "name": {
+        "validationMessage": "Volume name is required"
+      },
+      "size": {
+        "label": "Size",
+        "validationMessage": "Please input volume size",
+        "validator": {
+          "between": "The value should be between 1 and 65535",
+          "decimalPlaces": "This value should have at most two decimal places"
+        }
+      },
+      "dataEngine": {
+        "label": "Data Engine",
+        "validationMessage": "Please select the data engine",
+        "v1NotEnabled": "v1 data engine is not enabled",
+        "v2NotEnabled": "v2 data engine is not enabled"
+      },
+      "numberOfReplicas": {
+        "label": "Number of Replicas",
+        "validationMessage": "Please input the number of replicas",
+        "validator": {
+          "between": "The value should be between 1 and 10",
+          "positiveInteger": "The value must be a positive integer"
+        }
+      },
+      "accessMode": {
+        "label": "Access Mode",
+        "options": {
+          "readWriteOnce": "ReadWriteOnce",
+          "readWriteOncePod": "ReadWriteOncePod",
+          "readWriteMany": "ReadWriteMany"
+        }
+      },
+      "backingImage": {
+        "label": "Backing Image"
+      },
+      "encrypted": {
+        "label": "Encrypted"
+      },
+      "nodeTag": {
+        "label": "Node Tag"
+      },
+      "diskTag": {
+        "label": "Disk Tag"
+      },
+      "backupBlockSize": {
+        "label": "Backup Block Size",
+        "options": {
+          "ignored": "Ignored (follow the global setting)"
+        }
+      },
+      "backupUrl": {
+        "label": "Backup Url",
+        "validationMessage": "Please input Backup Url"
+      }
+    }
+  },
+
+  "bulkCreateStandbyVolumeModal": {
+    "modal": {
+      "title": "Create Multiple Disaster Recovery Volumes"
+    },
+    "messages": {
+      "applyAllSuccess": "Successfully apply {{volumeName}} config to all other disaster recovery volumes",
+      "correctErrorsBeforeSwitch": "Please correct the error fields before switching to another tab"
+    },
+    "warning": {
+      "sameNameMessage": "If there is another volume with the same name ({{volumeName}}), the create DR volume will fail."
+    },
+    "tooltips": {
+      "applyAll": "Apply this {{volumeName}} config to all the other disaster recovery volumes, this action will overwrite your previous filled in configs"
+    },
+    "buttons": {
+      "applyAll": "Apply All"
+    },
+    "form": {
+      "volumeName": {
+        "label": "Volume Name"
+      }
+    }
+  },
+
+  "backupDetail": {
+    "modal": {
+      "deleteAllBackups": {
+        "title": "Are you sure delete all the backups?",
+        "content": "If there is backup restore process in progress using the backups of this volume (including DR volumes), deleting the backup volume will result in restore failure and the volume in the restore process will become FAULTED. Are you sure you want to delete this backup volume?"
+      }
+    },
+    "dropdown": {
+      "createDisasterRecoveryVolume": "Create Disaster Recovery Volume",
+      "deleteAllBackups": "Delete All Backups"
+    }
+  },
+
+  "showBackupLabels": {
+    "descriptions": {
+      "backupLabels": {
+        "title": "Backup Labels"
+      },
+      "kubernetesStatus": {
+        "title": "Kubernetes Status When Backup Created",
+        "createdTime": "Created Time",
+        "namespace": "Namespace",
+        "pvName": "PV Name",
+        "pvcName": "PVC Name",
+        "pvStatus": "PV Status",
+        "workloadsStatus": "Workloads Status",
+        "podName": "Pod Name",
+        "workloadName": "Workload Name",
+        "workloadType": "Workload Type",
+        "podStatus": "Pod Status"
+      }
+    }
+  },
+
+  "backupList": {
+    "backupUrl": {
+      "title": "Backup URL",
+      "copySuccess": "Copied",
+      "copyFailed": "Copy failed"
+    },
+    "copySuccess": "Copied",
+    "copyFailed": "Copy failed",
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete backup {{backupName}} ?",
+        "content": "If there is backup restore process in progress using this backup (including DR volumes), deleting the backup will result in restore failure and volume in the restore process will become FAULTED. Are you sure you want to delete this backup?"
+      }
+    },
+    "tooltips": {
+      "pvName": "PV Name",
+      "pvStatus": "PV Status",
+      "lastTimeBoundWithPVC": "Last time bound with PVC",
+      "lastBounded": "Last Bounded",
+      "pvcName": "PVC Name",
+      "lastTimeUsed": "Last time used"
+    },
+    "pvStatuses": {
+      "available": "Available",
+      "bound": "Bound",
+      "released": "Released"
+    },
+    "operationOptions": {
+      "delete": "Delete",
+      "restore": "Restore",
+      "getUrl": "Get URL"
+    },
+    "table": {
+      "emptyText": "No Data",
+      "noVolumeSelected": "Please select a volume first"
+    }
+  },
+
+  "backupBackingImageList": {
+    "copySuccess": "Copied",
+    "copyFailed": "Copy failed",
+    "tooltips": {
+      "encryptedBackingImage": "Encrypted Backing Image Backup"
+    }
+  },
+
+  "backupBackingImageActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete <strong>{{backupName}}</strong> backing image backup?"
+      }
+    },
+    "actions": {
+      "restore": "Restore",
+      "restoreTooltip": "Only complete state backup can be restored"
+    }
+  },
+
+  "backupBackingImageBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure to delete below {{count}} backup backing {{imageText}}?",
+        "imageText": "image",
+        "imageText_plural": "images"
+      }
+    }
+  },
+
+  "restoreBackupBackingImageModal": {
+    "modal": {
+      "title": "Restore Backing Image"
+    },
+    "form": {
+      "backup": {
+        "label": "Backup"
+      },
+      "secret": {
+        "label": "Secret"
+      },
+      "secretNamespace": {
+        "label": "Secret Namespace"
+      },
+      "dataEngine": {
+        "label": "Data Engine",
+        "v1NotEnabled": "v1 data engine is not enabled",
+        "v2NotEnabled": "v2 data engine is not enabled"
       }
     }
   }

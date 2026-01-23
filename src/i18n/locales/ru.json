@@ -17,6 +17,8 @@
     "no": "Нет",
     "delete": "Удалить",
     "updateField": "Обновить {{fieldName}}",
+    "edit": "Редактировать",
+    "create": "Создать",
 
     "validation": {
       "required": "обязательное поле",
@@ -41,8 +43,30 @@
     "offlineRebuilding": "Восстановление реплик в автономном режиме",
     "replicaRebuildingBandwidthLimit": "Ограничение пропускной способности восстановления реплик",
     "lastBackupAt": "Последнее резервное копирование",
-    "operation": "Операции",
-    "status": "Статус"
+    "operation": "Операция",
+    "status": "Статус",
+    "type": "Тип",
+    "retain": "Хранить",
+    "concurrency": "Параллелизм",
+    "parameters": "Параметры",
+    "labels": "Метки",
+    "groups": "Группы",
+    "backupTarget": "Цель резервного копирования",
+    "createdAt": "Создано",
+    "workloadPod": "Workload/Pod",
+    "id": "ID",
+    "volume": "Том",
+    "creationState": "Состояние создания",
+    "backupMode": "Режим резервного копирования",
+    "backupModeDefault": "инкрементальный",
+    "backupBlockSize": "Размер блока резервной копии",
+    "backupBlockSizeError": "Ошибка",
+    "snapshotName": "Имя снимка",
+    "reUploadedDataSize": "Повторно загруженный размер данных",
+    "newlyUploadedDataSize": "Недавно загруженный размер данных",
+    "snapshotCreated": "Снимок создан",
+    "url": "URL",
+    "createdTime": "Время создания"
   },
 
   "menu": {
@@ -973,6 +997,512 @@
       "ublkQueueDepth": {
         "label": "Глубина очереди UBLK",
         "requiredMessage": "Пожалуйста, введите глубину очереди UBLK"
+      }
+    }
+  },
+
+  "recurringJob": {
+    "filter": {
+      "fieldOptions": {
+        "name": "Имя",
+        "groups": "Группа",
+        "label": "Метка",
+        "type": "Тип"
+      }
+    },
+    "button": {
+      "createRecurringJob": "Создать повторяющуюся задачу"
+    }
+  },
+
+  "recurringJobActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить повторяющуюся задачу {{recurringJobName}}?",
+        "description": "Если повторяющаяся задача {{recurringJobName}} является последней в группе заданий, Longhorn автоматически удалит группу со всех томов."
+      }
+    }
+  },
+
+  "recurringJobBulkActions": {
+    "modal": {
+      "delete": {
+        "description": "Если одна из повторяющихся задач ({{recurringJobNames}}) является последней в группе заданий, Longhorn автоматически удалит группу со всех томов."
+      }
+    }
+  },
+
+  "createRecurringJob": {
+    "modal": {
+      "title": "{{action}} повторяющуюся задачу"
+    },
+    "form": {
+      "name": {
+        "validationMessage": "Пожалуйста, введите имя повторяющейся задачи"
+      },
+      "task": {
+        "label": "Задача",
+        "options": {
+          "backup": "Резервное копирование",
+          "snapshot": "Снимок",
+          "snapshotDelete": "Удаление снимка",
+          "snapshotCleanup": "Очистка снимков",
+          "systemBackup": "Системное резервное копирование",
+          "filesystemTrim": "Обрезка файловой системы"
+        }
+      },
+      "forceCreate": {
+        "label": "Принудительное создание",
+        "tooltip": "Создавать {{backupOrSnapshot}} периодически, даже если просроченные {{backupOrSnapshot}} не могут быть очищены.",
+        "backupPlural": "резервные копии",
+        "snapshotPlural": "снимки"
+      },
+      "retain": {
+        "label": "Хранить"
+      },
+      "concurrency": {
+        "label": "Параллелизм"
+      },
+      "cron": {
+        "label": "Cron",
+        "validationMessage": "Пожалуйста, отредактируйте выражение cron",
+        "editButton": "Редактировать"
+      },
+      "parameters": {
+        "label": "Параметры",
+        "valueValidationMessage": "Требуется значение"
+      },
+      "groups": {
+        "label": "Группы",
+        "placeholder": "Имя группы",
+        "validationMessage": "Пожалуйста, введите имя группы",
+        "addGroupButton": "Добавить группу",
+        "addDefaultGroupButton": "Добавить в группу по умолчанию",
+        "defaultGroupTooltip": "Тома без повторяющихся задач или групп автоматически применяют повторяющиеся задачи из группы по умолчанию."
+      },
+      "labels": {
+        "label": "Метки",
+        "keyPlaceholder": "ключ",
+        "valuePlaceholder": "значение",
+        "addLabelButton": "Добавить метку"
+      }
+    }
+  },
+
+  "backup": {
+    "tabs": {
+      "volume": "Том",
+      "backingImage": "Базовый образ"
+    }
+  },
+
+  "backupVolume": {
+    "modal": {
+      "deleteAllBackups": {
+        "title": "Вы уверены, что хотите удалить все резервные копии?",
+        "content": "Если в процессе восстановления используются резервные копии этого тома (включая тома аварийного восстановления), удаление тома резервных копий приведет к сбою восстановления, и том в процессе восстановления перейдет в состояние FAULTED. Вы уверены, что хотите удалить этот том резервных копий?"
+      }
+    },
+    "backingImageInfo": {
+      "title": "Информация о базовом образе",
+      "backingImageName": "Имя базового образа",
+      "backingImageChecksum": "Контрольная сумма базового образа"
+    },
+    "filter": {
+      "fieldOptions": {
+        "backupTargetName": "Цель резервного копирования"
+      }
+    }
+  },
+
+  "backupBackingImage": {
+    "filter": {
+      "fieldOptions": {
+        "state": "Состояние",
+        "url": "URL",
+        "backupTargetName": "Цель резервного копирования"
+      }
+    }
+  },
+
+  "backupVolumeList": {
+    "tooltips": {
+      "pvName": "Имя PV",
+      "pvStatus": "Статус PV",
+      "lastTimeBoundWithPVC": "Последнее время связывания с PVC",
+      "lastBounded": "Последнее связанное",
+      "pvcName": "Имя PVC",
+      "lastTimeUsed": "Последнее время использования"
+    },
+    "pvStatuses": {
+      "available": "Доступно",
+      "bound": "Связано",
+      "released": "Освобождено"
+    },
+    "operationOptions": {
+      "createDisasterRecoveryVolume": "Создать том аварийного восстановления",
+      "restoreLatestBackup": "Восстановить последнюю резервную копию",
+      "syncBackupVolume": "Синхронизировать том резервных копий",
+      "deleteAllBackups": "Удалить все резервные копии",
+      "backingImageInfo": "Информация о базовом образе",
+      "noBackingImageTooltip": "Базовый образ не используется"
+    },
+    "table": {
+      "noVolumeSelected": "Пожалуйста, сначала выберите том"
+    }
+  },
+
+  "backupBulkActions": {
+    "actions": {
+      "restoreLatestBackup": "Восстановить последнюю резервную копию",
+      "bulkCreateDisasterRecoveryVolume": "Создать том аварийного восстановления",
+      "syncAllBackupVolumes": "Синхронизировать все тома резервных копий"
+    }
+  },
+
+  "restoreBackupModal": {
+    "modal": {
+      "title": "Восстановить резервную копию {{backupName}}"
+    },
+    "warning": {
+      "sameNameMessage": "Имя восстанавливаемого тома ({{volumeName}}) совпадает с именем этого тома резервных копий, поэтому резервные копии, созданные после восстановления, также будут находиться в этом томе резервных копий."
+    },
+    "form": {
+      "name": {
+        "validationMessage": "Имя тома обязательно"
+      },
+      "usePreviousName": {
+        "label": "Использовать предыдущее имя"
+      },
+      "dataEngine": {
+        "label": "Движок данных",
+        "validationMessage": "Пожалуйста, выберите движок данных",
+        "v1NotEnabled": "Движок данных v1 не включен",
+        "v2NotEnabled": "Движок данных v2 не включен"
+      },
+      "numberOfReplicas": {
+        "label": "Количество реплик",
+        "validationMessage": "Пожалуйста, введите количество реплик"
+      },
+      "accessMode": {
+        "label": "Режим доступа",
+        "options": {
+          "readWriteOnce": "ReadWriteOnce",
+          "readWriteOncePod": "ReadWriteOncePod",
+          "readWriteMany": "ReadWriteMany"
+        }
+      },
+      "backingImage": {
+        "label": "Базовый образ"
+      },
+      "encrypted": {
+        "label": "Зашифровано"
+      },
+      "restoreVolumeRecurringJob": {
+        "label": "Повторяющаяся задача для восстанавливаемого тома",
+        "options": {
+          "enabled": "Включено",
+          "disabled": "Отключено",
+          "ignored": "Игнорировать (следовать глобальной настройке)"
+        }
+      },
+      "nodeTag": {
+        "label": "Тег узла"
+      },
+      "diskTag": {
+        "label": "Тег диска"
+      },
+      "backupBlockSize": {
+        "label": "Размер блока резервной копии",
+        "options": {
+          "ignored": "Игнорировать (следовать глобальной настройке)"
+        }
+      }
+    }
+  },
+
+  "bulkRestoreBackupModal": {
+    "modal": {
+      "title": "Восстановить несколько последних резервных копий"
+    },
+    "messages": {
+      "applyAllSuccess": "Конфигурация {{volumeName}} успешно применена ко всем остальным восстанавливаемым томам",
+      "correctErrorsBeforeSwitch": "Пожалуйста, исправьте поля с ошибками перед переключением на другую вкладку"
+    },
+    "warning": {
+      "sameNameMessage": "1. Если существует другой том с таким же именем ({{volumeName}}), восстановление не удастся.\n2. Имя восстанавливаемого тома ({{volumeName}}) совпадает с именем этого тома резервных копий, поэтому резервные копии, созданные после восстановления, также будут находиться в этом томе резервных копий."
+    },
+    "tooltips": {
+      "applyAll": "Применить эту конфигурацию {{volumeName}} ко всем остальным восстанавливаемым томам, это действие перезапишет ваши предыдущие заполненные конфигурации"
+    },
+    "buttons": {
+      "applyAll": "Применить ко всем"
+    },
+    "form": {
+      "volumeName": {
+        "label": "Имя тома",
+        "validationMessage": "Имя тома обязательно"
+      },
+      "dataEngine": {
+        "label": "Движок данных",
+        "validationMessage": "Пожалуйста, выберите движок данных",
+        "v1NotEnabled": "Движок данных v1 не включен",
+        "v2NotEnabled": "Движок данных v2 не включен"
+      },
+      "numberOfReplicas": {
+        "label": "Количество реплик",
+        "validationMessage": "Пожалуйста, введите количество реплик"
+      },
+      "accessMode": {
+        "label": "Режим доступа",
+        "options": {
+          "readWriteOnce": "ReadWriteOnce",
+          "readWriteOncePod": "ReadWriteOncePod",
+          "readWriteMany": "ReadWriteMany"
+        }
+      },
+      "latestBackup": {
+        "label": "Последняя резервная копия"
+      },
+      "backingImage": {
+        "label": "Базовый образ"
+      },
+      "encrypted": {
+        "label": "Зашифровано"
+      },
+      "restoreVolumeRecurringJob": {
+        "label": "Повторяющаяся задача для восстанавливаемого тома",
+        "options": {
+          "enabled": "Включено",
+          "disabled": "Отключено",
+          "ignored": "Игнорировать (следовать глобальной настройке)"
+        }
+      },
+      "nodeTag": {
+        "label": "Тег узла"
+      },
+      "diskTag": {
+        "label": "Тег диска"
+      },
+      "backupBlockSize": {
+        "label": "Размер блока резервной копии",
+        "options": {
+          "ignored": "Игнорировать (следовать глобальной настройке)"
+        }
+      }
+    }
+  },
+
+  "createStandbyVolumeModal": {
+    "modal": {
+      "title": "Создать том аварийного восстановления"
+    },
+    "warning": {
+      "sameNameMessage": "Имя тома аварийного восстановления ({{volumeName}}) совпадает с именем этого тома резервных копий, поэтому резервные копии, созданные после восстановления, также будут находиться в этом томе резервных копий."
+    },
+    "form": {
+      "name": {
+        "validationMessage": "Имя тома обязательно"
+      },
+      "size": {
+        "label": "Размер",
+        "validationMessage": "Пожалуйста, введите размер тома",
+        "validator": {
+          "between": "Значение должно быть между 1 и 65535",
+          "decimalPlaces": "Это значение должно иметь не более двух знаков после запятой"
+        }
+      },
+      "dataEngine": {
+        "label": "Движок данных",
+        "validationMessage": "Пожалуйста, выберите движок данных",
+        "v1NotEnabled": "Движок данных v1 не включен",
+        "v2NotEnabled": "Движок данных v2 не включен"
+      },
+      "numberOfReplicas": {
+        "label": "Количество реплик",
+        "validationMessage": "Пожалуйста, введите количество реплик",
+        "validator": {
+          "between": "Значение должно быть между 1 и 10",
+          "positiveInteger": "Значение должно быть положительным целым числом"
+        }
+      },
+      "accessMode": {
+        "label": "Режим доступа",
+        "options": {
+          "readWriteOnce": "ReadWriteOnce",
+          "readWriteOncePod": "ReadWriteOncePod",
+          "readWriteMany": "ReadWriteMany"
+        }
+      },
+      "backingImage": {
+        "label": "Базовый образ"
+      },
+      "encrypted": {
+        "label": "Зашифровано"
+      },
+      "nodeTag": {
+        "label": "Тег узла"
+      },
+      "diskTag": {
+        "label": "Тег диска"
+      },
+      "backupBlockSize": {
+        "label": "Размер блока резервной копии",
+        "options": {
+          "ignored": "Игнорировать (следовать глобальной настройке)"
+        }
+      },
+      "backupUrl": {
+        "label": "URL резервной копии",
+        "validationMessage": "Пожалуйста, введите URL резервной копии"
+      }
+    }
+  },
+
+  "bulkCreateStandbyVolumeModal": {
+    "modal": {
+      "title": "Создать несколько томов аварийного восстановления"
+    },
+    "messages": {
+      "applyAllSuccess": "Конфигурация {{volumeName}} успешно применена ко всем остальным томам аварийного восстановления",
+      "correctErrorsBeforeSwitch": "Пожалуйста, исправьте поля с ошибками перед переключением на другую вкладку"
+    },
+    "warning": {
+      "sameNameMessage": "Если существует другой том с таким же именем ({{volumeName}}), создание тома аварийного восстановления не удастся."
+    },
+    "tooltips": {
+      "applyAll": "Применить эту конфигурацию {{volumeName}} ко всем остальным томам аварийного восстановления, это действие перезапишет ваши предыдущие заполненные конфигурации"
+    },
+    "buttons": {
+      "applyAll": "Применить ко всем"
+    },
+    "form": {
+      "volumeName": {
+        "label": "Имя тома"
+      }
+    }
+  },
+
+  "backupDetail": {
+    "modal": {
+      "deleteAllBackups": {
+        "title": "Вы уверены, что хотите удалить все резервные копии?",
+        "content": "Если в процессе восстановления используются резервные копии этого тома (включая тома аварийного восстановления), удаление тома резервных копий приведет к сбою восстановления, и том в процессе восстановления перейдет в состояние FAULTED. Вы уверены, что хотите удалить этот том резервных копий?"
+      }
+    },
+    "dropdown": {
+      "createDisasterRecoveryVolume": "Создать том аварийного восстановления",
+      "deleteAllBackups": "Удалить все резервные копии"
+    }
+  },
+
+  "showBackupLabels": {
+    "descriptions": {
+      "backupLabels": {
+        "title": "Метки резервной копии"
+      },
+      "kubernetesStatus": {
+        "title": "Статус Kubernetes при создании резервной копии",
+        "createdTime": "Время создания",
+        "namespace": "Пространство имен",
+        "pvName": "Имя PV",
+        "pvcName": "Имя PVC",
+        "pvStatus": "Статус PV",
+        "workloadsStatus": "Статус Workload",
+        "podName": "Имя Pod",
+        "workloadName": "Имя Workload",
+        "workloadType": "Тип Workload",
+        "podStatus": "Статус Pod"
+      }
+    }
+  },
+
+  "backupList": {
+    "backupUrl": {
+      "title": "URL резервной копии",
+      "copySuccess": "Скопировано",
+      "copyFailed": "Не удалось скопировать"
+    },
+    "copySuccess": "Скопировано",
+    "copyFailed": "Не удалось скопировать",
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить резервную копию {{backupName}}?",
+        "content": "Если в процессе восстановления используется эта резервная копия (включая тома аварийного восстановления), удаление резервной копии приведет к сбою восстановления, и том в процессе восстановления перейдет в состояние FAULTED. Вы уверены, что хотите удалить эту резервную копию?"
+      }
+    },
+    "tooltips": {
+      "pvName": "Имя PV",
+      "pvStatus": "Статус PV",
+      "lastTimeBoundWithPVC": "Последнее время связывания с PVC",
+      "lastBounded": "Последнее связанное",
+      "pvcName": "Имя PVC",
+      "lastTimeUsed": "Последнее время использования"
+    },
+    "pvStatuses": {
+      "available": "Доступно",
+      "bound": "Связано",
+      "released": "Освобождено"
+    },
+    "operationOptions": {
+      "delete": "Удалить",
+      "restore": "Восстановить",
+      "getUrl": "Получить URL"
+    },
+    "table": {
+      "emptyText": "Нет данных",
+      "noVolumeSelected": "Пожалуйста, сначала выберите том"
+    }
+  },
+
+  "backupBackingImageList": {
+    "copySuccess": "Скопировано",
+    "copyFailed": "Не удалось скопировать",
+    "tooltips": {
+      "encryptedBackingImage": "Зашифрованная резервная копия базового образа"
+    }
+  },
+
+  "backupBackingImageActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить резервную копию базового образа <strong>{{backupName}}</strong>?"
+      }
+    },
+    "actions": {
+      "restore": "Восстановить",
+      "restoreTooltip": "Только завершенные резервные копии могут быть восстановлены"
+    }
+  },
+
+  "backupBackingImageBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить следующие {{count}} резервных копий базовых образов?",
+        "imageText": "образ",
+        "imageText_plural": "образов"
+      }
+    }
+  },
+
+  "restoreBackupBackingImageModal": {
+    "modal": {
+      "title": "Восстановить базовый образ"
+    },
+    "form": {
+      "backup": {
+        "label": "Резервная копия"
+      },
+      "secret": {
+        "label": "Секрет"
+      },
+      "secretNamespace": {
+        "label": "Пространство имен секрета"
+      },
+      "dataEngine": {
+        "label": "Движок данных",
+        "v1NotEnabled": "Движок данных v1 не включен",
+        "v2NotEnabled": "Движок данных v2 не включен"
       }
     }
   }
