@@ -15,10 +15,7 @@ function bulkActions({ bbiSelectedRows, deleteBackupBackingImages, t }) {
           okText: t('common.delete'),
           okType: 'danger',
           title: (<>
-                    <p>{t('backupBackingImageBulkActions.modal.delete.title', {
-                      count,
-                      imageText: count === 1 ? t('backupBackingImageBulkActions.modal.delete.imageText') : t('backupBackingImageBulkActions.modal.delete.imageText_plural'),
-                    })}</p>
+                    <p>{t('backupBackingImageBulkActions.modal.delete.title', { count })}</p>
                     <ul>
                       {bbiSelectedRows.map(item => <li>{item.name}</li>)},
                     </ul>

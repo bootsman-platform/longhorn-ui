@@ -67,7 +67,21 @@
     "newlyUploadedDataSize": "Newly Uploaded Data Size",
     "snapshotCreated": "Snapshot Created",
     "url": "URL",
-    "createdTime": "Created Time"
+    "createdTime": "Created Time",
+    "credentialSecret": "Credential Secret",
+    "pollInterval": "Poll Interval",
+    "version": "Version",
+    "age": "Age",
+    "error": "Error",
+    "uuid": "UUID",
+    "actualSizeTooltip": "The physical storage space currently consumed by the image file on the host's file system",
+    "virtualSize": "Virtual Size",
+    "virtualSizeTooltip": "The total logical capacity of the disk that the image represents",
+    "createdFrom": "Created From",
+    "minimumCopies": "Minimum Copies",
+    "nodeTags": "Node Tags",
+    "diskTags": "Disk Tags",
+    "disk": "Disk"
   },
 
   "menu": {
@@ -1454,7 +1468,7 @@
   "backupBackingImageActions": {
     "modal": {
       "delete": {
-        "title": "Are you sure you want to delete <strong>{{backupName}}</strong> backing image backup?"
+        "title": "Are you sure you want to delete {{backupName}} backing image backup?"
       }
     },
     "actions": {
@@ -1466,9 +1480,7 @@
   "backupBackingImageBulkActions": {
     "modal": {
       "delete": {
-        "title": "Are you sure to delete below {{count}} backup backing {{imageText}}?",
-        "imageText": "image",
-        "imageText_plural": "images"
+        "title": "Are you sure to delete below {{count}} backup backing image(s)?"
       }
     }
   },
@@ -1492,6 +1504,430 @@
         "v1NotEnabled": "v1 data engine is not enabled",
         "v2NotEnabled": "v2 data engine is not enabled"
       }
+    }
+  },
+
+  "backupTarget": {
+    "filter": {
+      "fieldOptions": {
+        "backupTargetURL": "URL",
+        "credentialSecret": "Credential Secret",
+        "pollInterval": "Poll Interval",
+        "available": "Status"
+      },
+      "availableOptions": {
+        "available": "Available",
+        "error": "Error"
+      }
+    },
+    "button": {
+      "createBackupTarget": "Create Backup Target"
+    }
+  },
+
+  "backupTargetList": {
+    "status": {
+      "available": "Available",
+      "error": "Error"
+    }
+  },
+
+  "backupTargetActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete {{backupTargetName}} backup target ?"
+      }
+    },
+    "deleteTooltip": {
+      "defaultTarget": "Default backup target can not be deleted"
+    }
+  },
+
+  "backupTargetBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete the following {{count}} backup target(s)?"
+      }
+    }
+  },
+
+  "createBackupTargetModal": {
+    "title": "Create Backup Target",
+    "form": {
+      "name": {
+        "rules": {
+          "required": "Backup target name is required",
+          "duplicate": "\"{{value}}\" is duplicated to existing backup target name"
+        }
+      },
+      "url": {
+        "label": "URL"
+      },
+      "credentialSecret": {
+        "label": "Credential Secret"
+      },
+      "pollInterval": {
+        "label": "Poll Interval",
+        "seconds": "seconds",
+        "tooltip": "Set 0 to disable the polling"
+      }
+    }
+  },
+
+  "editBackupTargetModal": {
+    "title": "Edit Backup Target {{name}}",
+    "form": {
+      "name": {
+        "label": "Name",
+        "rules": {
+          "required": "Backup target name is required"
+        }
+      },
+      "url": {
+        "label": "URL"
+      },
+      "credentialSecret": {
+        "label": "Credential Secret"
+      },
+      "pollInterval": {
+        "label": "Poll Interval",
+        "seconds": "seconds",
+        "tooltip": "Set 0 to disable the polling"
+      }
+    }
+  },
+
+  "systemBackups": {
+    "systemRestores": {
+      "title": "System Restore"
+    },
+    "filter": {
+      "fieldOption": {
+        "name": "Name",
+        "state": "State",
+        "version": "Version"
+      }
+    }
+  },
+
+  "systemBackupsAction": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete System Backup {{name}}?"
+      }
+    },
+    "actions": {
+      "restore": "Restore"
+    }
+  },
+
+  "systemBackupsBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete System Backups {{names}}?"
+      }
+    }
+  },
+
+  "systemRestoresAction": {
+    "modal": {
+      "delete": {
+        "title": {
+          "default": "Are you sure you want to delete System Restore {{name}}?",
+          "inProgress": "Are you sure you want to delete System Restore {{name}}"
+        },
+        "warningMessage": "Deleting restoring system backup will abort the remaining resource rollout. An incomplete restore may cause Longhorn system resource inconsistencies leading to unexpected behavior."
+      }
+    }
+  },
+
+  "createSystemBackup": {
+    "title": "Create System Backup",
+    "form": {
+      "name": {
+        "rules": {
+          "required": "Please input System backup name"
+        }
+      },
+      "volumeBackupPolicy": {
+        "label": "Volume Backup Policy",
+        "options": {
+          "ifNotPresent": "If-Not-Present",
+          "always": "Always",
+          "disabled": "Disabled"
+        }
+      }
+    }
+  },
+
+  "createSystemRestore": {
+    "title": "Restore System Backup",
+    "form": {
+      "name": {
+        "rules": {
+          "required": "Please input System Restore name."
+        }
+      },
+      "version": {
+        "label": "Version",
+        "rules": {
+          "required": "Please input version."
+        }
+      },
+      "systemBackup": {
+        "label": "System Backup",
+        "rules": {
+          "required": "Please input System backup name."
+        }
+      }
+    }
+  },
+
+  "backingImage": {
+    "notification": {
+      "upload": {
+        "warning": "Do not refresh or close this page, otherwise the upload will be interrupted."
+      }
+    },
+    "button": {
+      "createBackingImage": "Create Backing Image"
+    },
+    "backupBackingImage": {
+      "title": "Backing Image Backup"
+    },
+    "upload": {
+      "status": "Uploading"
+    },
+    "filter": {
+      "fieldOption": {
+        "uuid": "UUID",
+        "sourceType": "Created From",
+        "minNumberOfCopies": "Minimum Copies",
+        "nodeSelector": "Node Tags",
+        "diskSelector": "Disk Tags"
+      },
+      "createdFromOption": {
+        "download": "download",
+        "upload": "upload",
+        "exportFromVolume": "export-from-volume",
+        "clone": "clone",
+        "restore": "restore"
+      }
+    }
+  },
+
+  "backingImageList": {
+    "dynamicStateIcon": {
+      "deleting": "Deleting backing image"
+    },
+    "staticStateIcon": {
+      "encrypted": "Encrypted Backing Image",
+      "unavailable": "The backingImage is unavailable"
+    }
+  },
+
+  "backingImageActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete {{name}} backing image?"
+      }
+    },
+    "tooltips": {
+      "missingReadyDisk": "Missing disk with ready state"
+    },
+    "actions": {
+      "updateMinCopies": "Update Minimum Copies Count",
+      "backup": "Back Up",
+      "download": "Download"
+    }
+  },
+
+  "backingImageBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete the following <1>{{count}}</1> backing image(s)?"
+      },
+      "download": {
+        "title": "The following backing image(s) with <3>Ready</3> status disk will be downloaded.",
+        "note": "Note: You need to allow <1>Automatic Downloads</1> in browser settings to download multiple files at once.",
+        "okText": "Download"
+      },
+      "backup": {
+        "title": "Are you sure you want to backup the following <1>Ready</1> status backing image(s)?",
+        "backupTargetLabel": "Backup Target",
+        "okText": "Backup"
+      }
+    },
+    "actions": {
+      "download": "Download",
+      "backup": "Backup"
+    }
+  },
+
+  "updateMinCopiesCount": {
+    "title": "Update Minimum Copies Count",
+    "form": {
+      "minNumberOfCopies": {
+        "label": "Minimum Number of Copies",
+        "rules": {
+          "required": "Please input the copies number"
+        }
+      }
+    }
+  },
+
+  "createBackingImage": {
+    "title": "Create Backing Image",
+    "form": {
+      "name": {
+        "label": "Name",
+        "rules": {
+          "required": "Please input backing image name"
+        }
+      },
+      "createdFrom": {
+        "label": "Created From",
+        "options": {
+          "download": "Download From URL",
+          "upload": "Upload From Local",
+          "volume": "Export From a Longhorn Volume",
+          "clone": "Clone From Existing Backing Image"
+        }
+      },
+      "volumeName": {
+        "label": "Volume Name",
+        "rules": {
+          "required": "Please select an existing volume"
+        }
+      },
+      "exportedBackingImageType": {
+        "label": "Exported Backing Image Type",
+        "options": {
+          "raw": "raw",
+          "qcow2": "qcow2"
+        }
+      },
+      "url": {
+        "label": "URL",
+        "rules": {
+          "required": "Please input backing image url"
+        }
+      },
+      "file": {
+        "label": "File",
+        "uploadButton": "Upload",
+        "rules": {
+          "required": "Please upload backing image file",
+          "multipleOf512": "Must be a multiple of 512 bytes"
+        }
+      },
+      "expectedChecksum": {
+        "label": "Expected Checksum",
+        "placeholder": "Ask Longhorn to validate the SHA512 checksum if it is specified here."
+      },
+      "sourceBackingImage": {
+        "label": "Source Backing Image"
+      },
+      "encryption": {
+        "label": "Encryption",
+        "options": {
+          "encrypt": "encrypt",
+          "decrypt": "decrypt",
+          "ignore": "ignore (simply copy the backing image)"
+        }
+      },
+      "secret": {
+        "label": "Secret",
+        "rules": {
+          "required": "Please input secret name"
+        }
+      },
+      "secretNamespace": {
+        "label": "Secret Namespace",
+        "rules": {
+          "required": "Please input secret namespace"
+        }
+      },
+      "minNumberOfCopies": {
+        "label": "Minimum Number of Copies",
+        "rules": {
+          "required": "Please input the min number of copies"
+        }
+      },
+      "dataEngine": {
+        "label": "Data Engine",
+        "rules": {
+          "notEnabled": "{{value}} data engine is not enabled"
+        },
+        "options": {
+          "v1": "v1",
+          "v2": "v2"
+        }
+      },
+      "nodeTag": {
+        "label": "Node Tag"
+      },
+      "diskTag": {
+        "label": "Disk Tag"
+      }
+    }
+  },
+
+  "diskStateMapDetail": {
+    "modal": {
+      "cleanUp": {
+        "title": "Are you sure to clean up the image file from the disk ({{disk}})?"
+      }
+    },
+    "actions": {
+      "cleanUp": "Clean Up"
+    },
+    "createdFrom": {
+      "download": "Download from URL",
+      "upload": "Upload",
+      "exportFromVolume": "Export from a Longhorn volume",
+      "clone": "Clone from existing backing image",
+      "restore": "Restore from backup backing image"
+    },
+    "details": {
+      "uuid": "UUID",
+      "createdFrom": "Created From",
+      "parametersDuringCreation": "Parameters During Creation",
+      "empty": "empty",
+      "expectedChecksum": "Expected SHA512 Checksum",
+      "currentChecksum": "Current SHA512 Checksum",
+      "checksumMatchTooltip": "Current checksum is the same as the expected value",
+      "checksumMismatchTooltip": "Current checksum doesn't match the expected value",
+      "verified": "Verified",
+      "failed": "Failed"
+    }
+  },
+
+  "createBackupBackingImageModal": {
+    "title": "Create Backup Backing Image",
+    "warningMessage": "Choose a backup target to backup {{name}} backing image",
+    "form": {
+      "backupTarget": {
+        "label": "Backup Target"
+      }
+    }
+  },
+
+  "diskStateMapActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to remove the image file from the disks ?"
+      }
+    },
+    "button": {
+      "cleanUp": "Clean Up"
+    }
+  },
+
+  "orphanedData": {
+    "tabs": {
+      "replicaData": "Replica Data",
+      "instances": "Instances"
     }
   }
 

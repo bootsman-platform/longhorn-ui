@@ -19,7 +19,7 @@
     "updateField": "Обновить {{fieldName}}",
     "edit": "Редактировать",
     "create": "Создать",
-
+    
     "validation": {
       "required": "обязательное поле",
       "cannotBeEmpty": "Не может быть пустым"
@@ -66,7 +66,21 @@
     "newlyUploadedDataSize": "Недавно загруженный размер данных",
     "snapshotCreated": "Снимок создан",
     "url": "URL",
-    "createdTime": "Время создания"
+    "createdTime": "Время создания",
+    "credentialSecret": "Секрет учетных данных",
+    "pollInterval": "Интервал опроса",
+    "version": "Версия",
+    "age": "Возраст",
+    "error": "Ошибка",
+    "uuid": "UUID",
+    "actualSizeTooltip": "Физическое пространство хранения, занимаемое файлом образа в файловой системе хоста",
+    "virtualSize": "Виртуальный размер",
+    "virtualSizeTooltip": "Общая логическая емкость диска, которую представляет образ",
+    "createdFrom": "Создано из",
+    "minimumCopies": "Мин. количество копий",
+    "nodeTags": "Теги узлов",
+    "diskTags": "Теги дисков",
+    "disk": "Диск"
   },
 
   "menu": {
@@ -1466,7 +1480,7 @@
   "backupBackingImageActions": {
     "modal": {
       "delete": {
-        "title": "Вы уверены, что хотите удалить резервную копию базового образа <strong>{{backupName}}</strong>?"
+        "title": "Вы уверены, что хотите удалить резервную копию базового образа {{backupName}}?"
       }
     },
     "actions": {
@@ -1478,9 +1492,7 @@
   "backupBackingImageBulkActions": {
     "modal": {
       "delete": {
-        "title": "Вы уверены, что хотите удалить следующие {{count}} резервных копий базовых образов?",
-        "imageText": "образ",
-        "imageText_plural": "образов"
+        "title": "Вы уверены, что хотите удалить следующие {{count}} резервных копий базовых образ(ов)?"
       }
     }
   },
@@ -1504,6 +1516,435 @@
         "v1NotEnabled": "Движок данных v1 не включен",
         "v2NotEnabled": "Движок данных v2 не включен"
       }
+    }
+  },
+
+  "backupTarget": {
+    "filter": {
+      "fieldOptions": {
+        "backupTargetURL": "URL",
+        "credentialSecret": "Секрет учетных данных",
+        "pollInterval": "Интервал опроса",
+        "available": "Статус"
+      },
+      "availableOptions": {
+        "available": "Доступно",
+        "error": "Ошибка"
+      }
+    },
+    "button": {
+      "createBackupTarget": "Создать цель резервного копирования"
+    }
+  },
+
+  "backupTargetList": {
+    "status": {
+      "available": "Доступно",
+      "error": "Ошибка"
+    }
+  },
+
+  "backupTargetActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить цель резервного копирования {{backupTargetName}}?"
+      }
+    },
+    "deleteTooltip": {
+      "defaultTarget": "Цель резервного копирования по умолчанию не может быть удалена"
+    }
+  },
+
+  "backupTargetBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить следующие {{count}} цель(ей) резервного копирования?"
+      }
+    }
+  },
+
+  "createBackupTargetModal": {
+    "title": "Создать цель резервного копирования",
+    "form": {
+      "name": {
+        "rules": {
+          "required": "Имя цели резервного копирования обязательно",
+          "duplicate": "\"{{value}}\" дублирует существующее имя цели резервного копирования"
+        }
+      },
+      "url": {
+        "label": "URL"
+      },
+      "credentialSecret": {
+        "label": "Учетные данные секрета"
+      },
+      "pollInterval": {
+        "label": "Интервал опроса",
+        "seconds": "секунд",
+        "tooltip": "Установите 0 для отключения опроса"
+      }
+    }
+  },
+
+  "editBackupTargetModal": {
+    "title": "Редактировать цель резервного копирования {{name}}",
+    "form": {
+      "name": {
+        "label": "Имя",
+        "rules": {
+          "required": "Имя цели резервного копирования обязательно"
+        }
+      },
+      "url": {
+        "label": "URL"
+      },
+      "credentialSecret": {
+        "label": "Учетные данные секрета"
+      },
+      "pollInterval": {
+        "label": "Интервал опроса",
+        "seconds": "секунд",
+        "tooltip": "Установите 0 для отключения опроса"
+      }
+    }
+  },
+
+  "systemBackups": {
+    "systemRestores": {
+      "title": "Восстановление системы"
+    },
+    "filter": {
+      "fieldOption": {
+        "name": "Имя",
+        "state": "Состояние",
+        "version": "Версия"
+      }
+    }
+  },
+
+  "systemBackupsAction": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить резервную копию системы {{name}}?"
+      }
+    },
+    "actions": {
+      "restore": "Восстановить"
+    }
+  },
+
+  "systemBackupsBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить резервные копии системы {{names}}?"
+      }
+    }
+  },
+
+  "systemRestoresAction": {
+    "modal": {
+      "delete": {
+        "title": {
+          "default": "Вы уверены, что хотите удалить восстановление системы {{name}}?",
+          "inProgress": "Вы уверены, что хотите удалить восстановление системы {{name}}"
+        },
+        "warningMessage": "Удаление восстанавливаемой резервной копии системы приведет к прерыванию развертывания оставшихся ресурсов. Незавершенное восстановление может вызвать несогласованность ресурсов системы Longhorn, что приведет к неожиданному поведению."
+      }
+    }
+  },
+
+  "createSystemBackup": {
+    "title": "Создать резервную копию системы",
+    "form": {
+      "name": {
+        "rules": {
+          "required": "Пожалуйста, введите имя резервной копии системы"
+        }
+      },
+      "volumeBackupPolicy": {
+        "label": "Политика резервного копирования томов",
+        "options": {
+          "ifNotPresent": "Если-отсутствует",
+          "always": "Всегда",
+          "disabled": "Отключено"
+        }
+      }
+    }
+  },
+
+  "createSystemRestore": {
+    "title": "Восстановить резервную копию системы",
+    "form": {
+      "name": {
+        "rules": {
+          "required": "Пожалуйста, введите имя восстановления системы."
+        }
+      },
+      "version": {
+        "label": "Версия",
+        "rules": {
+          "required": "Пожалуйста, введите версию."
+        }
+      },
+      "systemBackup": {
+        "label": "Резервная копия системы",
+        "rules": {
+          "required": "Пожалуйста, введите имя резервной копии системы."
+        }
+      }
+    }
+  },
+
+  "backingImage": {
+    "notification": {
+      "upload": {
+        "warning": "Не обновляйте и не закрывайте эту страницу, иначе загрузка будет прервана."
+      }
+    },
+    "button": {
+      "createBackingImage": "Создать базовый образ"
+    },
+    "backupBackingImage": {
+      "title": "Резервная копия базового образа"
+    },
+    "upload": {
+      "status": "Загрузка"
+    },
+    "filter": {
+      "fieldOption": {
+        "uuid": "UUID",
+        "sourceType": "Создано из",
+        "minNumberOfCopies": "Минимальное количество копий",
+        "nodeSelector": "Теги узлов",
+        "diskSelector": "Теги дисков"
+      },
+      "createdFromOption": {
+        "download": "скачать",
+        "upload": "загрузить",
+        "exportFromVolume": "экспорт из тома",
+        "clone": "клонировать",
+        "restore": "восстановить"
+      }
+    }
+  },
+
+  "backingImageList": {
+    "dynamicStateIcon": {
+      "deleting": "Удаление базового образа"
+    },
+    "staticStateIcon": {
+      "encrypted": "Зашифрованный базовый образ",
+      "unavailable": "Базовый образ недоступен"
+    }
+  },
+
+  "backingImageActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить базовый образ {{name}}?"
+      }
+    },
+    "tooltips": {
+      "missingReadyDisk": "Отсутствует диск в состоянии готовности"
+    },
+    "actions": {
+      "updateMinCopies": "Обновить минимальное количество копий",
+      "backup": "Создать резервную копию",
+      "download": "Скачать"
+    }
+  },
+
+  "backingImageBulkActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить следующие <1>{{count}}</1> базовый образ(ы)?"
+      },
+      "download": {
+        "title": "Следующий базовый образ(ы) с диском в состоянии <3>Готов</3> будут загружены.",
+        "note": "Примечание: Вам нужно разрешить <1>Автоматические загрузки</1> в настройках браузера для скачивания нескольких файлов одновременно.",
+        "okText": "Скачать"
+      },
+      "backup": {
+        "title": "Вы уверены, что хотите создать резервную копию следующий базовый образ(ы) в состоянии <3>Готов</3>?",
+        "backupTargetLabel": "Цель резервного копирования",
+        "okText": "Создать резервную копию"
+      }
+    },
+    "actions": {
+      "download": "Скачать",
+      "backup": "Создать резервную копию"
+    }
+  },
+
+  "updateMinCopiesCount": {
+    "title": "Обновить минимальное количество копий",
+    "form": {
+      "minNumberOfCopies": {
+        "label": "Минимальное количество копий",
+        "rules": {
+          "required": "Пожалуйста, введите количество копий"
+        }
+      }
+    }
+  },
+
+  "createBackingImage": {
+    "title": "Создать базовый образ",
+    "form": {
+      "name": {
+        "label": "Имя",
+        "rules": {
+          "required": "Пожалуйста, введите имя базового образа"
+        }
+      },
+      "createdFrom": {
+        "label": "Создано из",
+        "options": {
+          "download": "Загрузить из URL",
+          "upload": "Загрузить с локального устройства",
+          "volume": "Экспортировать из тома Longhorn",
+          "clone": "Клонировать из существующего базового образа"
+        }
+      },
+      "volumeName": {
+        "label": "Имя тома",
+        "rules": {
+          "required": "Пожалуйста, выберите существующий том"
+        }
+      },
+      "exportedBackingImageType": {
+        "label": "Тип экспортируемого базового образа",
+        "options": {
+          "raw": "raw",
+          "qcow2": "qcow2"
+        }
+      },
+      "url": {
+        "label": "URL",
+        "rules": {
+          "required": "Пожалуйста, введите URL базового образа"
+        }
+      },
+      "file": {
+        "label": "Файл",
+        "uploadButton": "Загрузить",
+        "rules": {
+          "required": "Пожалуйста, загрузите файл базового образа",
+          "multipleOf512": "Должно быть кратно 512 байтам"
+        }
+      },
+      "expectedChecksum": {
+        "label": "Ожидаемая контрольная сумма",
+        "placeholder": "Попросите Longhorn проверить контрольную сумму SHA512, если она указана здесь."
+      },
+      "sourceBackingImage": {
+        "label": "Исходный базовый образ"
+      },
+      "encryption": {
+        "label": "Шифрование",
+        "options": {
+          "encrypt": "зашифровать",
+          "decrypt": "расшифровать",
+          "ignore": "игнорировать (просто скопировать базовый образ)"
+        }
+      },
+      "secret": {
+        "label": "Секрет",
+        "rules": {
+          "required": "Пожалуйста, введите имя секрета"
+        }
+      },
+      "secretNamespace": {
+        "label": "Пространство имён секрета",
+        "rules": {
+          "required": "Пожалуйста, введите пространство имён секрета"
+        }
+      },
+      "minNumberOfCopies": {
+        "label": "Минимальное количество копий",
+        "rules": {
+          "required": "Пожалуйста, введите минимальное количество копий"
+        }
+      },
+      "dataEngine": {
+        "label": "Движок данных",
+        "rules": {
+          "notEnabled": "Движок данных {{value}} не включен"
+        },
+        "options": {
+          "v1": "v1",
+          "v2": "v2"
+        }
+      },
+      "nodeTag": {
+        "label": "Тег узла"
+      },
+      "diskTag": {
+        "label": "Тег диска"
+      }
+    }
+  },
+
+  "diskStateMapDetail": {
+    "modal": {
+      "cleanUp": {
+        "title": "Вы уверены, что хотите очистить файл образа с диска ({{disk}})?"
+      }
+    },
+    "columns": {
+      "status": "Состояние",
+      "disk": "Диск",
+      "operation": "Действие"
+    },
+    "actions": {
+      "cleanUp": "Очистить"
+    },
+    "createdFrom": {
+      "download": "Загрузить из URL",
+      "upload": "Загрузить",
+      "exportFromVolume": "Экспортировать из тома Longhorn",
+      "clone": "Клонировать из существующего базового образа",
+      "restore": "Восстановить из резервной копии базового образа"
+    },
+    "details": {
+      "uuid": "UUID",
+      "createdFrom": "Создано из",
+      "parametersDuringCreation": "Параметры во время создания",
+      "empty": "пусто",
+      "expectedChecksum": "Ожидаемая контрольная сумма SHA512",
+      "currentChecksum": "Текущая контрольная сумма SHA512",
+      "checksumMatchTooltip": "Текущая контрольная сумма совпадает с ожидаемым значением",
+      "checksumMismatchTooltip": "Текущая контрольная сумма не соответствует ожидаемому значению",
+      "verified": "Проверено",
+      "failed": "Не удалось"
+    }
+  },
+
+  "createBackupBackingImageModal": {
+    "title": "Создать резервную копию базового образа",
+    "warningMessage": "Выберите цель резервного копирования для создания резервной копии базового образа {{name}}",
+    "form": {
+      "backupTarget": {
+        "label": "Цель резервного копирования"
+      }
+    }
+  },
+
+  "diskStateMapActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить файл образа с дисков ?"
+      }
+    },
+    "button": {
+      "cleanUp": "Очистить"
+    }
+  },
+
+  "orphanedData": {
+    "tabs": {
+      "replicaData": "Данные реплик",
+      "instances": "Экземпляры"
     }
   }
 
