@@ -19,6 +19,7 @@
     "updateField": "Update {{fieldName}}",
     "edit": "Edit",
     "create": "Create",
+    "error": "Error",
 
     "validation": {
       "required": "required field",
@@ -81,7 +82,32 @@
     "minimumCopies": "Minimum Copies",
     "nodeTags": "Node Tags",
     "diskTags": "Disk Tags",
-    "disk": "Disk"
+    "disk": "Disk",
+    "node": "Node",
+    "diskName": "Disk Name",
+    "diskPath": "Disk Path",
+    "directoryName": "Directory Name",
+    "instanceName": "Instance Name",
+    "instanceManager": "Instance Manager",
+    "instanceType": "Instance Type",
+    "image": "Image",
+    "default": "Default",
+    "referenceCount": "Reference Count",
+    "buildDate": "Build Date",
+    "refCountVolume": "Ref Count Volume",
+    "instanceManagerImage": "Instance Manager Image",
+    "attachmentID": "Attachment ID",
+    "attachmentType": "Attachment Type",
+    "nodeID": "Node ID",
+    "satisfied": "Satisfied",
+    "lastTransitionTime": "Last Transition Time",
+    "kind": "Kind",
+    "source": "Source",
+    "firstTime": "First Time",
+    "lastTime": "Last Time",
+    "reason": "Reason",
+    "message": "Message",
+    "backups": "Backups"
   },
 
   "menu": {
@@ -280,7 +306,7 @@
     }
   },
 
-  "instanceManager": {
+  "instanceManagerComponent": {
     "name": {
       "engineImage": "Engine Image",
       "instanceManager": "Instance Manager"
@@ -375,8 +401,7 @@
   },
 
   "replicaActions": {
-    "deleteConfirm": "Are you sure you want to delete replicas {{replicas}} ?",
-    "delete": "Delete"
+    "deleteConfirm": "Are you sure you want to delete replicas {{replicas}} ?"
   },
 
   "replicaList": {
@@ -482,6 +507,63 @@
     }
   },
 
+  "volumeActions": {
+    "modal": {
+      "delete": {
+        "hasPvTooltipText": "The following resources associated with this volume ({{name}}) will be deleted:",
+        "pvName": "PV Name: {{name}}",
+        "pvcName": "PVC Name: {{name}}",
+        "podName": "Pod Name: {{name}} ({{status}})",
+        "attachedWarning": "The volume is attached on {{hostId}}. Deleting this volume may cause errors for any running applications using this volume!",
+        "workloadWarning": "The following workload(s) depend on this volume ({{name}}) and may encounter errors once it is deleted:",
+        "confirmation": "Are you sure you want to delete volume ({{name}}) ?",
+        "okText": "Delete"
+      },
+      "rollback": {
+        "title": "Are you sure you want to rollback volume {{name}}?"
+      },
+      "trimFilesystem": {
+        "title": "Are you sure you want to trim the filesystem?"
+      }
+    },
+    "tooltips": {
+      "rwxDetach": "The volume access mode is `ReadWriteMany`, Please ensure that the workloads are scaled down before trying to detach the volume"
+    },
+    "actions": {
+      "attach": "Attach",
+      "detach": "Detach",
+      "salvage": "Salvage",
+      "upgrade": "Upgrade",
+      "rollback": "Rollback",
+      "engineUpgrade": "Upgrade Engine",
+      "updateReplicaCount": "Update Replicas Count",
+      "updateDataLocality": "Update Data Locality",
+      "updateSnapshotDataIntegrity": "Snapshot Data Integrity",
+      "updateAccessMode": "Update Access Mode",
+      "updateBackupTarget": "Update Backup Target",
+      "updateReplicaAutoBalance": "Update Replicas Auto Balance",
+      "allowSnapshotsRemovalDuringTrim": "Allow Snapshots Removal During Trim",
+      "updateReplicaSoftAntiAffinity": "Update Replica Soft Anti Affinity",
+      "updateReplicaZoneSoftAntiAffinity": "Update Replica Zone Soft Anti Affinity",
+      "updateSnapshotMaxCount": "Update Snapshot Max Count",
+      "updateSnapshotMaxSize": "Update Snapshot Max Size",
+      "updateReplicaDiskSoftAntiAffinity": "Update Replica Disk Soft Anti Affinity",
+      "updateFreezeFilesystemForSnapshot": "Update Freeze Filesystem For Snapshot",
+      "offlineReplicaRebuilding": "Update Offline Replica Rebuilding",
+      "updateReplicaRebuildingBandwidthLimit": "Update Replica Rebuilding Bandwidth Limit",
+      "updateUblkNumberOfQueue": "Update UBLK Number of Queue",
+      "updateUblkQueueDepth": "Update UBLK Queue Depth",
+      "cloneVolume": "Clone Volume",
+      "expandVolume": "Expand Volume",
+      "cancelExpansion": "Cancel Expansion",
+      "pvAndpvcCreate": "Create PV/PVC",
+      "activateDisasterRecoveryVolume": "Activate Disaster Recovery Volume",
+      "trimFilesystem": "Trim Filesystem",
+      "backups": "Backups",
+      "delete": "Delete"
+    }
+  },
+
   "volumeBulkActions": {
     "deleteWarning": {
       "pvName": "PV Name",
@@ -494,33 +576,8 @@
     },
     "trimConfirm": "Are you sure you want to trim ({{volumes}}) Filesystem ?",
     "actions": {
-      "delete": "Delete",
-      "attach": "Attach",
-      "detach": "Detach",
       "createBackup": "Create Backup",
-      "cloneVolume": "Clone Volume"
-    },
-    "dropdownActions": {
-      "upgradeEngine": "Upgrade Engine",
-      "expandVolume": "Expand Volume",
-      "updateReplicasCount": "Update Replicas Count",
-      "updateDataLocality": "Update Data Locality",
-      "snapshotDataIntegrity": "Snapshot Data Integrity",
-      "updateAccessMode": "Update Access Mode",
-      "updateBackupTarget": "Update Backup Target",
-      "updateReplicasAutoBalance": "Update Replicas Auto Balance",
-      "createPVPVC": "Create PV/PVC",
-      "activateDisasterRecoveryVolume": "Activate Disaster Recovery Volume",
-      "allowSnapshotsRemovalDuringTrim": "Allow Snapshots Removal During Trim",
-      "updateReplicaSoftAntiAffinity": "Update Replica Soft Anti Affinity",
-      "updateReplicaZoneSoftAntiAffinity": "Update Replica Zone Soft Anti Affinity",
-      "updateReplicaDiskSoftAntiAffinity": "Update Replica Disk Soft Anti Affinity",
-      "trimFilesystem": "Trim Filesystem",
-      "updateFreezeFilesystemForSnapshot": "Update Freeze Filesystem For Snapshot",
-      "updateOfflineReplicaRebuilding": "Update Offline Replica Rebuilding",
-      "updateReplicaRebuildingBandwidthLimit": "Update Replica Rebuilding Bandwidth Limit",
-      "updateUblkNumberOfQueue": "Update UBLK Number of Queue",
-      "updateUblkQueueDepth": "Update UBLK Queue Depth"
+      "upgradeEngine": "Upgrade Engine"
     }
   },
 
@@ -1031,13 +1088,6 @@
   },
 
   "createRecurringJob": {
-    "modal": {
-      "title": "{{action}} Recurring Job"
-    },
-    "actions": {
-      "create": "Create",
-      "edit": "Edit"
-    },
     "form": {
       "name": {
         "validationMessage": "Please input Recurring Job name"
@@ -1929,6 +1979,702 @@
       "replicaData": "Replica Data",
       "instances": "Instances"
     }
+  },
+
+  "replicaDataOrphans": {
+    "filter": {
+      "fieldOption": {
+        "node": "Node",
+        "diskName": "Disk Name",
+        "diskPath": "Disk Path",
+        "directoryName": "Directory Name"
+      }
+    }
+  },
+
+  "orphanedDataActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete {{name}}?"
+      }
+    }
+  },
+
+  "instanceOrphans": {
+    "filter": {
+      "fieldOption": {
+        "node": "Node",
+        "instanceName": "Instance Name",
+        "instanceManager": "Instance Manager",
+        "orphanType": "Instance Type",
+        "dataEngine": "Data Engine"
+      }
+    }
+  },
+
+  "engineImage": {
+    "filter": {
+      "fieldOption": {
+        "image": "Image"
+      }
+    },
+    "button": {
+      "deployEngineImage": "Deploy Engine Image"
+    }
+  },
+
+  "createEngineImage": {
+    "title": "Create Engine Image",
+    "form": {
+      "image": {
+        "label": "Image",
+        "rules": {
+          "required": "Please input engine image"
+        }
+      }
+    }
+  },
+
+  "engineImageList": {
+    "status": {
+      "incompatible": "Incompatible"
+    }
+  },
+
+  "engineImageActions": {
+    "modal": {
+      "delete": {
+        "title": "Are you sure you want to delete engine image {{name}}?"
+      }
+    }
+  },
+
+  "engineImageFilter": {
+    "selectOptions": {
+      "image": "image"
+    },
+    "button": {
+      "createEngineImage": "Create Engine Image"
+    }
+  },
+
+  "engineImageDetail": {
+    "title": "Engine Image Detail"
+  },
+
+  "engineImageInfo": {
+    "fields": {
+      "buildDate": "Build Date",
+      "status": "Status",
+      "default": "Default",
+      "cliAPIVersion": "CLIAPIVersion",
+      "controllerAPIVersion": "ControllerAPIVersion",
+      "image": "Image",
+      "refCount": "RefCount",
+      "noRefSince": "NoRefSince",
+      "nodeDeploymentMap": "NodeDeploymentMap"
+    },
+    "status": {
+      "incompatible": "Incompatible"
+    }
+  },
+
+  "instanceManager": {
+    "filter": {
+      "fieldOption": {
+        "name": "Name",
+        "nodeID": "Node",
+        "managerType": "Type",
+        "currentState": "State",
+        "image": "Instance Manager Image"
+      }
+    }
+  },
+
+  "volumeDetail": {
+    "snapshotDataIntegrity": {
+      "ignored": "ignored (follow the global setting)"
+    },
+    "cancelExpansion": {
+      "title": "Are you sure to cancel expansion?",
+      "description": "This operation is used to cancel the expansion if the volume cannot complete the expansion and gets stuck there. Once the expansion is complete, it cannot be rolled back or canceled",
+      "message": {
+        "part1": "If the in-progress expansion you want to cancel is triggered by the PVC size update, this operation will not help revert the PVC. Since the PVC size can not shrink, users need to clean up then recreate the PVC and PV after the expansion canceling success:",
+        "step1": "Update the field spec.persistentVolumeReclaimPolicy to Retain for the corresponding PV.",
+        "step2": "Delete then recreate the related PVC and PV."
+      }
+    },
+    "cards": {
+      "volumeDetails": "Volume Details",
+      "replicas": "Replicas"
+    }
+  },
+
+  "volumeInfo": {
+    "alerts": {
+      "schedulingFailure": {
+        "title": "Scheduling Failure",
+        "errorMessage": "Error Message"
+      }
+    },
+    "state": {
+      "label": " State:"
+    },
+    "health": {
+      "label": " Health:",
+      "attachedNodeDown": "The attached node is down",
+      "dataLocalityWarning": "Volume does not have data locality! There is no healthy replica on the same node as the engine"
+    },
+    "readyForWorkload": {
+      "label": " Ready for workload:",
+      "ready": "Ready",
+      "notReady": "Not Ready",
+      "notReadyTooltip": "Not ready for workload. {{robustness}}",
+      "volumeFaulted": "Volume Faulted",
+      "volumeUnderMaintenance": "Volume may be under maintenance or in the restore process."
+    },
+    "conditions": {
+      "label": " Conditions:"
+    },
+    "frontend": {
+      "label": " Frontend:",
+      "disabledTooltip": "Attach volume without enabling frontend. Volume data will not be accessible while attached."
+    },
+    "ublk": {
+      "numberOfQueues": " Ublk Number of Queues:",
+      "queueDepth": " Ublk Queue Depth:"
+    },
+    "backupTarget": {
+      "label": " Backup Target:"
+    },
+    "backupBlockSize": {
+      "label": " Backup Block Size:"
+    },
+    "dataEngine": {
+      "label": " Data Engine:"
+    },
+    "attachedNodeAndEndpoint": {
+      "label": " Attached Node & Endpoint:"
+    },
+    "attachedNode": {
+      "label": " Attached Node:"
+    },
+    "size": {
+      "label": "Size",
+      "tooltip": "Amount of space available to the volume when in use. This is the size that you specified when you created the volume."
+    },
+    "actualSize": {
+      "label": "Actual Size",
+      "tooltip": "Amount of space used by the volume head and snapshots. This can exceed the value of the \"Size\" field.",
+      "unknown": "Unknown"
+    },
+    "dataLocality": {
+      "label": " Data Locality:"
+    },
+    "accessMode": {
+      "label": " Access Mode:"
+    },
+    "backingImage": {
+      "label": " Backing Image:"
+    },
+    "backingImageSize": {
+      "label": " Backing Image Size:"
+    },
+    "engineImage": {
+      "label": "Engine Image",
+      "tooltip": "Provides the binary to start and communicate with the volume engine/replicas."
+    },
+    "created": {
+      "label": " Created:"
+    },
+    "encrypted": {
+      "label": " Encrypted:"
+    },
+    "nodeTags": {
+      "label": " Node Tags:"
+    },
+    "diskTags": {
+      "label": " Disk Tags:"
+    },
+    "lastBackup": {
+      "label": " Last Backup:"
+    },
+    "lastBackupAt": {
+      "label": " Last Backup At:"
+    },
+    "replicaAutoBalance": {
+      "label": " Replicas Auto Balance:"
+    },
+    "snapshotDataIntegrity": {
+      "label": " Snapshot Data Integrity:"
+    },
+    "snapshotMaxCount": {
+      "label": " Snapshot Max Count:"
+    },
+    "snapshotMaxSize": {
+      "label": " Snapshot Max Size:"
+    },
+    "instanceManager": {
+      "label": "Instance Manager",
+      "tooltip": "Manages the engine/replica instances' life cycle on the node."
+    },
+    "allowSnapshotsRemovalDuringTrim": {
+      "label": " Allow Snapshots Removal During Trim:"
+    },
+    "replicaSoftAntiAffinity": {
+      "label": " Replica Soft Anti Affinity:"
+    },
+    "replicaZoneSoftAntiAffinity": {
+      "label": " Replica Zone Soft Anti Affinity:"
+    },
+    "replicaDiskSoftAntiAffinity": {
+      "label": " Replica Disk Soft Anti Affinity:"
+    },
+    "freezeFilesystemForSnapshot": {
+      "label": " Freeze Filesystem For Snapshot:"
+    },
+    "offlineReplicaRebuilding": {
+      "label": " Offline Replica Rebuilding:"
+    },
+    "replicaRebuildingBandwidthLimit": {
+      "label": " Replica Rebuilding Bandwidth Limit:"
+    },
+    "restoring": {
+      "label": " Restoring:"
+    },
+    "volumeSize": {
+      "expansionError": "Expansion Error",
+      "expansionNote": "Note: You can cancel the expansion to avoid volume crash",
+      "expansionInProgress": "The volume is in expansion progress from size {{currentSize}} to size {{expectedSize}}"
+    },
+    "globalSettingTooltip": "The is the default option that instructs Longhorn to inherit from the global setting.",
+    "kubernetesStatus": {
+      "lastPodName": "Last Pod Name:",
+      "podName": " Pod Name:",
+      "podStatus": " Pod Status:",
+      "lastWorkloadName": "Last Workload Name:",
+      "workloadName": " Workload Name:",
+      "lastWorkloadType": "Last Workload Type:",
+      "workloadType": " Workload Type:",
+      "lastTimeBoundWithPVC": " Last time bound with PVC:",
+      "lastTimeUsedByPod": " Last time used by Pod:",
+      "lastNamespace": "Last Namespace:",
+      "namespace": " Namespace:",
+      "lastBoundedPVCName": "Last Bounded PVC Name:",
+      "pvcName": " PVC Name:",
+      "pvName": " PV Name:",
+      "pvStatus": " PV Status:"
+    },
+    "revisionCounterDisabled": {
+      "label": "Revision Counter Disabled:"
+    }
+  },
+
+  "engineImageUpgradeTooltip": {
+    "currentVersion": "Current engine image: {{version}}",
+    "latestVersionAvailable": "Engine image {{version}} is now available!"
+  },
+
+  "replicaHATooltip": {
+    "warning": "Limited node redundancy: at least one healthy replica is running at the same node as another",
+    "danger": "No node redundancy: all the healthy replicas are running on the same node"
+  },
+
+  "conditionTooltip": {
+    "name": "Name",
+    "lastProbeTime": "Last Probe Time",
+    "lastTransitionTime": "Last Transition Time",
+    "message": "Message",
+    "reason": "Reason",
+    "status": "Status",
+    "suggestion": "Suggestion",
+    "tooManySnapshots": {
+      "notExceeded": "The snapshot number threshold (100) has not been exceeded",
+      "suggestion": "Try to delete unused snapshots to free up space if needed"
+    }
+  },
+
+  "volumeAttachment": {
+    "title": "Volume Attachments",
+    "error": {
+      "defaultMessage": "Failed to fetch volume attachments"
+    },
+    "satisfied": {
+      "notSatisfied": "Not satisfied"
+    }
+  },
+
+  "snapshots": {
+    "title": "Snapshots and Backups",
+    "takeSnapshotButton": "Take Snapshot",
+    "createBackupButton": "Create Backup",
+    "showSystemSnapshots": "Show System Snapshots:",
+    "createSnapshotTooltip": {
+      "drVolume": "Unable to create snapshot for DR volume",
+      "default": "Create a new snapshot. You can create a backup by clicking any snapshot below and selecting 'Backup'."
+    },
+    "createBackupTooltip": {
+      "backupTargetUnavailable": "Backup target {{target}} is unavailable.",
+      "drVolume": "Unable to create backup for DR volume.",
+      "default": "Create a new backup."
+    },
+    "purgeProgress": {
+      "format": "Deleting {{percent}}%"
+    }
+  },
+
+  "recurringJobDetail": {
+    "title": "Recurring Jobs Schedule",
+    "tabs": {
+      "job": "Job",
+      "group": "Group"
+    },
+    "addButton": "Add",
+    "tooltips": {
+      "recurringJobNotExist": "Recurring Job doesn't exist",
+      "recurringJobGroupNotExist": "Recurring Job Group doesn't exist",
+      "noDefaultGroupJobs": "No Recurring job is set to default Group"
+    },
+    "message": {
+      "getRecurringJobFailed": "Get Recurring Job failed"
+    },
+    "bulkDeleteJob": {
+      "confirmTitle": "Are you sure you want to remove Recurring Job {{jobs}} from {{volume}}?"
+    },
+    "bulkDeleteJobGroup": {
+      "confirmTitle": "Are you sure you want to remove Recurring Job Group {{groups}} from {{volume}}?"
+    },
+    "modalGroupDetail": {
+      "title": "Recurring Job"
+    }
+  },
+
+  "eventList": {
+    "title": "Event Log",
+    "tooltip": {
+      "expand": "Click to Expand",
+      "collapse": "Click to Collapse"
+    }
+  },
+
+  "snapshotList": {
+    "title": "Snapshots and Backups List",
+    "tooltip": {
+      "expand": "Click to Expand",
+      "collapse": "Click to Collapse"
+    },
+    "type": {
+      "snapshot": "Snapshot",
+      "backup": "Backup"
+    },
+    "parentId": "Parent ID"
+  },
+
+  "addRecurringJobOrGroupModal": {
+    "title": {
+      "job": "Add Recurring Job",
+      "group": "Add Recurring Job Group"
+    },
+    "label": {
+      "jobName": "Recurring Job Name",
+      "groupName": "Recurring Job Group Name"
+    },
+    "validation": {
+      "required": "Please Select Recurring Job Name"
+    }
+  },
+
+  "createRecurringJobDetail": {
+    "modal": {
+      "title": "{{action}} Recurring Job"
+    },
+    "tabs": {
+      "new": "New",
+      "existing": "Existing"
+    },
+    "form": {
+      "task": "Task",
+      "forceCreate": "Force Create",
+      "retain": "Retain",
+      "concurrency": "Concurrency",
+      "cron": "Cron",
+      "parameters": "Parameters",
+      "groups": "Groups",
+      "labels": "Labels",
+      "existingJobName": "Recurring Job Name"
+    },
+    "tooltip": {
+      "forceCreate": "Create {{type}} periodically, even if expired {{itemType}} cannot be cleaned up.",
+      "backups": "backups",
+      "snapshots": "snapshots",
+      "defaultGroup": "Volume with no recurring jobs or groups will automatically apply to the recurring jobs in the default group."
+    },
+    "validation": {
+      "nameRequired": "Please input Recurring Job name",
+      "groupNameRequired": "Please input Group Name",
+      "valueRequired": "Value is required",
+      "existingJobRequired": "Please Select Recurring Job Name"
+    },
+    "placeholder": {
+      "groupName": "Group name"
+    }
+  },
+
+  "expansionErrorDetail": {
+    "lastExpansionFailedAt": "Last expansion failed at {{lastExpansionFailedAt}},",
+    "clickToViewErrorDetails": "Click to view error details",
+    "clickToCloseErrorDetails": "Click to close error details"
+  },
+
+  "autoComplete": {
+    "volumeNamePlaceholder": "Volume Name"
+  },
+
+  "backupLabelInput": {
+    "keyRequiredMessage": "key is required",
+    "labelsKeyPlaceholder": "Labels Key",
+    "valueRequiredMessage": "value is required",
+    "valuePlaceholder": "Value",
+    "removeLabelTooltip": "Remove label",
+    "labelsLabel": "Labels",
+    "addLabelsButton": "Add Labels"
+  },
+
+  "backupLabelInputForRecurring": {
+    "addLabelsForBackupButton": "Add Labels for Backup",
+    "labelsValuePlaceholder": "Labels Value"
+  },
+
+  "bundlesModel": {
+    "title": "Generate Support Bundle",
+    "form": {
+      "issueURLLabel": "Issue URL",
+      "descriptionLabel": "Description"
+    },
+    "validation": {
+      "descriptionRequired": "Please fill in support bundle's issue description"
+    }
+  },
+
+  "reactCron": {
+    "tabs": {
+      "cron": "Cron",
+      "generateCron": "Generate Cron"
+    },
+    "steps": {
+      "minutes": "Minutes",
+      "hour": "Hour",
+      "day": "Day",
+      "month": "Month"
+    },
+    "weekDays": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "common": {
+      "every": "Every",
+      "minuteUnit": "minute(s)",
+      "hourUnit": "hour(s)",
+      "dayUnit": "day(s)",
+      "monthUnit": "month(s)",
+      "startingAt": "starting at",
+      "startingOn": "starting on",
+      "startingAtThe": "starting at the",
+      "minutes": "minutes",
+      "hour": "hour",
+      "month": "month",
+      "and": "and",
+      "pleaseSelect": "Please select"
+    },
+    "minutes": {
+      "everyMinutes": "Every minutes",
+      "specificMinutes": "Specific minutes (choose one or many)",
+      "everyMinutesBetween": "Every minutes between"
+    },
+    "hour": {
+      "everyHour": "Every hour",
+      "specificHour": "Specific hour (choose one or many)",
+      "everyHourBetween": "Every hour between"
+    },
+    "day": {
+      "everyDay": "Every day",
+      "specificDayOfWeek": "Specific day of week (choose one or many)",
+      "specificDayOfMonth": "Specific day of month (choose one or many)",
+      "onTheLastDayOfTheMonth": "On the last day of the month",
+      "onTheLastWeekdayOfTheMonth": "On the last weekday of the month",
+      "onTheLast": "On the last",
+      "ofTheMonth": "of the month",
+      "daysBeforeTheEndOfTheMonth": "day(s) before the end of the month",
+      "nearestWeekdayToThe": "Nearest weekday (Monday to Friday) to the"
+    },
+    "month": {
+      "everyMonth": "Every month",
+      "specificMonth": "Specific month (choose one or many)",
+      "everyMonthBetween": "Every month between"
+    },
+    "buttons": {
+      "previous": "Previous",
+      "next": "Next",
+      "done": "Done"
+    },
+    "error": {
+      "cronExpressionFormatError": "Cron expression format error"
+    }
+  },
+
+  "replica": {
+    "deleteConfirm": {
+      "title": "Are you sure you want to delete replica {{replicaName}}?"
+    },
+    "modeInfo": {
+      "healthy": "Healthy",
+      "rebuilding": "Rebuilding...",
+      "failed": "Failed"
+    },
+    "deleteTooltip": {
+      "volumeNotAttached": "Replica belongs to volume currently {{volState}}. Volume must be attached."
+    },
+    "progressTooltip": {
+      "restoring": "Restoring {{progress}}%",
+      "deletingSnapshot": "Deleting Snapshot {{progress}}%",
+      "rebuilding": "Rebuilding {{progress}}%"
+    },
+    "fromReplica": {
+      "synchronizingFrom": "Synchronizing from Replica:"
+    },
+    "hostTooltip": {
+      "region": "region",
+      "zone": "zone"
+    },
+    "common": {
+      "notAvailable": "N/A",
+      "node": "Node"
+    },
+    "instanceManagerTooltip": "Instance Manager",
+    "status": {
+      "running": "Running",
+      "stopped": "Stopped"
+    },
+    "dropOption": {
+      "delete": "Delete"
+    }
+  },
+
+  "schedule": {
+    "common": {
+      "every": "Every",
+      "at": "at",
+      "on": "on",
+      "onThe": "on the"
+    },
+    "periods": {
+      "minute": "minute",
+      "hour": "hour",
+      "day": "day",
+      "week": "week",
+      "month": "month",
+      "year": "year"
+    },
+    "hour": {
+      "minutesPastTheHour": "minutes past the hour"
+    },
+    "weekDays": {
+      "sunday": "Sunday",
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday"
+    },
+    "days": {
+      "1st": "1st",
+      "2nd": "2nd",
+      "3rd": "3rd",
+      "4th": "4th",
+      "5th": "5th",
+      "6th": "6th",
+      "7th": "7th",
+      "8th": "8th",
+      "9th": "9th",
+      "10th": "10th",
+      "11th": "11th",
+      "12th": "12th",
+      "13th": "13th",
+      "14th": "14th",
+      "15th": "15th",
+      "16th": "16th",
+      "17th": "17th",
+      "18th": "18th",
+      "19th": "19th",
+      "20th": "20th",
+      "21st": "21st",
+      "22nd": "22nd",
+      "23rd": "23rd",
+      "24th": "24th",
+      "25th": "25th",
+      "26th": "26th",
+      "27th": "27th",
+      "28th": "28th",
+      "29th": "29th",
+      "30th": "30th",
+      "31st": "31st"
+    },
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    },
+    "year": {
+      "of": "of"
+    }
+  },
+
+  "search": {
+    "goButton": "Go"
+  },
+
+  "snapshot": {
+    "tooltip": {
+      "name": "Name",
+      "created": "Created",
+      "size": "Size",
+      "createdByUser": "Created By User",
+      "removed": "Removed",
+      "progress": "Progress",
+      "replicas": "Replicas",
+      "backups": "Backups",
+      "backupURL": "Backup URL"
+    },
+    "volumeHead": "Volume Head",
+    "modal": {
+      "cannotRevertTitle": "Cannot revert with frontend enabled",
+      "confirmSnapshotRevertTitle": "Confirm snapshot revert?",
+      "reattachInMaintenanceMode": "Please reattach the volume in maintenance mode to revert the volume.",
+      "workloadShutdownNeeded": "Workload shutdown might be needed."
+    },
+    "dropdown": {
+      "revert": "Revert",
+      "backUp": "Back Up",
+      "cloneVolume": "Clone Volume",
+      "delete": "Delete",
+      "takeSnapshot": "Take Snapshot"
+    }
   }
+
 
 }

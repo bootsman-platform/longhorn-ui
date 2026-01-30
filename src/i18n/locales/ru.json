@@ -19,6 +19,7 @@
     "updateField": "Обновить {{fieldName}}",
     "edit": "Редактировать",
     "create": "Создать",
+    "error": "Ошибка",
     
     "validation": {
       "required": "обязательное поле",
@@ -38,7 +39,8 @@
     "attachedTo": "Прикреплён к",
     "schedule": "Расписание",
     "dataLocality": "Локальность данных",
-    "replicas": "Реплики (Работают/Требуется)",
+    "replicas": "Реплики",
+    "replicasRunningDesired": "Реплики (Работают/Требуется)",
     "accessMode": "Режим доступа",
     "offlineRebuilding": "Восстановление реплик в автономном режиме",
     "replicaRebuildingBandwidthLimit": "Ограничение пропускной способности восстановления реплик",
@@ -80,7 +82,32 @@
     "minimumCopies": "Мин. количество копий",
     "nodeTags": "Теги узлов",
     "diskTags": "Теги дисков",
-    "disk": "Диск"
+    "disk": "Диск",
+    "node": "Узел",
+    "diskName": "Имя диска",
+    "diskPath": "Путь к диску",
+    "directoryName": "Имя директории",
+    "instanceName": "Имя экземпляра",
+    "instanceManager": "Менеджер экземпляров",
+    "instanceType": "Тип экземпляра",
+    "image": "Образ",
+    "default": "По умолчанию",
+    "referenceCount": "Количество ссылок",
+    "buildDate": "Дата сборки",
+    "refCountVolume": "Количество ссылок томов",
+    "instanceManagerImage": "Образ менеджера экземпляров",
+    "attachmentID": "ID присоединения",
+    "attachmentType": "Тип присоединения",
+    "nodeID": "ID узла",
+    "satisfied": "Выполнено",
+    "lastTransitionTime": "Время последнего перехода",
+    "kind": "Вид",
+    "source": "Источник",
+    "firstTime": "Первое время",
+    "lastTime": "Последнее время",
+    "reason": "Причина",
+    "message": "Сообщение",
+    "backups": "Резервные копии"
   },
 
   "menu": {
@@ -279,7 +306,7 @@
     }
   },
 
-  "instanceManager": {
+  "instanceManagerComponent": {
     "name": {
       "engineImage": "Образ движка (Engine Image)",
       "instanceManager": "Менеджер экземпляров"
@@ -441,25 +468,6 @@
   },
 
   "volumeList": {
-    "columns": {
-      "state": "Состояние",
-      "name": "Имя",
-      "size": "Размер",
-      "actualSize": "Фактический размер",
-      "created": "Создан",
-      "dataEngine": "Движок данных",
-      "pvPvc": "PV/PVC",
-      "namespace": "Пространство имён",
-      "attachedTo": "Прикреплён к",
-      "schedule": "Расписание",
-      "dataLocality": "Локальность данных",
-      "replicas": "Реплики (Работают/Требуется)",
-      "accessMode": "Режим доступа",
-      "offlineRebuilding": "Восстановление реплик в автономном режиме",
-      "replicaRebuildingBandwidthLimit": "Ограничение пропускной способности восстановления реплик",
-      "lastBackupAt": "Последнее резервное копирование",
-      "operation": "Операции"
-    },
     "status": {
       "restoring": "Восстановление",
       "rebuilding": "Перестроение",
@@ -500,6 +508,63 @@
     }
   },
 
+  "volumeActions": {
+    "modal": {
+      "delete": {
+        "hasPvTooltipText": "Следующие ресурсы, связанные с этим томом ({{name}}), будут удалены:",
+        "pvName": "Имя PV: {{name}}",
+        "pvcName": "Имя PVC: {{name}}",
+        "podName": "Имя Pod: {{name}} ({{status}})",
+        "attachedWarning": "Том подключен на {{hostId}}. Удаление этого тома может вызвать ошибки у любых работающих приложений, использующих этот том!",
+        "workloadWarning": "Следующие рабочие нагрузки зависят от этого тома ({{name}}) и могут столкнуться с ошибками после его удаления:",
+        "confirmation": "Вы уверены, что хотите удалить том ({{name}})?",
+        "okText": "Удалить"
+      },
+      "rollback": {
+        "title": "Вы уверены, что хотите откатить том {{name}}?"
+      },
+      "trimFilesystem": {
+        "title": "Вы уверены, что хотите обрезать файловую систему?"
+      }
+    },
+    "tooltips": {
+      "rwxDetach": "Режим доступа к тому `ReadWriteMany`. Пожалуйста, убедитесь, что рабочие нагрузки масштабированы до нуля, прежде чем пытаться отключить том"
+    },
+    "actions": {
+      "attach": "Подключить",
+      "detach": "Отключить",
+      "salvage": "Восстановить",
+      "upgrade": "Обновить",
+      "rollback": "Откатить",
+      "engineUpgrade": "Обновить движок",
+      "updateReplicaCount": "Обновить количество реплик",
+      "updateDataLocality": "Обновить локализацию данных",
+      "updateSnapshotDataIntegrity": "Целостность данных снимков",
+      "updateAccessMode": "Обновить режим доступа",
+      "updateBackupTarget": "Обновить цель резервного копирования",
+      "updateReplicaAutoBalance": "Обновить авто-балансировку реплик",
+      "allowSnapshotsRemovalDuringTrim": "Разрешить удаление снимков при обрезке",
+      "updateReplicaSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик",
+      "updateReplicaZoneSoftAntiAffinity": "Обновить мягкую анти-аффинность зон реплик",
+      "updateSnapshotMaxCount": "Обновить максимальное количество снимков",
+      "updateSnapshotMaxSize": "Обновить максимальный размер снимков",
+      "updateReplicaDiskSoftAntiAffinity": "Обновить мягкую анти-аффинность дисков реплик",
+      "updateFreezeFilesystemForSnapshot": "Обновить заморозку файловой системы для снимков",
+      "offlineReplicaRebuilding": "Обновить автономное восстановление реплик",
+      "updateReplicaRebuildingBandwidthLimit": "Обновить лимит пропускной способности восстановления реплик",
+      "updateUblkNumberOfQueue": "Обновить количество очередей UBLK",
+      "updateUblkQueueDepth": "Обновить глубину очереди UBLK",
+      "cloneVolume": "Клонировать том",
+      "expandVolume": "Расширить том",
+      "cancelExpansion": "Отменить расширение",
+      "pvAndpvcCreate": "Создать PV/PVC",
+      "activateDisasterRecoveryVolume": "Активировать том аварийного восстановления",
+      "trimFilesystem": "Обрезать файловую систему",
+      "backups": "Резервные копии",
+      "delete": "Удалить"
+    }
+  },
+
   "volumeBulkActions": {
     "deleteWarning": {
       "pvName": "Имя PV",
@@ -512,33 +577,8 @@
     },
     "trimConfirm": "Вы уверены, что хотите выполнить trim файловой системы для ({{volumes}}) ?",
     "actions": {
-      "delete": "Удалить",
-      "attach": "Прикрепить",
-      "detach": "Открепить",
       "createBackup": "Создать резервную копию",
-      "cloneVolume": "Клонировать том"
-    },
-    "dropdownActions": {
-      "upgradeEngine": "Обновить движок",
-      "expandVolume": "Расширить том",
-      "updateReplicasCount": "Обновить количество реплик",
-      "updateDataLocality": "Обновить локальность данных",
-      "snapshotDataIntegrity": "Целостность данных снимков",
-      "updateAccessMode": "Обновить режим доступа",
-      "updateBackupTarget": "Обновить цель резервного копирования",
-      "updateReplicasAutoBalance": "Обновить авто-балансировку реплик",
-      "createPVPVC": "Создать PV/PVC",
-      "activateDisasterRecoveryVolume": "Активировать том аварийного восстановления",
-      "allowSnapshotsRemovalDuringTrim": "Разрешить удаление снимков во время Trim",
-      "updateReplicaSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик",
-      "updateReplicaZoneSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик по зонам",
-      "updateReplicaDiskSoftAntiAffinity": "Обновить мягкую анти-аффинность реплик по дискам",
-      "trimFilesystem": "Trim файловой системы",
-      "updateFreezeFilesystemForSnapshot": "Обновить заморозку файловой системы для снимков",
-      "updateOfflineReplicaRebuilding": "Обновить восстановление реплик в автономном режиме",
-      "updateReplicaRebuildingBandwidthLimit": "Обновить ограничение пропускной способности восстановления реплик",
-      "updateUblkNumberOfQueue": "Обновить количество очередей UBLK",
-      "updateUblkQueueDepth": "Обновить глубину очереди UBLK"
+      "upgradeEngine": "Обновить движок"
     }
   },
 
@@ -730,7 +770,9 @@
       "createPVC": "Создать PVC",
       "usePreviousPVC": "Использовать предыдущий PVC",
       "namespace": "Пространство имён",
-      "pvcName": "Имя PVC"
+      "pvcName": "Имя PVC",
+      "secretNamespace": "Пространство имён секрета",
+      "secretName": "Имя секрета"
     },
     "placeholders": {
       "volumeName": "<Имя тома>",
@@ -1891,11 +1933,6 @@
         "title": "Вы уверены, что хотите очистить файл образа с диска ({{disk}})?"
       }
     },
-    "columns": {
-      "status": "Состояние",
-      "disk": "Диск",
-      "operation": "Действие"
-    },
     "actions": {
       "cleanUp": "Очистить"
     },
@@ -1946,6 +1983,699 @@
       "replicaData": "Данные реплик",
       "instances": "Экземпляры"
     }
+  },
+
+  "replicaDataOrphans": {
+    "filter": {
+      "fieldOption": {
+        "node": "Узел",
+        "diskName": "Имя диска",
+        "diskPath": "Путь к диску",
+        "directoryName": "Имя директории"
+      }
+    }
+  },
+
+  "orphanedDataActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить {{name}}?"
+      }
+    }
+  },
+
+  "instanceOrphans": {
+    "filter": {
+      "fieldOption": {
+        "node": "Узел",
+        "instanceName": "Имя экземпляра",
+        "instanceManager": "Менеджер экземпляров",
+        "orphanType": "Тип экземпляра",
+        "dataEngine": "Движок данных"
+      }
+    }
+  },
+
+  "engineImage": {
+    "filter": {
+      "fieldOption": {
+        "image": "Образ"
+      }
+    },
+    "button": {
+      "deployEngineImage": "Развернуть образ движка"
+    }
+  },
+
+  "createEngineImage": {
+    "title": "Создать образ движка",
+    "form": {
+      "image": {
+        "label": "Образ",
+        "rules": {
+          "required": "Пожалуйста, введите образ движка"
+        }
+      }
+    }
+  },
+
+  "engineImageList": {
+    "status": {
+      "incompatible": "Несовместимо"
+    }
+  },
+
+  "engineImageActions": {
+    "modal": {
+      "delete": {
+        "title": "Вы уверены, что хотите удалить образ движка {{name}}?"
+      }
+    }
+  },
+
+  "engineImageFilter": {
+    "selectOptions": {
+      "image": "образ"
+    },
+    "button": {
+      "createEngineImage": "Создать образ движка"
+    }
+  },
+
+  "engineImageDetail": {
+    "title": "Детали образа движка"
+  },
+
+  "engineImageInfo": {
+    "fields": {
+      "buildDate": "Дата сборки",
+      "status": "Состояние",
+      "default": "По умолчанию",
+      "cliAPIVersion": "CLIAPIVersion",
+      "controllerAPIVersion": "ControllerAPIVersion",
+      "image": "Образ",
+      "refCount": "RefCount",
+      "noRefSince": "NoRefSince",
+      "nodeDeploymentMap": "NodeDeploymentMap"
+    },
+    "status": {
+      "incompatible": "Несовместимо"
+    }
+  },
+
+  "instanceManager": {
+    "filter": {
+      "fieldOption": {
+        "name": "Имя",
+        "nodeID": "Узел",
+        "managerType": "Тип",
+        "currentState": "Состояние",
+        "image": "Образ менеджера экземпляров"
+      }
+    }
+  },
+
+  "volumeDetail": {
+    "snapshotDataIntegrity": {
+      "ignored": "игнорировать (следовать глобальной настройке)"
+    },
+    "cancelExpansion": {
+      "title": "Вы уверены, что хотите отменить расширение?",
+      "description": "Эта операция используется для отмены расширения, если том не может завершить расширение и зависает. После завершения расширение не может быть отменено",
+      "message": {
+        "part1": "Если расширение, которое вы хотите отменить, было инициировано обновлением размера PVC, эта операция не поможет откатить PVC. Поскольку размер PVC не может уменьшаться, пользователям необходимо очистить и воссоздать PVC и PV после успешной отмены расширения:",
+        "step1": "Обновите поле spec.persistentVolumeReclaimPolicy на Retain для соответствующего PV.",
+        "step2": "Удалите и воссоздайте связанные PVC и PV."
+      }
+    },
+    "cards": {
+      "volumeDetails": "Детали тома",
+      "replicas": "Реплики"
+    }
+  },
+
+  "volumeInfo": {
+    "alerts": {
+      "schedulingFailure": {
+        "title": "Ошибка планирования",
+        "errorMessage": "Сообщение об ошибке"
+      }
+    },
+    "state": {
+      "label": " Состояние:"
+    },
+    "health": {
+      "label": " Состояние здоровья:",
+      "attachedNodeDown": "Подключенный узел недоступен",
+      "dataLocalityWarning": "Том не имеет локализации данных! Нет здоровых реплик на том же узле, что и движок"
+    },
+    "readyForWorkload": {
+      "label": " Готов для рабочей нагрузки:",
+      "ready": "Готов",
+      "notReady": "Не готов",
+      "notReadyTooltip": "Не готов для рабочей нагрузки. {{robustness}}",
+      "volumeFaulted": "Том неисправен",
+      "volumeUnderMaintenance": "Том может находиться на обслуживании или в процессе восстановления."
+    },
+    "conditions": {
+      "label": " Условия:"
+    },
+    "frontend": {
+      "label": " Фронтенд:",
+      "disabledTooltip": "Подключить том без включения фронтенда. Данные тома будут недоступны при подключении."
+    },
+    "ublk": {
+      "numberOfQueues": " Количество очередей Ublk:",
+      "queueDepth": " Глубина очереди Ublk:"
+    },
+    "backupTarget": {
+      "label": " Цель резервного копирования:"
+    },
+    "backupBlockSize": {
+      "label": " Размер блока резервного копирования:"
+    },
+    "dataEngine": {
+      "label": " Движок данных:"
+    },
+    "attachedNodeAndEndpoint": {
+      "label": " Подключенный узел и конечная точка:"
+    },
+    "attachedNode": {
+      "label": " Подключенный узел:"
+    },
+    "size": {
+      "label": "Размер",
+      "tooltip": "Объем пространства, доступного для тома при использовании. Это размер, который вы указали при создании тома."
+    },
+    "actualSize": {
+      "label": "Фактический размер",
+      "tooltip": "Объем пространства, используемого головой тома и снапшотами. Это может превышать значение поля \"Размер\".",
+      "unknown": "Неизвестно"
+    },
+    "dataLocality": {
+      "label": " Локализация данных:"
+    },
+    "accessMode": {
+      "label": " Режим доступа:"
+    },
+    "backingImage": {
+      "label": " Базовый образ:"
+    },
+    "backingImageSize": {
+      "label": " Размер базового образа:"
+    },
+    "engineImage": {
+      "label": "Образ движка",
+      "tooltip": "Предоставляет двоичный файл для запуска и общения с движком/репликами тома."
+    },
+    "created": {
+      "label": " Создан:"
+    },
+    "encrypted": {
+      "label": " Зашифрован:"
+    },
+    "nodeTags": {
+      "label": " Теги узла:"
+    },
+    "diskTags": {
+      "label": " Теги диска:"
+    },
+    "lastBackup": {
+      "label": " Последнее резервное копирование:"
+    },
+    "lastBackupAt": {
+      "label": " Время последнего резервного копирования:"
+    },
+    "replicaAutoBalance": {
+      "label": " Автобалансировка реплик:"
+    },
+    "snapshotDataIntegrity": {
+      "label": " Целостность данных снапшота:"
+    },
+    "snapshotMaxCount": {
+      "label": " Максимальное количество снапшотов:"
+    },
+    "snapshotMaxSize": {
+      "label": " Максимальный размер снапшота:"
+    },
+    "instanceManager": {
+      "label": "Менеджер экземпляров",
+      "tooltip": "Управляет жизненным циклом экземпляров движка/реплик на узле."
+    },
+    "allowSnapshotsRemovalDuringTrim": {
+      "label": " Разрешить удаление снапшотов во время обрезки:"
+    },
+    "replicaSoftAntiAffinity": {
+      "label": " Мягкая антиаффинность реплик:"
+    },
+    "replicaZoneSoftAntiAffinity": {
+      "label": " Мягкая антиаффинность зон реплик:"
+    },
+    "replicaDiskSoftAntiAffinity": {
+      "label": " Мягкая антиаффинность дисков реплик:"
+    },
+    "freezeFilesystemForSnapshot": {
+      "label": " Заморозка файловой системы для снапшота:"
+    },
+    "offlineReplicaRebuilding": {
+      "label": " Восстановление офлайн-реплик:"
+    },
+    "replicaRebuildingBandwidthLimit": {
+      "label": " Ограничение пропускной способности восстановления реплик:"
+    },
+    "restoring": {
+      "label": " Восстановление:"
+    },
+    "volumeSize": {
+      "expansionError": "Ошибка расширения",
+      "expansionNote": "Примечание: Вы можете отменить расширение, чтобы избежать сбоя тома",
+      "expansionInProgress": "Том находится в процессе расширения с размера {{currentSize}} до размера {{expectedSize}}"
+    },
+    "globalSettingTooltip": "Это параметр по умолчанию, который указывает Longhorn наследовать настройки из глобальных.",
+    "kubernetesStatus": {
+      "lastPodName": "Последнее имя пода:",
+      "podName": " Имя пода:",
+      "podStatus": " Статус пода:",
+      "lastWorkloadName": "Последнее имя рабочей нагрузки:",
+      "workloadName": " Имя рабочей нагрузки:",
+      "lastWorkloadType": "Последний тип рабочей нагрузки:",
+      "workloadType": " Тип рабочей нагрузки:",
+      "lastTimeBoundWithPVC": " Последний раз связан с PVC:",
+      "lastTimeUsedByPod": " Последний раз использован подом:",
+      "lastNamespace": "Последнее пространство имен:",
+      "namespace": " Пространство имен:",
+      "lastBoundedPVCName": "Последнее связанное имя PVC:",
+      "pvcName": " Имя PVC:",
+      "pvName": " Имя PV:",
+      "pvStatus": " Статус PV:"
+    },
+    "revisionCounterDisabled": {
+      "label": "Счетчик ревизий отключен:"
+    }
+  },
+
+  "engineImageUpgradeTooltip": {
+    "currentVersion": "Текущий образ движка: {{version}}",
+    "latestVersionAvailable": "Образ движка {{version}} теперь доступен!"
+  },
+
+  "replicaHATooltip": {
+    "warning": "Ограниченная избыточность узлов: хотя бы одна здоровая реплика работает на том же узле, что и другая",
+    "danger": "Нет избыточности узлов: все здоровые реплики работают на одном и том же узле"
+  },
+
+  "conditionTooltip": {
+    "name": "Имя",
+    "lastProbeTime": "Время последней проверки",
+    "lastTransitionTime": "Время последнего перехода",
+    "message": "Сообщение",
+    "reason": "Причина",
+    "status": "Статус",
+    "suggestion": "Предложение",
+    "tooManySnapshots": {
+      "notExceeded": "Пороговое значение количества снапшотов (100) не превышено",
+      "suggestion": "Попробуйте удалить неиспользуемые снапшоты для освобождения места при необходимости"
+    }
+  },
+
+  "volumeAttachment": {
+    "title": "Присоединения томов",
+    "error": {
+      "defaultMessage": "Не удалось получить присоединения томов"
+    },
+    "satisfied": {
+      "notSatisfied": "Не выполнено"
+    }
+  },
+
+  "snapshots": {
+    "title": "Снапшоты и резервные копии",
+    "takeSnapshotButton": "Создать снапшот",
+    "createBackupButton": "Создать резервную копию",
+    "showSystemSnapshots": "Показать системные снапшоты:",
+    "createSnapshotTooltip": {
+      "drVolume": "Невозможно создать снапшот для DR тома",
+      "default": "Создать новый снапшот. Вы можете создать резервную копию, нажав на любой снапшот ниже и выбрав 'Резервное копирование'."
+    },
+    "createBackupTooltip": {
+      "backupTargetUnavailable": "Цель резервного копирования {{target}} недоступна.",
+      "drVolume": "Невозможно создать резервную копию для DR тома.",
+      "default": "Создать новую резервную копию."
+    },
+    "purgeProgress": {
+      "format": "Удаление {{percent}}%"
+    }
+  },
+
+  "recurringJobDetail": {
+    "title": "Расписание повторяющихся заданий",
+    "tabs": {
+      "job": "Задание",
+      "group": "Группа"
+    },
+    "addButton": "Добавить",
+    "tooltips": {
+      "recurringJobNotExist": "Повторяющееся задание не существует",
+      "recurringJobGroupNotExist": "Группа повторяющихся заданий не существует",
+      "noDefaultGroupJobs": "Нет повторяющихся заданий, установленных в группу по умолчанию"
+    },
+    "message": {
+      "getRecurringJobFailed": "Не удалось получить повторяющееся задание"
+    },
+    "bulkDeleteJob": {
+      "confirmTitle": "Вы уверены, что хотите удалить повторяющееся задание {{jobs}} из тома {{volume}}?"
+    },
+    "bulkDeleteJobGroup": {
+      "confirmTitle": "Вы уверены, что хотите удалить группу повторяющихся заданий {{groups}} из тома {{volume}}?"
+    },
+    "modalGroupDetail": {
+      "title": "Повторяющееся задание"
+    }
+  },
+
+  "eventList": {
+    "title": "Журнал событий",
+    "tooltip": {
+      "expand": "Нажмите, чтобы развернуть",
+      "collapse": "Нажмите, чтобы свернуть"
+    }
+  },
+
+  "snapshotList": {
+    "title": "Список снапшотов и резервных копий",
+    "tooltip": {
+      "expand": "Нажмите, чтобы развернуть",
+      "collapse": "Нажмите, чтобы свернуть"
+    },
+    "type": {
+      "snapshot": "Снапшот",
+      "backup": "Резервная копия"
+    },
+    "parentId": "Родительский ID"
+  },
+
+  "addRecurringJobOrGroupModal": {
+    "title": {
+      "job": "Добавить повторяющееся задание",
+      "group": "Добавить группу повторяющихся заданий"
+    },
+    "label": {
+      "jobName": "Имя повторяющегося задания",
+      "groupName": "Имя группы повторяющихся заданий"
+    },
+    "validation": {
+      "required": "Пожалуйста, выберите имя повторяющегося задания"
+    }
+  },
+
+  "createRecurringJobDetail": {
+    "tabs": {
+      "new": "Новое",
+      "existing": "Существующее"
+    },
+    "form": {
+      "task": "Задача",
+      "forceCreate": "Принудительное создание",
+      "retain": "Хранить",
+      "concurrency": "Параллелизм",
+      "cron": "Cron",
+      "parameters": "Параметры",
+      "groups": "Группы",
+      "labels": "Метки",
+      "existingJobName": "Имя повторяющегося задания"
+    },
+    "tooltip": {
+      "forceCreate": "Создавать {{type}} периодически, даже если истекшие {{itemType}} не могут быть очищены.",
+      "backups": "резервные копии",
+      "snapshots": "снапшоты",
+      "defaultGroup": "Том без повторяющихся заданий или групп автоматически будет применять повторяющиеся задания из группы по умолчанию."
+    },
+    "validation": {
+      "nameRequired": "Пожалуйста, введите имя повторяющегося задания",
+      "groupNameRequired": "Пожалуйста, введите имя группы",
+      "valueRequired": "Требуется значение",
+      "existingJobRequired": "Пожалуйста, выберите имя повторяющегося задания"
+    },
+    "placeholder": {
+      "groupName": "Имя группы"
+    }
+  },
+
+  "expansionErrorDetail": {
+    "lastExpansionFailedAt": "Последнее расширение завершилось ошибкой {{lastExpansionFailedAt}},",
+    "clickToViewErrorDetails": "Нажмите, чтобы просмотреть детали ошибки",
+    "clickToCloseErrorDetails": "Нажмите, чтобы закрыть детали ошибки"
+  },
+
+  "autoComplete": {
+    "volumeNamePlaceholder": "Имя тома"
+  },
+
+  "backupLabelInput": {
+    "keyRequiredMessage": "ключ обязателен",
+    "labelsKeyPlaceholder": "Ключ метки",
+    "valueRequiredMessage": "значение обязательно",
+    "valuePlaceholder": "Значение",
+    "removeLabelTooltip": "Удалить метку",
+    "labelsLabel": "Метки",
+    "addLabelsButton": "Добавить метки"
+  },
+  
+  "backupLabelInputForRecurring": {
+    "addLabelsForBackupButton": "Добавить метки для резервной копии",
+    "labelsValuePlaceholder": "Значение метки"
+  },
+
+  "bundlesModel": {
+    "title": "Создать пакет поддержки",
+    "form": {
+      "issueURLLabel": "URL проблемы",
+      "descriptionLabel": "Описание"
+    },
+    "validation": {
+      "descriptionRequired": "Пожалуйста, заполните описание проблемы для пакета поддержки"
+    }
+  },
+
+  "reactCron": {
+    "tabs": {
+      "cron": "Cron",
+      "generateCron": "Генерация Cron"
+    },
+    "steps": {
+      "minutes": "Минуты",
+      "hour": "Час",
+      "day": "День",
+      "month": "Месяц"
+    },
+    "weekDays": {
+      "sunday": "Воскресенье",
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота"
+    },
+    "common": {
+      "every": "Каждые",
+      "minuteUnit": "минут(ы)",
+      "hourUnit": "час(а)",
+      "dayUnit": "день(дня)",
+      "monthUnit": "месяц(а)",
+      "startingAt": "начиная с",
+      "startingOn": "начиная с",
+      "startingAtThe": "начиная с",
+      "minutes": "минут",
+      "hour": "часа",
+      "month": "месяца",
+      "and": "и",
+      "pleaseSelect": "Пожалуйста, выберите"
+    },
+    "minutes": {
+      "everyMinutes": "Каждую минуту",
+      "specificMinutes": "Конкретные минуты (выберите одну или несколько)",
+      "everyMinutesBetween": "Каждую минуту между"
+    },
+    "hour": {
+      "everyHour": "Каждый час",
+      "specificHour": "Конкретный час (выберите один или несколько)",
+      "everyHourBetween": "Каждый час между"
+    },
+    "day": {
+      "everyDay": "Каждый день",
+      "specificDayOfWeek": "Конкретный день недели (выберите один или несколько)",
+      "specificDayOfMonth": "Конкретный день месяца (выберите один или несколько)",
+      "onTheLastDayOfTheMonth": "В последний день месяца",
+      "onTheLastWeekdayOfTheMonth": "В последний рабочий день месяца",
+      "onTheLast": "В последний",
+      "ofTheMonth": "месяца",
+      "daysBeforeTheEndOfTheMonth": "день(дня) до конца месяца",
+      "nearestWeekdayToThe": "Ближайший рабочий день (с понедельника по пятницу) к"
+    },
+    "month": {
+      "everyMonth": "Каждый месяц",
+      "specificMonth": "Конкретный месяц (выберите один или несколько)",
+      "everyMonthBetween": "Каждый месяц между"
+    },
+    "buttons": {
+      "previous": "Назад",
+      "next": "Далее",
+      "done": "Готово"
+    },
+    "error": {
+      "cronExpressionFormatError": "Ошибка формата выражения Cron"
+    }
+  },
+
+  "replica": {
+    "deleteConfirm": {
+      "title": "Вы уверены, что хотите удалить реплику {{replicaName}}?"
+    },
+    "modeInfo": {
+      "healthy": "Здорова",
+      "rebuilding": "Перестроение...",
+      "failed": "Неисправна"
+    },
+    "deleteTooltip": {
+      "volumeNotAttached": "Реплика принадлежит тому, который сейчас {{volState}}. Том должен быть подключен."
+    },
+    "progressTooltip": {
+      "restoring": "Восстановление {{progress}}%",
+      "deletingSnapshot": "Удаление снепшота {{progress}}%",
+      "rebuilding": "Перестроение {{progress}}%"
+    },
+    "fromReplica": {
+      "synchronizingFrom": "Синхронизация с реплики:"
+    },
+    "hostTooltip": {
+      "region": "регион",
+      "zone": "зона"
+    },
+    "common": {
+      "notAvailable": "Н/Д",
+      "node": "Узел"
+    },
+    "instanceManagerTooltip": "Менеджер экземпляров",
+    "status": {
+      "running": "Запущен",
+      "stopped": "Остановлен"
+    },
+    "dropOption": {
+      "delete": "Удалить"
+    }
+  },
+
+  "schedule": {
+    "common": {
+      "every": "Каждый",
+      "at": "в",
+      "on": "в",
+      "onThe": "в"
+    },
+    "periods": {
+      "minute": "минуту",
+      "hour": "час",
+      "day": "день",
+      "week": "неделю",
+      "month": "месяц",
+      "year": "год"
+    },
+    "hour": {
+      "minutesPastTheHour": "минут после часа"
+    },
+    "weekDays": {
+      "sunday": "Воскресенье",
+      "monday": "Понедельник",
+      "tuesday": "Вторник",
+      "wednesday": "Среда",
+      "thursday": "Четверг",
+      "friday": "Пятница",
+      "saturday": "Суббота"
+    },
+    "days": {
+      "1st": "1-е",
+      "2nd": "2-е",
+      "3rd": "3-е",
+      "4th": "4-е",
+      "5th": "5-е",
+      "6th": "6-е",
+      "7th": "7-е",
+      "8th": "8-е",
+      "9th": "9-е",
+      "10th": "10-е",
+      "11th": "11-е",
+      "12th": "12-е",
+      "13th": "13-е",
+      "14th": "14-е",
+      "15th": "15-е",
+      "16th": "16-е",
+      "17th": "17-е",
+      "18th": "18-е",
+      "19th": "19-е",
+      "20th": "20-е",
+      "21st": "21-е",
+      "22nd": "22-е",
+      "23rd": "23-е",
+      "24th": "24-е",
+      "25th": "25-е",
+      "26th": "26-е",
+      "27th": "27-е",
+      "28th": "28-е",
+      "29th": "29-е",
+      "30th": "30-е",
+      "31st": "31-е"
+    },
+    "months": {
+      "january": "Январь",
+      "february": "Февраль",
+      "march": "Март",
+      "april": "Апрель",
+      "may": "Май",
+      "june": "Июнь",
+      "july": "Июль",
+      "august": "Август",
+      "september": "Сентябрь",
+      "october": "Октябрь",
+      "november": "Ноябрь",
+      "december": "Декабрь"
+    },
+    "year": {
+      "of": "месяца"
+    }
+  },
+
+  "search": {
+    "goButton": "Найти"
+  },
+
+  "snapshot": {
+    "tooltip": {
+      "name": "Имя",
+      "created": "Создано",
+      "size": "Размер",
+      "createdByUser": "Создано пользователем",
+      "removed": "Удалено",
+      "progress": "Прогресс",
+      "replicas": "Реплики",
+      "backups": "Резервные копии",
+      "backupURL": "URL резервной копии"
+    },
+    "volumeHead": "Голова тома",
+    "modal": {
+      "cannotRevertTitle": "Невозможно откатить при включенном фронтенде",
+      "confirmSnapshotRevertTitle": "Подтвердить откат снепшота?",
+      "reattachInMaintenanceMode": "Пожалуйста, переподключите том в режиме обслуживания, чтобы выполнить откат.",
+      "workloadShutdownNeeded": "Возможно, потребуется остановить рабочую нагрузку."
+    },
+    "dropdown": {
+      "revert": "Откатить",
+      "backUp": "Создать резервную копию",
+      "cloneVolume": "Клонировать том",
+      "delete": "Удалить",
+      "takeSnapshot": "Создать снепшот"
+    }
   }
+
 
 }

@@ -14,25 +14,25 @@ class InstanceManagerComponent extends React.Component {
     const t = this.props.t
 
     let data = []
-    let engineimageObj = { name: t('instanceManager.name.engineImage'), image: defaultEngineImage.value, state: t('instanceManager.state.notDeployed'), id: 'engineRowKey' }
+    let engineimageObj = { name: t('instanceManagerComponent.name.engineImage'), image: defaultEngineImage.value, state: t('instanceManagerComponent.state.notDeployed'), id: 'engineRowKey' }
 
     engineimage.forEach((item) => {
       if (defaultEngineImage.value === item.image && item.nodeDeploymentMap && item.nodeDeploymentMap[currentNode.id]) {
-        engineimageObj.state = t('instanceManager.state.deployed')
+        engineimageObj.state = t('instanceManagerComponent.state.deployed')
       }
     })
     data.push(engineimageObj)
 
     instanceManagerData.forEach((item) => {
-      let instanceManagerObj = { name: t('instanceManager.name.instanceManager'), image: 'N/A', state: 'N/A', id: 'instanceRowKey' }
+      let instanceManagerObj = { name: t('instanceManagerComponent.name.instanceManager'), image: 'N/A', state: 'N/A', id: 'instanceRowKey' }
       if (defaultInstanceManager.value === item.image && item.nodeID === currentNode.id) {
         instanceManagerObj.image = item.image
         // Engine will deprecated in v1.6.x
         if (item.managerType === 'engine') {
-          instanceManagerObj.name = `${instanceManagerObj.name} (${t('instanceManager.text.deprecated')})`
+          instanceManagerObj.name = `${instanceManagerObj.name} (${t('instanceManagerComponent.text.deprecated')})`
           let replicaCurrentState = item.replicaCurrentState
           !currentNode.disks ? replicaCurrentState = 'N/A' : ''
-          instanceManagerObj.state = `${t('instanceManager.state.engine')}: ${item.currentState}  |  {t('instanceManager.state.replica')}: ${replicaCurrentState}`
+          instanceManagerObj.state = `${t('instanceManagerComponent.state.engine')}: ${item.currentState}  |  {t('instanceManagerComponent.state.replica')}: ${replicaCurrentState}`
         } else if (item.managerType === 'aio') {
           instanceManagerObj.state = item.currentState
         }
@@ -42,19 +42,19 @@ class InstanceManagerComponent extends React.Component {
 
     const columns = [
       {
-        title: t('common.name'),
+        title: t('columns.name'),
         key: 'name',
         width: 220,
         render: (record) => {
           return (
-            <Tooltip title={record.name === t('instanceManager.name.engineImage') ? t('instanceManager.tooltip.engineImage') : t('instanceManager.tooltip.instanceManager')}>
+            <Tooltip title={record.name === t('instanceManagerComponent.name.engineImage') ? t('instanceManagerComponent.tooltip.engineImage') : t('instanceManagerComponent.tooltip.instanceManager')}>
               <div>{record.name}</div>
             </Tooltip>
           )
         },
       },
       {
-        title: t('instanceManager.columns.image'),
+        title: t('columns.image'),
         key: 'version',
         width: 220,
         render: (record) => {
@@ -64,7 +64,7 @@ class InstanceManagerComponent extends React.Component {
         },
       },
       {
-        title: t('instanceManager.columns.state'),
+        title: t('columns.state'),
         key: 'state',
         width: 200,
         render: (record) => {

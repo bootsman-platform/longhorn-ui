@@ -207,38 +207,38 @@ function bulkActions({
   */
   const hasMoreOptions = () => engineImages.findIndex(engineImage => selectedRows.findIndex(item => item.image === engineImage.image) === -1) === -1
   const allActions = [
-    { key: 'delete', name: t('volumeBulkActions.actions.delete'), disabled() { return selectedRows.length === 0 } },
-    { key: 'attach', name: t('volumeBulkActions.actions.attach'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !attachable(item)) } },
-    { key: 'detach', name: t('volumeBulkActions.actions.detach'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !detachable(item)) } },
+    { key: 'delete', name: t('volumeActions.actions.delete'), disabled() { return selectedRows.length === 0 } },
+    { key: 'attach', name: t('volumeActions.actions.attach'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !attachable(item)) } },
+    { key: 'detach', name: t('volumeActions.actions.detach'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !detachable(item)) } },
     { key: 'backup', name: t('volumeBulkActions.actions.createBackup'), disabled() { return selectedRows.length === 0 || hasNonAttachedVolume() || isSnapshotDisabled() || hasDoingState() || isHasStandy() || hasVolumeRestoring() || !backupTargetAvailable }, toolTip: backupTargetMessage },
-    { key: 'bulkCloneVolume', name: t('volumeBulkActions.actions.cloneVolume'), disabled() { return selectedRows.length === 0 || selectedRows.every(item => item.standby || isRestoring(item)) } },
+    { key: 'bulkCloneVolume', name: t('volumeActions.actions.cloneVolume'), disabled() { return selectedRows.length === 0 || selectedRows.every(item => item.standby || isRestoring(item)) } },
 
   ]
 
   const allDropDownActions = [
-    { key: 'upgrade', name: t('volumeBulkActions.dropdownActions.upgradeEngine'), disabled() { return selectedRows.length === 0 || isAutomaticallyUpgradeEngine() || !hasAction('engineUpgrade') || hasDoingState() || hasMoreOptions() || hasVolumeRestoring() || canUpgradeEngine() } },
-    { key: 'expandVolume', name: t('volumeBulkActions.dropdownActions.expandVolume'), disabled() { return selectedRows.length === 0 || disableExpandVolume() } },
-    { key: 'updateBulkReplicaCount', name: t('volumeBulkActions.dropdownActions.updateReplicasCount'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkReplicaCount() || upgradingEngine() } },
-    { key: 'updateBulkDataLocality', name: t('volumeBulkActions.dropdownActions.updateDataLocality'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkDataLocality() || upgradingEngine() } },
-    { key: 'updateSnapshotDataIntegrity', name: t('volumeBulkActions.dropdownActions.snapshotDataIntegrity'), disabled() { return selectedRows.length === 0 } },
-    { key: 'updateBulkAccessMode', name: t('volumeBulkActions.dropdownActions.updateAccessMode'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateAccessMode() } },
-    { key: 'updateBulkBackupTarget', name: t('volumeBulkActions.dropdownActions.updateBackupTarget'), disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaAutoBalance', name: t('volumeBulkActions.dropdownActions.updateReplicasAutoBalance'), disabled() { return selectedRows.length === 0 || disableUpdateReplicaAutoBalance() } },
-    { key: 'createPVAndPVC', name: t('volumeBulkActions.dropdownActions.createPVPVC'), disabled() { return selectedRows.length === 0 || isHasStandy() || hasVolumeRestoring() || isHasPVC() || isFaulted() || !hasAction('pvCreate') || !hasAction('pvcCreate') } },
-    { key: 'bulkChangeVolume', name: t('volumeBulkActions.dropdownActions.activateDisasterRecoveryVolume'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !item.standby) } },
-    { key: 'updateUnmapMarkSnapChainRemoved', name: t('volumeBulkActions.dropdownActions.allowSnapshotsRemovalDuringTrim'), disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaSoftAntiAffinity', name: t('volumeBulkActions.dropdownActions.updateReplicaSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaZoneSoftAntiAffinity', name: t('volumeBulkActions.dropdownActions.updateReplicaZoneSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
-    { key: 'updateReplicaDiskSoftAntiAffinity', name: t('volumeBulkActions.dropdownActions.updateReplicaDiskSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
-    { key: 'trimFilesystem', name: t('volumeBulkActions.dropdownActions.trimFilesystem'), disabled() { return selectedRows.length === 0 || notAttached() } },
-    { key: 'updateFreezeFilesystemForSnapshot', name: t('volumeBulkActions.dropdownActions.updateFreezeFilesystemForSnapshot'), disabled() { return selectedRows.length === 0 } },
-    { key: 'offlineReplicaRebuilding', name: t('volumeBulkActions.dropdownActions.updateOfflineReplicaRebuilding'), disabled() { return selectedRows.length === 0 || selectedRows.every((row) => !row.actions?.offlineReplicaRebuilding) } },
-    { key: 'updateReplicaRebuildingBandwidthLimit', name: t('volumeBulkActions.dropdownActions.updateReplicaRebuildingBandwidthLimit'), disabled() { return selectedRows.length === 0 || selectedRows.some((row) => row?.dataEngine === 'v1') } },
+    { key: 'upgrade', name: t('volumeBulkActions.actions.upgradeEngine'), disabled() { return selectedRows.length === 0 || isAutomaticallyUpgradeEngine() || !hasAction('engineUpgrade') || hasDoingState() || hasMoreOptions() || hasVolumeRestoring() || canUpgradeEngine() } },
+    { key: 'expandVolume', name: t('volumeActions.actions.expandVolume'), disabled() { return selectedRows.length === 0 || disableExpandVolume() } },
+    { key: 'updateBulkReplicaCount', name: t('volumeActions.actions.updateReplicaCount'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkReplicaCount() || upgradingEngine() } },
+    { key: 'updateBulkDataLocality', name: t('volumeActions.actions.updateDataLocality'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateBulkDataLocality() || upgradingEngine() } },
+    { key: 'updateSnapshotDataIntegrity', name: t('volumeActions.actions.updateSnapshotDataIntegrity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateBulkAccessMode', name: t('volumeActions.actions.updateAccessMode'), disabled() { return selectedRows.length === 0 || isHasStandy() || disableUpdateAccessMode() } },
+    { key: 'updateBulkBackupTarget', name: t('volumeActions.actions.updateBackupTarget'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaAutoBalance', name: t('volumeActions.actions.updateReplicaAutoBalance'), disabled() { return selectedRows.length === 0 || disableUpdateReplicaAutoBalance() } },
+    { key: 'createPVAndPVC', name: t('volumeActions.actions.pvAndpvcCreate'), disabled() { return selectedRows.length === 0 || isHasStandy() || hasVolumeRestoring() || isHasPVC() || isFaulted() || !hasAction('pvCreate') || !hasAction('pvcCreate') } },
+    { key: 'bulkChangeVolume', name: t('volumeActions.actions.activateDisasterRecoveryVolume'), disabled() { return selectedRows.length === 0 || selectedRows.some((item) => !item.standby) } },
+    { key: 'updateUnmapMarkSnapChainRemoved', name: t('volumeActions.actions.allowSnapshotsRemovalDuringTrim'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaSoftAntiAffinity', name: t('volumeActions.actions.updateReplicaSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaZoneSoftAntiAffinity', name: t('volumeActions.actions.updateReplicaZoneSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'updateReplicaDiskSoftAntiAffinity', name: t('volumeActions.actions.updateReplicaDiskSoftAntiAffinity'), disabled() { return selectedRows.length === 0 } },
+    { key: 'trimFilesystem', name: t('volumeActions.actions.trimFilesystem'), disabled() { return selectedRows.length === 0 || notAttached() } },
+    { key: 'updateFreezeFilesystemForSnapshot', name: t('volumeActions.actions.updateFreezeFilesystemForSnapshot'), disabled() { return selectedRows.length === 0 } },
+    { key: 'offlineReplicaRebuilding', name: t('volumeActions.actions.offlineReplicaRebuilding'), disabled() { return selectedRows.length === 0 || selectedRows.every((row) => !row.actions?.offlineReplicaRebuilding) } },
+    { key: 'updateReplicaRebuildingBandwidthLimit', name: t('volumeActions.actions.updateReplicaRebuildingBandwidthLimit'), disabled() { return selectedRows.length === 0 || selectedRows.some((row) => row?.dataEngine === 'v1') } },
   ]
 
   if (selectedRows.some((row) => row?.frontend === 'ublk')) {
-    allDropDownActions.push({ key: 'updateUblkNumberOfQueue', name: t('volumeBulkActions.dropdownActions.updateUblkNumberOfQueue'), disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
-    allDropDownActions.push({ key: 'updateUblkQueueDepth', name: t('volumeBulkActions.dropdownActions.updateUblkQueueDepth'), disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
+    allDropDownActions.push({ key: 'updateUblkNumberOfQueue', name: t('volumeActions.actions.updateUblkNumberOfQueue'), disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
+    allDropDownActions.push({ key: 'updateUblkQueueDepth', name: t('volumeActions.actions.updateUblkQueueDepth'), disabled() { return selectedRows.every((row) => row.state !== 'detached') } })
   }
 
   const menu = (
