@@ -34,9 +34,7 @@ function BulkActions({
   const handleDelete = () => {
     const title = (
       <>
-        <Trans i18nKey="backingImageBulkActions.modal.delete.title" count={selectedRows.length}>
-          <p>Are you sure you want to delete the following {selectedRows.length} backing image(s)?</p>
-        </Trans>
+        <p>{t('backingImageBulkActions.modal.delete.title', { count: selectedRows.length })}</p>
         <ul>
           {selectedRows.map((item) => (
             <li key={item.name}>{item.name}</li>
@@ -67,9 +65,7 @@ function BulkActions({
             <li key={item.name}>{item.name}</li>
           ))}
         </ul>
-        <Trans i18nKey="backingImageBulkActions.modal.download.note">
-          <p>Note: You need to allow <strong>Automatic Downloads</strong> in browser settings to download multiple files at once.</p>
-        </Trans>
+        <p>{t('backingImageBulkActions.modal.download.note')}</p>
       </>
     )
     Modal.confirm({

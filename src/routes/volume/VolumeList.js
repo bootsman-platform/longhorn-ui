@@ -221,7 +221,7 @@ function list({
               {rebuildProgress}
             </div>
             {isEncrypted ? <Tooltip title={t('volumeList.tooltips.encryptedVolume')}><Icon className="color-warning" style={{ marginLeft: 5, marginRight: 5, marginBottom: 2 }} type="lock" /></Tooltip> : null}
-            {statusUpgradingEngine(record)}
+            {statusUpgradingEngine(record, t)}
             { upgrade }
             {attachedNodeIsDown && (
               <Tooltip title={t('volumeList.tooltips.attachedNodeDown')}>
