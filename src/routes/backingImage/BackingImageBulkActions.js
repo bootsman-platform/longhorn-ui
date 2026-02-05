@@ -57,9 +57,11 @@ function BulkActions({
 
     const title = (
       <>
-        <Trans i18nKey="backingImageBulkActions.modal.download.title">
-          <p>The following backing image(s) with <strong style={readyTextStyle}>Ready</strong> status disk will be downloaded.</p>
-        </Trans>
+        <p>
+          <Trans i18nKey="backingImageBulkActions.modal.download.title">
+            The following backing image(s) with <strong style={readyTextStyle}>Ready</strong> status disk will be downloaded.
+          </Trans>
+        </p>
         <ul>
           {downloadableImages.map((item) => (
             <li key={item.name}>{item.name}</li>
@@ -150,9 +152,11 @@ function BulkActions({
       >
         <Icon className={styles.questionCircleIcon} type="question-circle" />
         <Form className={styles.backupForm}>
-          <Trans i18nKey="backingImageBulkActions.modal.backup.title">
-            <p>Are you sure you want to backup the following <strong style={readyTextStyle}>Ready</strong> status backing image(s)?</p>
-          </Trans>
+          <p>
+            <Trans i18nKey="backingImageBulkActions.modal.backup.title">
+              Are you sure you want to backup the following <strong style={readyTextStyle}>Ready</strong> status backing image(s)?
+            </Trans>
+          </p>
           <ul>{readyImages.map((item) => <li key={item.name}>{item.name}</li>)}</ul>
           <Form.Item label={t('backingImageBulkActions.modal.backup.backupTargetLabel')}>
             {getFieldDecorator('backupTargetName', {

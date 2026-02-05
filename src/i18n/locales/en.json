@@ -1798,8 +1798,8 @@
         "title": "Are you sure you want to delete the following {{count}} backing image(s)?"
       },
       "download": {
-        "title": "The following backing image(s) with <3>Ready</3> status disk will be downloaded.",
-        "note": "Note: You need to allow **Automatic Downloads** in browser settings to download multiple files at once.",
+        "title": "The following backing image(s) with <1>Ready</1> status disk will be downloaded.",
+        "note": "Note: You need to allow Automatic Downloads in browser settings to download multiple files at once.",
         "okText": "Download"
       },
       "backup": {

@@ -4,6 +4,7 @@ import { getDataDependency } from '../utils/dataDependency'
 import queryString from 'query-string'
 import { message } from 'antd'
 import i18n from '../i18n'
+import { COOKIE_LOCALE, getCookie, setCookie } from '../utils/cookie'
 
 message.config({
   top: 60,
@@ -26,7 +27,7 @@ export default {
     backingImageUploadStarted: false,
     stableLonghornVersionslVisible: false,
     stableLonghornVersionsKey: Math.random(),
-    lang: 'ru',
+    lang: getCookie(COOKIE_LOCALE) || 'ru',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -192,6 +193,8 @@ export default {
     },
     setLang(state, { payload }) {
       i18n.changeLanguage(payload)
+
+      setCookie(COOKIE_LOCALE, payload, 365)
 
       return {
         ...state,
